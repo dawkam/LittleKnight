@@ -15,6 +15,7 @@ public class CameraController : MonoBehaviour
     public float rotationSpeed;
     public float smoothFactor;
 
+    public int cameraYOffset;
 
     private float _zoom;
 
@@ -51,7 +52,8 @@ public class CameraController : MonoBehaviour
 
 
         transform.position = Vector3.Slerp(transform.position, player.transform.position + _cameraOffset ,smoothFactor );
-        transform.LookAt(player.transform.position);
+        var modifiedPlayerPosition = player.transform.position + Vector3.up * cameraYOffset;
+        transform.LookAt(modifiedPlayerPosition);
 
     }
 }

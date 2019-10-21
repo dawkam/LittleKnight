@@ -9,23 +9,29 @@ public class PlayerController : MonoBehaviour
     private Rigidbody PlayerBody;
     private Vector3 _direction;
     private Quaternion _startingRotation;
-    private bool _rotatingToLeft;
-    private bool _rotatingToRight;
 
     private Camera _playerCamera;
 
+    private PlayerAnimation _playerAnimation;
+
     public float speed;
     public float rotationSpeed;
+    public float jumpForce;
+
+    private Animator _animator;
     // Start is called before the first frame update
     void Start()
     {
         _playerCamera = Camera.main;
+        _animator = GetComponent<Animator>();
+        _playerAnimation = new PlayerAnimation(_animator);
         PlayerBody = GetComponent<Rigidbody>();
 
     }
 
     void FixedUpdate()
     {
+        PerformJump();
         PerformMovement();
     }
     // Update is called once per frame
@@ -56,22 +62,17 @@ public class PlayerController : MonoBehaviour
         Quaternion rot = Quaternion.LookRotation(_direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.fixedDeltaTime * inputAmount * rotationSpeed);
 
-          PlayerBody.velocity = (_direction * speed* inputAmount);
+        PlayerBody.velocity = (_direction * speed* inputAmount);
 
-        //_direction = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-
-
-        //// The step size is equal to speed times frame time-> angularSpeed * Time.deltaTime
-        //Vector3 newDir = Vector3.RotateTowards(transform.forward, _direction, rotationSpeed * Time.deltaTime, 0.0f);
-        //Debug.DrawRay(transform.position, newDir, Color.red);//?
-
-        //// Move our position a step closer to the target.
-        //transform.rotation = Quaternion.LookRotation(newDir);
-
-        //transform.Translate(_direction * speed * Time.deltaTime);//,Space.World);
-
-
-
+        //Animation
+        _playerAnimation.Walk( Math.Abs(PlayerBody.velocity.x)+ Math.Abs(PlayerBody.velocity.y));
     }
 
+    void PerformJump()
+    {
+
+        //if(Input.GetAxis("Jump")>0  && PlayerBody.velocity.y ==0)
+        //PlayerBody.AddForce( Vector3.up * jumpForce, ForceMode.Force ) ;
+
+    }
 }
