@@ -20,10 +20,13 @@ public class PlayerController : MonoBehaviour
 
     private Animator _animator;
     // Start is called before the first frame update
+
+    Vector3 gravity;
+    Vector3 raycastFloorPos;
     void Start()
     {
         _playerCamera = Camera.main;
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();//GetComponent<Animator>();
         _playerAnimation = new PlayerAnimation(_animator);
         PlayerBody = GetComponent<Rigidbody>();
 
@@ -70,9 +73,26 @@ public class PlayerController : MonoBehaviour
 
     void PerformJump()
     {
+        //if (FloorRaycasts(0, 0, 0.6f) == Vector3.zero)
+        //{
+        //    gravity += Vector3.up * Physics.gravity.y * Time.fixedDeltaTime;
+        //}
 
-        //if(Input.GetAxis("Jump")>0  && PlayerBody.velocity.y ==0)
-        //PlayerBody.AddForce( Vector3.up * jumpForce, ForceMode.Force ) ;
+
+        }
+
+        //Vector3 FloorRaycasts(float offsetx, float offsetz, float raycastLength)
+        //{
+        //    RaycastHit hit;
+        //    // move raycast
+        //    raycastFloorPos = transform.TransformPoint(0 + offsetx, 0 + 0.5f, 0 + offsetz);
+
+        //    Debug.DrawRay(raycastFloorPos, Vector3.down, Color.magenta);
+        //    if (Physics.Raycast(raycastFloorPos, -Vector3.up, out hit, raycastLength))
+        //    {
+        //        return hit.point;
+        //    }
+        //    else return Vector3.zero;
+        //}
 
     }
-}
