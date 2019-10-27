@@ -17,7 +17,7 @@ public abstract class AnimationController
 
     abstract public void StrongAttack();
 
-    abstract public void Jump();
+    abstract public bool Jump(float velocityY);
 
     abstract public void Die();
 

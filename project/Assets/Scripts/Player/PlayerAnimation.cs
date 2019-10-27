@@ -18,9 +18,22 @@ public class PlayerAnimation : AnimationController
         throw new System.NotImplementedException();
     }
 
-    public override void Jump()
+    public override bool Jump(float velocityY) // return if hump is started
     {
-        throw new System.NotImplementedException();
+        if (velocityY > 0)
+        {
+
+            _animator.SetFloat("VelocityY", velocityY);
+            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")
+                    && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.71f)
+            {
+                _animator.enabled = false;
+                return true;
+            }
+        }
+            else if(_animator.enabled == false)
+                _animator.enabled = true;
+        return false;
     }
 
     public override void StrongAttack()
@@ -32,4 +45,6 @@ public class PlayerAnimation : AnimationController
     {
         _animator.SetFloat("Speed", speed);
     }
+
+
 }

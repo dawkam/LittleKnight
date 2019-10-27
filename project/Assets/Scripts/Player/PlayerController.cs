@@ -21,8 +21,10 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
     // Start is called before the first frame update
 
-    Vector3 gravity;
-    Vector3 raycastFloorPos;
+    private Vector3 _playerVelocityY;
+    private float _distToGround;
+    private Collider _collider;
+
     void Start()
     {
         _playerCamera = Camera.main;
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
         _playerAnimation = new PlayerAnimation(_animator);
         PlayerBody = GetComponent<Rigidbody>();
 
+        _collider= GetComponent<Collider>();
     }
 
     void FixedUpdate()
@@ -44,6 +47,17 @@ public class PlayerController : MonoBehaviour
     }
     void PerformMovement()
     {
+
+        if (!IsGrounded() || _playerVelocityY.y >0)
+        {
+            _playerVelocityY += Vector3.up * Physics.gravity.y * Time.fixedDeltaTime;
+            _playerAnimation.Jump(_playerVelocityY.y);
+        }
+        else
+        {
+            _playerVelocityY.y = 0;
+            _playerAnimation.Jump(_playerVelocityY.y);
+        }
         // reset movement
         _direction = Vector3.zero;
 
@@ -65,34 +79,35 @@ public class PlayerController : MonoBehaviour
         Quaternion rot = Quaternion.LookRotation(_direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.fixedDeltaTime * inputAmount * rotationSpeed);
 
-        PlayerBody.velocity = (_direction * speed* inputAmount);
-
+        
+        PlayerBody.velocity = (_direction * speed* inputAmount)+ _playerVelocityY ;
+        // Debug.Log(PlayerBody.velocity);
         //Animation
-        _playerAnimation.Walk( Math.Abs(PlayerBody.velocity.x)+ Math.Abs(PlayerBody.velocity.y));
+        if(_playerVelocityY.y==0)
+            _playerAnimation.Walk(Math.Abs(PlayerBody.velocity.x) + Math.Abs(PlayerBody.velocity.z));
+        else
+            _playerAnimation.Walk(0);
+
     }
 
     void PerformJump()
     {
-        //if (FloorRaycasts(0, 0, 0.6f) == Vector3.zero)
-        //{
-        //    gravity += Vector3.up * Physics.gravity.y * Time.fixedDeltaTime;
-        //}
-
-
+        Debug.Log(Input.GetAxis("Jump"));
+        if (Input.GetAxis("Jump") != 0 && IsGrounded())
+        {
+           if(_playerAnimation.Jump(_playerVelocityY.y + jumpForce))
+                _playerVelocityY += Vector3.up * jumpForce;
+            //_playerAnimation.Jump(_playerVelocityY.y);
         }
 
-        //Vector3 FloorRaycasts(float offsetx, float offsetz, float raycastLength)
-        //{
-        //    RaycastHit hit;
-        //    // move raycast
-        //    raycastFloorPos = transform.TransformPoint(0 + offsetx, 0 + 0.5f, 0 + offsetz);
-
-        //    Debug.DrawRay(raycastFloorPos, Vector3.down, Color.magenta);
-        //    if (Physics.Raycast(raycastFloorPos, -Vector3.up, out hit, raycastLength))
-        //    {
-        //        return hit.point;
-        //    }
-        //    else return Vector3.zero;
-        //}
 
     }
+
+    Boolean IsGrounded()
+    {
+        Debug.DrawRay(_collider.bounds.center - (Vector3.up * _collider.bounds.extents.y), -Vector3.up* 0.5f , Color.magenta);
+        return Physics.Raycast(_collider.bounds.center-(Vector3.up* _collider.bounds.extents.y), -Vector3.up,  0.5f);
+    }
+
+
+}
