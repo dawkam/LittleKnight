@@ -14,9 +14,14 @@ public class PlayerController : MonoBehaviour
 
     private PlayerAnimation _playerAnimation;
 
-    public float speed;
+    public float sprintSpeed;
+    public float walkSpeed;
     public float rotationSpeed;
     public float jumpForce;
+
+    public KeyCode walkKey;
+
+    private float speed;
 
     private Animator _animator;
     // Start is called before the first frame update
@@ -32,12 +37,14 @@ public class PlayerController : MonoBehaviour
         _playerAnimation = new PlayerAnimation(_animator);
         PlayerBody = GetComponent<Rigidbody>();
 
+        speed = sprintSpeed;
+
         _collider= GetComponent<Collider>();
     }
 
     void FixedUpdate()
     {
-        PerformJump();
+        //PerformJump();
         PerformMovement();
     }
     // Update is called once per frame
@@ -48,15 +55,15 @@ public class PlayerController : MonoBehaviour
     void PerformMovement()
     {
 
-        if (!IsGrounded() || _playerVelocityY.y >0)
+        if (!IsGrounded() || _playerVelocityY.y > 0)
         {
             _playerVelocityY += Vector3.up * Physics.gravity.y * Time.fixedDeltaTime;
-            _playerAnimation.Jump(_playerVelocityY.y);
+            //_playerAnimation.Jump(_playerVelocityY.y);
         }
         else
         {
             _playerVelocityY.y = 0;
-            _playerAnimation.Jump(_playerVelocityY.y);
+            //_playerAnimation.Jump(_playerVelocityY.y);
         }
         // reset movement
         _direction = Vector3.zero;
@@ -79,29 +86,35 @@ public class PlayerController : MonoBehaviour
         Quaternion rot = Quaternion.LookRotation(_direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.fixedDeltaTime * inputAmount * rotationSpeed);
 
-        
-        PlayerBody.velocity = (_direction * speed* inputAmount)+ _playerVelocityY ;
+        if (Input.GetKeyDown(walkKey))
+        { 
+            if (speed == sprintSpeed)
+                speed = walkSpeed;
+            else if (speed == walkSpeed)
+                speed = sprintSpeed;
+        }
+            PlayerBody.velocity = (_direction * speed * inputAmount) + _playerVelocityY;
         // Debug.Log(PlayerBody.velocity);
         //Animation
-        if(_playerVelocityY.y==0)
+        if (_playerVelocityY.y==0)
             _playerAnimation.Walk(Math.Abs(PlayerBody.velocity.x) + Math.Abs(PlayerBody.velocity.z));
         else
             _playerAnimation.Walk(0);
 
     }
 
-    void PerformJump()
-    {
-        Debug.Log(Input.GetAxis("Jump"));
-        if (Input.GetAxis("Jump") != 0 && IsGrounded())
-        {
-           if(_playerAnimation.Jump(_playerVelocityY.y + jumpForce))
-                _playerVelocityY += Vector3.up * jumpForce;
-            //_playerAnimation.Jump(_playerVelocityY.y);
-        }
+    //void PerformJump()
+    //{
+    //    Debug.Log(Input.GetAxis("Jump"));
+    //    if (Input.GetAxis("Jump") != 0 && IsGrounded())
+    //    {
+    //       if(_playerAnimation.Jump(_playerVelocityY.y + jumpForce))
+    //            _playerVelocityY += Vector3.up * jumpForce;
+    //        //_playerAnimation.Jump(_playerVelocityY.y);
+    //    }
 
 
-    }
+    //}
 
     Boolean IsGrounded()
     {
