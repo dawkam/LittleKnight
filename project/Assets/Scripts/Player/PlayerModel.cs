@@ -13,4 +13,5 @@ public class PlayerModel : MonoBehaviour
 
     [Header("Keys")]
     public KeyCode walkKey;
+    public KeyCode interactKey;
 }
