@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -31,7 +29,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         //PerformJump();
-        _playerVelocity= _playerView.PerformMovement(ref _playerVelocityY,ref _direction, _playerModel.rotationSpeed, _playerModel.walkKey,ref _speed, _playerModel.walkSpeed, _playerModel.sprintSpeed);
+        _playerVelocity= _playerView.PerformMovement(ref _playerVelocityY,ref _direction, _playerModel.rotationSpeed, ref _speed, _playerModel.walkSpeed, _playerModel.sprintSpeed);
 
         if (_playerVelocityY.y == 0)
             _playerAnimation.Walk(Math.Abs(_playerVelocity.x) + Math.Abs(_playerVelocity.z));

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerView : MonoBehaviour
@@ -16,7 +14,7 @@ public class PlayerView : MonoBehaviour
         _playerRigidBody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
     }
-    public Vector3 PerformMovement(ref  Vector3 playerVelocityY, ref Vector3 direction, float rotationSpeed, KeyCode walkKey, ref float speed, float walkSpeed, float sprintSpeed)
+    public Vector3 PerformMovement(ref  Vector3 playerVelocityY, ref Vector3 direction, float rotationSpeed, ref float speed, float walkSpeed, float sprintSpeed)
     {
 
         if (!IsGrounded() || playerVelocityY.y > 0)
@@ -52,7 +50,7 @@ public class PlayerView : MonoBehaviour
             Quaternion rot = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.fixedDeltaTime * inputAmount * rotationSpeed);
         }
-        if (Input.GetKeyDown(walkKey))
+        if (Input.GetButtonDown("Walk/Run"))
         {
             if (speed == sprintSpeed)
                 speed = walkSpeed;

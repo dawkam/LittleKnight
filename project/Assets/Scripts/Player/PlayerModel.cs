@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 public class PlayerModel : MonoBehaviour
@@ -11,7 +9,5 @@ public class PlayerModel : MonoBehaviour
     public float rotationSpeed;
     public float jumpForce;
 
-    [Header("Keys")]
-    public KeyCode walkKey;
-    public KeyCode interactKey;
+
 }
