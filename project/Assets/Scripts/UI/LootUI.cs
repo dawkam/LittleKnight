@@ -45,6 +45,7 @@ public class LootUI : MonoBehaviour
             else
             {
                 slots[i].ClearSlot();
+                slots[i].RemoveDescription();
             }
 
         }

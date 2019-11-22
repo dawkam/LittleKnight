@@ -13,4 +13,9 @@ public class Item : ScriptableObject
         Debug.Log("Using " + name);
     }
 
+    public virtual string GetDescription()
+    {
+        return "No description";
+    }
+
 }

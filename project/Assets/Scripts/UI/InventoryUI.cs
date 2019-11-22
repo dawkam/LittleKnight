@@ -38,6 +38,7 @@ public class InventoryUI : MonoBehaviour
             else
             {
                 slots[i].ClearSlot();
+                slots[i].RemoveDescription();
             }
 
         }
@@ -47,5 +48,6 @@ public class InventoryUI : MonoBehaviour
     {
         inventoryUI.SetActive(false);
     }
+
 
 }

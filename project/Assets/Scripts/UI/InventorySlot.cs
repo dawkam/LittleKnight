@@ -1,20 +1,19 @@
 ﻿
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Image icon;
     public Button removeButton;
 
-    private bool isInventory;
+    public GameObject description;
+    public Image descriptionImage;
 
+
+    private Text _descriptionText;
     Item item;
-
-    public void Awake()
-    {
-        isInventory = transform.parent.parent.tag == "Inventory";
-    }
 
 
     public void AddItem(Item newItem)
@@ -23,7 +22,8 @@ public class InventorySlot : MonoBehaviour
 
         icon.sprite = item.icon;
         icon.enabled = true;
-        if (isInventory)
+        SetDescription();
+        if (transform.parent.parent.tag == "Inventory")
             removeButton.interactable = true;
     }
 
@@ -48,9 +48,10 @@ public class InventorySlot : MonoBehaviour
     {
         if (item != null)
         {
-            if (isInventory)
+            if (transform.parent.parent.tag == "Inventory")
             {
                 item.Use();
+                description.SetActive(false);
             }
             else if (LootSystem.instance.AddInventoryItem(item)) //próba dodania do inventory
             {
@@ -59,10 +60,42 @@ public class InventorySlot : MonoBehaviour
             }
             else
             {
-
                 //alert
             }
         }
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (description != null && item != null)
+        {
+
+            description.SetActive(true);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        RemoveDescription();
+    }
+
+    public void SetDescription()
+    {
+        if (description != null && _descriptionText == null)
+        {
+            _descriptionText = description.GetComponentInChildren<Text>();
+        }
+        if (_descriptionText != null && _descriptionText.text != item.GetDescription())
+            _descriptionText.text = item != null ? item.GetDescription() : "";
+        if (descriptionImage != null && descriptionImage.sprite != icon.sprite)
+            descriptionImage.sprite = icon.sprite;
+    }
+
+    public void RemoveDescription()
+    {
+        if (description != null)
+        {
+            description.SetActive(false);
+        }
+    }
 }
