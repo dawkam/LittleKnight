@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944d414bbbd92dc4ea06809d322e3b6a, type: 3}
+  m_Name: Boots o Speed
+  m_EditorClassIdentifier: 
+  name: Boots o Speed
+  icon: {fileID: 21300000, guid: b634c8a51d4a2d440b44719a9c1329ba, type: 3}
+  isDefault: 0
+  isEquipped: 0
+  armorType: 2
+  physicalArmor: 0
+  fireArmor: 0
+  waterArmor: 0
+  earthArmor: 0
+  airArmor: 0

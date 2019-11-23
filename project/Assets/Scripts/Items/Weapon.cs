@@ -17,10 +17,10 @@ public class Weapon : Item
     [Header("Penetration")]
     //pen used by character not only weapon
     public double physicalPenetration;
-    public double firePenetartion;
-    public double waterPenetartion;
-    public double earthPenetartion;
-    public double airPenetartion;
+    public double firePenetration;
+    public double waterPenetration;
+    public double earthPenetration;
+    public double airPenetration;
     #endregion
 
     [Header("Others")]
@@ -37,13 +37,13 @@ public class Weapon : Item
              "\nAttack Speed: " + attackSpeed +
              "\nCrit. Chance: " + crtiChance  + 
              "\nLife Steal: " + attackSpeed  +
-           "\n\nFire Penetartion: "+ firePenetartion +
-             "\nWater Penetartion: "+ waterPenetartion +
-             "\nAir Penetartion: " + waterPenetartion +
-             "\nEarth Penetration: " + earthPenetartion +
-           "\n\nFire Damage: " + firePenetartion +
-             "\nWater Damage: " + waterPenetartion +
-             "\nAir Damage: " + waterPenetartion +
-             "\nEarth Damage: " + earthPenetartion;
+           "\n\nFire Penetration: "+ firePenetration +
+             "\nWater Penetration: "+ waterPenetration +
+             "\nAir Penetration: " + waterPenetration +
+             "\nEarth Penetration: " + earthPenetration +
+           "\n\nFire Damage: " + firePenetration +
+             "\nWater Damage: " + waterPenetration +
+             "\nAir Damage: " + waterPenetration +
+             "\nEarth Damage: " + earthPenetration;
     }
 }

@@ -16,16 +16,16 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: af50dc4fa7b6d314895d0f8c79adb4a5, type: 3}
   isDefault: 0
   isEquipped: 0
-  _physicalDamage: 0
-  _fireDamage: 0
-  _waterDamage: 0
-  _earthDamage: 0
-  _airDamage: 0
-  _physicalPenetration: 0
-  _firePenetartion: 0
-  _waterPenetartion: 0
-  _earthPenetartion: 0
-  _airPenetartion: 0
+  physicalDamage: 0
+  fireDamage: 0
+  waterDamage: 0
+  earthDamage: 0
+  airDamage: 0
+  physicalPenetration: 0
+  firePenetartion: 0
+  waterPenetartion: 0
+  earthPenetartion: 0
+  airPenetartion: 0
   attackSpeed: 0
-  _lifeSteal: 0
-  _crtiChance: 0
+  lifeSteal: 0
+  crtiChance: 0

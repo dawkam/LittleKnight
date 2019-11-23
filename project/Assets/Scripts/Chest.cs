@@ -4,55 +4,56 @@ using UnityEngine;
 public class Chest : MonoBehaviour
 {
     public List<Item> items;
-    LootSystem lootSystem;
+    LootModel lootModel;
 
     private bool isOpennig;
     private Animator _animator;
 
-    private PlayerAnimation _chestAnimation;
     void Start()
     {
-        lootSystem = LootSystem.instance;
+        lootModel = LootModel.instance;
         _animator = GetComponentInChildren<Animator>();
     }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
 
-            if (Input.GetButtonDown("Interact") && !isOpennig)
+            if (Input.GetButtonDown("Interact") && !isOpennig && items.Count != 0)
             {
-                if (items.Count != 0)
-                {
+
                     isOpennig = true;
                     _animator.SetBool("IsOpennig", isOpennig);
                     // show items
-                    if (lootSystem.lootSize < items.Count)
+                    if (lootModel.lootSize < items.Count)
                     {
                         Debug.LogError("Too many items in chest!");
 
                     }
                     else
                     {
-                        lootSystem.AddWaitingItems(items);
+                        lootModel.AddWaitingItems(items);
                     }
-                    // take items etc
-                }
-                else
-                {
-                    //alert o braku itemów
-                }
-            }
+             
+            }else if(isOpennig && items.Count == 0)
+                    CloseChestAnimation();
+
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        CloseChestAnimation();
+    }
+
+    private void CloseChestAnimation()
+    {
         if (isOpennig)
         {
             isOpennig = false;
             _animator.SetBool("IsOpennig", isOpennig);
-            lootSystem.RemoveWaitingItems(items);
+            lootModel.RemoveWaitingItems(items);
         }
     }
 }

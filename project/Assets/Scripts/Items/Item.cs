@@ -18,4 +18,9 @@ public class Item : ScriptableObject
         return "No description";
     }
 
+    public virtual string GetName()
+    {
+        return name;
+    }
+
 }
