@@ -22,5 +22,9 @@ public class Item : ScriptableObject
     {
         return name;
     }
+    public virtual void UnEquip()
+    {
+        
+    }
 
 }

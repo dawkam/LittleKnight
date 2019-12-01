@@ -3,6 +3,7 @@
 [CreateAssetMenu(fileName = "NewWeapon", menuName = "Inventory/Weapon")]
 public class Weapon : Item
 {
+    public GameObject prefab;
     [Header("Damage")]
     #region DMG 
     //dmg dealt by weapon
@@ -12,38 +13,27 @@ public class Weapon : Item
     public double earthDamage;
     public double airDamage;
     #endregion
+    private GameObject _weaponPlace;
+    private GameObject _weapon;
 
-    #region Pen
-    [Header("Penetration")]
-    //pen used by character not only weapon
-    public double physicalPenetration;
-    public double firePenetration;
-    public double waterPenetration;
-    public double earthPenetration;
-    public double airPenetration;
-    #endregion
-
-    [Header("Others")]
-    public double attackSpeed;
-
-    public double lifeSteal; // 0-100%
-
-    public double crtiChance; // 0-100%
+    public override void Use()
+    {
+        if(_weaponPlace==null)
+            _weaponPlace = GameObject.FindGameObjectWithTag("WeaponPlace");
+        _weapon=Instantiate(prefab, _weaponPlace.transform);
+    }
 
     public override string GetDescription()
     {
         return "Physical Damage: " + physicalDamage  +
-             "\nPhysical Penetration: "+ physicalPenetration +
-             "\nAttack Speed: " + attackSpeed +
-             "\nCrit. Chance: " + crtiChance  + 
-             "\nLife Steal: " + attackSpeed  +
-           "\n\nFire Penetration: "+ firePenetration +
-             "\nWater Penetration: "+ waterPenetration +
-             "\nAir Penetration: " + waterPenetration +
-             "\nEarth Penetration: " + earthPenetration +
-           "\n\nFire Damage: " + firePenetration +
-             "\nWater Damage: " + waterPenetration +
-             "\nAir Damage: " + waterPenetration +
-             "\nEarth Damage: " + earthPenetration;
+             "\nFire Damage: " + fireDamage +
+             "\nWater Damage: " + waterDamage +
+             "\nAir Damage: " + waterDamage +
+             "\nEarth Damage: " + earthDamage;
+    }
+
+    public override void UnEquip()
+    {
+        Destroy(_weapon);
     }
 }

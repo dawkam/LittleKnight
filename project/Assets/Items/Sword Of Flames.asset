@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 505421d3797913041aa7860158e61a6e, type: 3}
+  m_Name: Sword Of Flames
+  m_EditorClassIdentifier: 
+  name: Sword Of Flames
+  icon: {fileID: 21300000, guid: af50dc4fa7b6d314895d0f8c79adb4a5, type: 3}
+  isDefault: 0
+  isEquipped: 0
+  prefab: {fileID: 5144653489352128048, guid: 9d0ef1179d07311468999f6f5341cb48, type: 3}
+  physicalDamage: 100
+  fireDamage: 250
+  waterDamage: 0
+  earthDamage: 0
+  airDamage: 0

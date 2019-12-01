@@ -11,7 +11,7 @@ public class PlayerModel : CharacterStats
 
     public string[] GetStats()
     {
-        string[] stats = new string[2];
+        string[] stats = new string[4];
         stats[0] ="Phys. armor: " +
              "\nAir armor: " +
              "\nWater armor: " +
@@ -23,6 +23,18 @@ public class PlayerModel : CharacterStats
              "\n" + CurrentWaterArmor +
              "\n" + CurrentFireArmor +
              "\n" + CurrentEarthArmor;
+        stats[2] = "Phys. armor: " +
+            "\nAir damage: " +
+            "\nWater damage: " +
+            "\nFire damage: " +
+            "\nEarth damage: ";
+
+        stats[3] = CurrentPhysicalDamage +
+             "\n" + CurrentAirDamage +
+             "\n" + CurrentWaterDamage +
+             "\n" + CurrentFireDamage +
+             "\n" + CurrentEarthDamage;
+
 
         return stats;
     }

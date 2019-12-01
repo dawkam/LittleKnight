@@ -78,10 +78,14 @@ public class InventoryController : MonoBehaviour
             }
             else if (item.GetType() == typeof(Weapon))
             {
+                item.Use();
                 Weapon oldWeapon = equipmentModel.AddWeapon((Weapon)item);
                 inventoryModel.RemoveInventoryItem(item);
-                if(oldWeapon != null)
+                if (oldWeapon != null)
+                {
                     inventoryModel.AddInventoryItem(oldWeapon);
+                    oldWeapon.UnEquip();
+                }
             }
             else
                 inventorySlot.UseItem();

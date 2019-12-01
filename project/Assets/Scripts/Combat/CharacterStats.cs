@@ -88,6 +88,77 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
+    public double basePhysicalDamage;
+    public double baseFireDamage;
+    public double baseWaterDamage;
+    public double baseEarthDamage;
+    public double baseAirDamage;
+
+    private double currentPhysicalDamage;
+    private double currentFireDamage;
+    private double currentWaterDamage;
+    private double currentEarthDamage;
+    private double currentAirDamage;
+
+    public double CurrentPhysicalDamage
+    {
+        get => currentPhysicalDamage;
+        set
+        {
+            if (value < 0)
+                currentPhysicalDamage = 0;
+            else
+                currentPhysicalDamage = value;
+        }
+    }
+    public double CurrentFireDamage
+    {
+        get => currentFireDamage;
+        set
+        {
+            if (value < 0)
+                currentFireDamage = 0;
+            else
+                currentFireDamage = value;
+        }
+    }
+    public double CurrentWaterDamage
+    {
+        get => currentWaterDamage;
+        set
+        {
+            if (value < 0)
+                currentWaterDamage = 0;
+            else
+                currentWaterDamage = value;
+        }
+    }
+    public double CurrentEarthDamage
+    {
+        get => currentEarthDamage;
+        set
+        {
+            if (value < 0)
+                currentEarthDamage = 0;
+            else
+                currentEarthDamage = value;
+        }
+    }
+    public double CurrentAirDamage
+    {
+        get => currentAirDamage;
+        set
+        {
+            if (value > 100)
+                currentAirDamage = 100;
+            else if (value < 0)
+                currentAirDamage = 0;
+            else
+                currentAirDamage = value;
+        }
+    }
+
+
     protected virtual void Awake()
     {
         CurrentHealth = maxHealth;

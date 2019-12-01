@@ -63,6 +63,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void ChangeCurrentDamage(DamageType damageType, double damage)
+    {
+        switch (damageType)
+        {
+            case DamageType.Physical:
+                _playerModel.CurrentPhysicalDamage = damage + _playerModel.basePhysicalDamage;
+                break;
+            case DamageType.Air:
+                _playerModel.CurrentAirDamage = damage + _playerModel.baseAirDamage;
+                break;
+            case DamageType.Water:
+                _playerModel.CurrentWaterDamage = damage + _playerModel.baseWaterDamage;
+                break;
+            case DamageType.Fire:
+                _playerModel.CurrentFireDamage = damage + _playerModel.baseFireDamage;
+                break;
+            case DamageType.Earth:
+                _playerModel.CurrentEarthDamage += damage + _playerModel.baseEarthDamage;
+                break;
+        }
+    }
+
     public string[] GetStats()
     {
         return _playerModel.GetStats();

@@ -27,7 +27,7 @@ public class EquipmentController : MonoBehaviour
     {
         equipmentModel = EquipmentModel.instance;
         equipmentModel.onEquipmentItemChangedCallback += UpdateUI;
-        equipmentModel.onEquipmentItemChangedCallback += GetArmor;
+        equipmentModel.onEquipmentItemChangedCallback += GetStats;
 
         inventoryModel = InventoryModel.instance;
         slots = itemsParent.GetComponentsInChildren<EquipmentSlot>();
@@ -77,6 +77,7 @@ public class EquipmentController : MonoBehaviour
         {
             if (inventoryModel.inventoryItems.Count != inventoryModel.inventorySize)
             {
+                item.UnEquip();
                 equipmentModel.RemoveItem(item);
                 inventoryModel.AddInventoryItem(item);
             }
@@ -87,41 +88,54 @@ public class EquipmentController : MonoBehaviour
             }
         }
     }
-    public void GetArmor()
+    public void GetStats()
     {
         List<Armor> armors = equipmentModel.armorList;
         double armor;
+        Weapon weapon = equipmentModel.weapon;
+        double damage;
         //do przetestowania
         foreach (DamageType damageType in (DamageType[])Enum.GetValues(typeof(DamageType)))
         {
             armor = 0;
+            damage = 0;
             switch (damageType)
             {
                 case DamageType.Physical:
                     armor = armors.Sum(x => x!=null ? x.physicalArmor : 0);
+                    damage = weapon != null ? weapon.physicalDamage : 0;
                     break;
                 case DamageType.Air:
                     armor = armors.Sum(x => x != null ? x.airArmor : 0);
+                    damage = weapon != null ? weapon.airDamage : 0;
                     break;
                 case DamageType.Water:
                     armor = armors.Sum(x => x != null ? x.waterArmor : 0);
+                    damage = weapon != null ? weapon.waterDamage : 0;
                     break;
                 case DamageType.Fire:
                     armor = armors.Sum(x => x != null ? x.fireArmor : 0);
+                    damage = weapon != null ? weapon.fireDamage : 0;
                     break;
                 case DamageType.Earth:
                     armor = armors.Sum(x => x != null ? x.earthArmor : 0);
+                    damage = weapon != null ? weapon.earthDamage : 0;
                     break;
             }
             _playerController.ChangeCurrentArmor(damageType, armor);
+            _playerController.ChangeCurrentDamage(damageType, damage);
             SetDescription();
         }
     }
+   
 
     private void SetDescription()
     {
         string[] stats = _playerController.GetStats();
         defStats.text = stats[0];
         defValue.text = stats[1];
+        dmgStats.text = stats[2];
+        dmgValue.text = stats[3];
+        
     }
 }
