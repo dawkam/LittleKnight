@@ -7,6 +7,7 @@ public class LootController : MonoBehaviour
     public Transform itemsParent;
     public GameObject lootUI;
 
+    private Notification notification;
     LootModel lootModel;
     InventoryModel inventoryModel;
 
@@ -19,6 +20,12 @@ public class LootController : MonoBehaviour
 
         inventoryModel = InventoryModel.instance;
         slots = itemsParent.GetComponentsInChildren<LootSlot>();
+
+        var tmp = GameObject.FindGameObjectWithTag("Notification");
+        if (tmp != null)
+            notification = tmp.GetComponent(typeof(Notification)) as Notification;
+        else
+            Debug.LogError("Brak tagu notification");
     }
 
     // Update is called once per frame
@@ -77,10 +84,10 @@ public class LootController : MonoBehaviour
             lootModel.RemoveWaitingItem(item); //usuwanie z okna lootu 
 
         }
-        else
+        else if(notification.IsFree())
         {
-            Debug.LogWarning("Alert do dodania"); //alert
-
+            notification.SetText("There is no space in your inventory.");
+            notification.ActiveOk();
         }
 
     }

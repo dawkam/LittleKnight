@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Notification;
 
 public class EquipmentController : MonoBehaviour
 {
     public Transform itemsParent;
     public GameObject equipmentUI;
+
+    private Notification notification;
 
     EquipmentModel equipmentModel;
     InventoryModel inventoryModel;
@@ -19,6 +22,11 @@ public class EquipmentController : MonoBehaviour
 
         inventoryModel = InventoryModel.instance;
         slots = itemsParent.GetComponentsInChildren<EquipmentSlot>();
+        var tmp = GameObject.FindGameObjectWithTag("Notification");
+        if (tmp != null)
+            notification = tmp.GetComponent(typeof(Notification)) as Notification;
+        else
+            Debug.LogError("Brak tagu notification");
     }
 
     void UpdateUI()
@@ -57,8 +65,11 @@ public class EquipmentController : MonoBehaviour
                 equipmentModel.RemoveItem(item);
                 inventoryModel.AddInventoryItem(item);
             }
-            else
-                Debug.LogWarning("Alert do zrobienia");
+            else if(notification.IsFree())
+            {
+                notification.SetText("There is no space in your inventory.");
+                notification.ActiveOk();                     
+            }
         }
     }
 }

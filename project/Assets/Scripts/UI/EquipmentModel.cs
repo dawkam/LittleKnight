@@ -42,7 +42,7 @@ public class EquipmentModel : MonoBehaviour
     {
         if (item != null)
         {
-            if (item.GetType() == new Weapon().GetType())
+            if (item.GetType() == typeof(Weapon))
                 RemoveWeapon();
             else
                 RemoveArmor(((Armor)item).armorType);

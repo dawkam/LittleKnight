@@ -31,7 +31,7 @@ public class InventoryModel : MonoBehaviour
     {
         if (inventoryItems.Count == inventorySize)
         {
-            Debug.LogWarning("Full inventory!");
+            //Debug.LogWarning("Full inventory!");
             return false;
         }
 

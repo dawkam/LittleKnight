@@ -1,10 +1,14 @@
 ﻿
+using System;
 using UnityEngine;
+
 
 public class InventoryController : MonoBehaviour
 {
     public Transform itemsParent;
     public GameObject inventoryUI;
+
+    private Notification notification;
 
     InventoryModel inventoryModel;
     EquipmentModel equipmentModel;
@@ -18,6 +22,13 @@ public class InventoryController : MonoBehaviour
 
         equipmentModel = EquipmentModel.instance;
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
+
+        var tmp = GameObject.FindGameObjectWithTag("Notification");
+;
+        if (tmp != null)
+            notification = tmp.GetComponent(typeof(Notification)) as Notification;
+        else
+            Debug.LogError("Brak tagu notification");
     }
 
     // Update is called once per frame
@@ -56,14 +67,14 @@ public class InventoryController : MonoBehaviour
         Item item = inventorySlot.GetItem();
         if (item != null)
         {
-            if (item.GetType() == new Armor().GetType())
+            if (item.GetType() == typeof(Armor))
             {
                 Armor oldArmor =equipmentModel.AddArmor((Armor)item);
                 inventoryModel.RemoveInventoryItem(item);
                 if(oldArmor != null)
                     inventoryModel.AddInventoryItem(oldArmor);
             }
-            else if (item.GetType() == new Weapon().GetType())
+            else if (item.GetType() == typeof(Weapon))
             {
                 Weapon oldWeapon = equipmentModel.AddWeapon((Weapon)item);
                 inventoryModel.RemoveInventoryItem(item);
@@ -80,8 +91,13 @@ public class InventoryController : MonoBehaviour
 
     public void OnRemoveButton(InventorySlot inventorySlot)
     {
-        Debug.LogWarning("alert do zrobienia");
-        inventoryModel.RemoveInventoryItem(inventorySlot.GetItem());
+        if (notification.IsFree())
+        {
+            notification.SetText("Do you really want remove this item?");
+            object[] tmp = new object[1];
+            tmp[0] = inventorySlot.GetItem();
+            notification.ActiveYesNo((Action<Item>)inventoryModel.RemoveInventoryItem, tmp);
+        }
     }
 
 }
