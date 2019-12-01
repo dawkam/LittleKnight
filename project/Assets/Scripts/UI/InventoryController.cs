@@ -29,6 +29,8 @@ public class InventoryController : MonoBehaviour
             notification = tmp.GetComponent(typeof(Notification)) as Notification;
         else
             Debug.LogError("Brak tagu notification");
+
+        inventoryUI.SetActive(false);
     }
 
     // Update is called once per frame

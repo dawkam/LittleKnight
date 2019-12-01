@@ -21,4 +21,4 @@ MonoBehaviour:
   fireArmor: 0
   waterArmor: 0
   earthArmor: 0
-  airArmor: 0
+  airArmor: 20

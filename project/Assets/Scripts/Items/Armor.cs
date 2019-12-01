@@ -7,22 +7,20 @@ public class Armor : Item
 {
     public ArmorType armorType;
 
-    [Header("Armor")]
-    #region DMG 
-    //dmg dealt by weapon
-    public double physicalArmor;
+    [Header("Armor")]   //values 0-100%
+    public double physicalArmor; 
     public double fireArmor;
     public double waterArmor;
     public double earthArmor;
     public double airArmor;
-    #endregion
+
 
     public override string GetDescription()
     {
         return "Physical Armor: " + physicalArmor  +
              "\nFire Armor: " + fireArmor +
              "\nWater Armor: " + waterArmor +
-             "\nAir Armor: " + waterArmor +
+             "\nAir Armor: " + airArmor +
              "\nEarth Armor: " + earthArmor;
     }
 

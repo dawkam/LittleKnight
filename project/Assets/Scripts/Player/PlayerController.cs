@@ -13,15 +13,14 @@ public class PlayerController : MonoBehaviour
     private Vector3 _playerVelocityY;
 
     private PlayerAnimation _playerAnimation;
-    private Animator _animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        _animator = GetComponentInChildren<Animator>();//GetComponent<Animator>();
-        _playerAnimation = new PlayerAnimation(_animator);
+         Animator animator = GetComponentInChildren<Animator>();//GetComponent<Animator>();
+        _playerAnimation = new PlayerAnimation(animator);
         _playerModel = GetComponent<PlayerModel>();
-        _playerView= GetComponent<PlayerView>();
+        _playerView = GetComponent<PlayerView>();
         _speed = _playerModel.sprintSpeed;
         
     }
@@ -42,5 +41,31 @@ public class PlayerController : MonoBehaviour
 
     }
 
-       
+    public void ChangeCurrentArmor(DamageType damageType, double armor)
+    {
+        switch (damageType)
+        {
+            case DamageType.Physical:
+                _playerModel.CurrentPhysicalArmor = armor + _playerModel.basePhysicalArmor ;
+                break;
+            case DamageType.Air:
+                _playerModel.CurrentAirArmor = armor + _playerModel.baseAirArmor;
+                break;
+            case DamageType.Water:
+                _playerModel.CurrentWaterArmor = armor + _playerModel.baseWaterArmor;
+                break;
+            case DamageType.Fire:
+                _playerModel.CurrentFireArmor = armor + _playerModel.baseFireArmor;
+                break;
+            case DamageType.Earth:
+                _playerModel.CurrentEarthArmor += armor + _playerModel.baseEarthArmor;
+                break;
+        }
+    }
+
+    public string[] GetStats()
+    {
+        return _playerModel.GetStats();
+
+    }
 }

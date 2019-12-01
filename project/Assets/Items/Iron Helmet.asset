@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 944d414bbbd92dc4ea06809d322e3b6a, type: 3}
-  m_Name: Helmet
+  m_Name: Iron Helmet
   m_EditorClassIdentifier: 
-  name: Helmet
+  name: Iron Helmet
   icon: {fileID: 21300000, guid: f8fceb41b68ef0a4ea35add24f4635e0, type: 3}
   isDefault: 0
   isEquipped: 0
   armorType: 0
-  physicalArmor: 0
+  physicalArmor: 50
   fireArmor: 0
   waterArmor: 0
   earthArmor: 0

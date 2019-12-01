@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using static Notification;
 
 public class EquipmentController : MonoBehaviour
@@ -8,7 +11,12 @@ public class EquipmentController : MonoBehaviour
     public Transform itemsParent;
     public GameObject equipmentUI;
 
+    private PlayerController _playerController;
     private Notification notification;
+    public Text defStats;
+    public Text defValue;
+    public Text dmgStats;
+    public Text dmgValue;
 
     EquipmentModel equipmentModel;
     InventoryModel inventoryModel;
@@ -19,9 +27,16 @@ public class EquipmentController : MonoBehaviour
     {
         equipmentModel = EquipmentModel.instance;
         equipmentModel.onEquipmentItemChangedCallback += UpdateUI;
+        equipmentModel.onEquipmentItemChangedCallback += GetArmor;
 
         inventoryModel = InventoryModel.instance;
         slots = itemsParent.GetComponentsInChildren<EquipmentSlot>();
+
+        GameObject player = GameObject.FindGameObjectsWithTag("Player").FirstOrDefault();
+        _playerController = player.GetComponent(typeof(PlayerController)) as PlayerController;
+
+        SetDescription();
+
         var tmp = GameObject.FindGameObjectWithTag("Notification");
         if (tmp != null)
             notification = tmp.GetComponent(typeof(Notification)) as Notification;
@@ -52,8 +67,8 @@ public class EquipmentController : MonoBehaviour
             slots[3].AddItem(equipmentModel.weapon);
         else
             slots[3].ClearSlot();
-    }
 
+    }
 
     public void UseItem(EquipmentSlot equipmentSlot)
     {
@@ -71,5 +86,42 @@ public class EquipmentController : MonoBehaviour
                 notification.ActiveOk();                     
             }
         }
+    }
+    public void GetArmor()
+    {
+        List<Armor> armors = equipmentModel.armorList;
+        double armor;
+        //do przetestowania
+        foreach (DamageType damageType in (DamageType[])Enum.GetValues(typeof(DamageType)))
+        {
+            armor = 0;
+            switch (damageType)
+            {
+                case DamageType.Physical:
+                    armor = armors.Sum(x => x!=null ? x.physicalArmor : 0);
+                    break;
+                case DamageType.Air:
+                    armor = armors.Sum(x => x != null ? x.airArmor : 0);
+                    break;
+                case DamageType.Water:
+                    armor = armors.Sum(x => x != null ? x.waterArmor : 0);
+                    break;
+                case DamageType.Fire:
+                    armor = armors.Sum(x => x != null ? x.fireArmor : 0);
+                    break;
+                case DamageType.Earth:
+                    armor = armors.Sum(x => x != null ? x.earthArmor : 0);
+                    break;
+            }
+            _playerController.ChangeCurrentArmor(damageType, armor);
+            SetDescription();
+        }
+    }
+
+    private void SetDescription()
+    {
+        string[] stats = _playerController.GetStats();
+        defStats.text = stats[0];
+        defValue.text = stats[1];
     }
 }
