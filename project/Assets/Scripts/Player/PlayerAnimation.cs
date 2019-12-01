@@ -44,5 +44,12 @@ public class PlayerAnimation : AnimationController
         _animator.SetFloat("Speed", speed);
     }
 
-
+    public void PerformAttack1()
+    {
+        _animator.SetTrigger("Attack1");
+    }
+    public void PerformAttack2()
+    {
+        _animator.SetTrigger("Attack2");
+    }
 }

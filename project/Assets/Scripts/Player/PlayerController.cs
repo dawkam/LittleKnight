@@ -28,7 +28,14 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         //PerformJump();
-        _playerVelocity= _playerView.PerformMovement(ref _playerVelocityY,ref _direction, _playerModel.rotationSpeed, ref _speed, _playerModel.walkSpeed, _playerModel.sprintSpeed);
+
+
+            if (_playerView.PerformAttack1())
+                _playerAnimation.PerformAttack1();
+            else if (_playerView.PerformAttack2())
+                _playerAnimation.PerformAttack2();
+            else
+                _playerVelocity = _playerView.PerformMovement(ref _playerVelocityY,ref _direction, _playerModel.rotationSpeed, ref _speed, _playerModel.walkSpeed, _playerModel.sprintSpeed);
 
         if (_playerVelocityY.y == 0)
             _playerAnimation.Walk(Math.Abs(_playerVelocity.x) + Math.Abs(_playerVelocity.z));

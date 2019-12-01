@@ -69,5 +69,13 @@ public class PlayerView : MonoBehaviour
         return Physics.Raycast(_collider.bounds.center - (Vector3.up * _collider.bounds.extents.y), -Vector3.up, 0.5f);
     }
 
+    public bool PerformAttack1()
+    {
+        return Input.GetButtonDown("Fire1") && IsGrounded() ;
+    }
 
+    public bool PerformAttack2()
+    {
+        return Input.GetButtonDown("Fire2") && IsGrounded();
+    }
 }
