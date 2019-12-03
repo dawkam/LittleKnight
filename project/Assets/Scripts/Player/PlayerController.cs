@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,19 +29,22 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         //PerformJump();
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
 
-
-            if (_playerView.PerformAttack1())
-                _playerAnimation.PerformAttack1();
-            else if (_playerView.PerformAttack2())
-                _playerAnimation.PerformAttack2();
-            else
-                _playerVelocity = _playerView.PerformMovement(ref _playerVelocityY,ref _direction, _playerModel.rotationSpeed, ref _speed, _playerModel.walkSpeed, _playerModel.sprintSpeed);
-
-        if (_playerVelocityY.y == 0)
-            _playerAnimation.Walk(Math.Abs(_playerVelocity.x) + Math.Abs(_playerVelocity.z));
+        if (_playerView.PerformAttack1())
+            _playerAnimation.PerformAttack1();
+        else if (_playerView.PerformAttack2())
+            _playerAnimation.PerformAttack2();
         else
-            _playerAnimation.Walk(0);
+        {
+            _playerVelocity = _playerView.PerformMovement(ref _playerVelocityY, ref _direction, _playerModel.rotationSpeed, ref _speed, _playerModel.walkSpeed, _playerModel.sprintSpeed);
+
+            if (_playerVelocityY.y < 0.3 && _playerVelocityY.y > -0.3)
+                _playerAnimation.Walk(Math.Abs(_playerVelocity.x) + Math.Abs(_playerVelocity.z));
+            else
+                _playerAnimation.Walk(0);
+        }
     }
     // Update is called once per frame
     void Update()

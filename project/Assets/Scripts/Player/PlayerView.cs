@@ -16,7 +16,7 @@ public class PlayerView : MonoBehaviour
     }
     public Vector3 PerformMovement(ref  Vector3 playerVelocityY, ref Vector3 direction, float rotationSpeed, ref float speed, float walkSpeed, float sprintSpeed)
     {
-
+        Debug.Log( "Y:     " + _playerRigidBody.velocity.y);
         if (!IsGrounded() || playerVelocityY.y > 0)
         {
             playerVelocityY += Vector3.up * Physics.gravity.y * Time.fixedDeltaTime;
@@ -58,6 +58,7 @@ public class PlayerView : MonoBehaviour
                 speed = sprintSpeed;
         }
         _playerRigidBody.velocity = (direction * speed * inputAmount) + playerVelocityY;
+
         // Debug.Log(PlayerBody.velocity);
         //Animation
         return _playerRigidBody.velocity;
@@ -65,12 +66,26 @@ public class PlayerView : MonoBehaviour
 
     private Boolean IsGrounded()
     {
-        Debug.DrawRay(_collider.bounds.center - (Vector3.up * _collider.bounds.extents.y), -Vector3.up * 0.5f, Color.magenta);
-        return Physics.Raycast(_collider.bounds.center - (Vector3.up * _collider.bounds.extents.y), -Vector3.up, 0.5f);
+        float maxDistance = 0.5f;
+
+        Debug.DrawRay(_collider.bounds.center - (Vector3.up * _collider.bounds.extents.y), -Vector3.up * maxDistance, Color.magenta);
+        if (Physics.Raycast(_collider.bounds.center - (Vector3.up * _collider.bounds.extents.y)
+            , -Vector3.up, out RaycastHit hit,
+            maxDistance))
+        {
+            if (hit.distance < maxDistance)
+                _playerRigidBody.MovePosition(new Vector3(_playerRigidBody.position.x,
+                   _playerRigidBody.position.y + (maxDistance - hit.distance)
+                    , _playerRigidBody.position.z));
+
+            return true;
+        }
+        else return false;
     }
 
     public bool PerformAttack1()
     {
+        
         return Input.GetButtonDown("Fire1") && IsGrounded() ;
     }
 
@@ -78,4 +93,6 @@ public class PlayerView : MonoBehaviour
     {
         return Input.GetButtonDown("Fire2") && IsGrounded();
     }
+
+
 }

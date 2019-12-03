@@ -12,6 +12,7 @@ public class Notification :MonoBehaviour
     public GameObject noButton;
     public GameObject okButton;
 
+    public CanvasGroup canvasGroup;
 
     private Delegate _action;
     private object[] _parameters;
@@ -20,6 +21,8 @@ public class Notification :MonoBehaviour
     public void SetYesButton()
     {
         notificationWindow.SetActive(false);
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
         if (_action != null)
         {
             _action.DynamicInvoke(_parameters);
@@ -29,11 +32,15 @@ public class Notification :MonoBehaviour
     public void SetNoButton()
     {
         notificationWindow.SetActive(false);
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
 
     }
     public void SetOkButton()
     {
         notificationWindow.SetActive(false);
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
 
     }
 
@@ -48,6 +55,8 @@ public class Notification :MonoBehaviour
 
         if (!notificationWindow.activeSelf)
         {
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
             _action = action;
             _parameters = parameters;
             notificationWindow.SetActive(true);
@@ -65,6 +74,8 @@ public class Notification :MonoBehaviour
 
         if (!notificationWindow.activeSelf)
         {
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
             _action = default;
             notificationWindow.SetActive(true);
             yesButton.SetActive(false);

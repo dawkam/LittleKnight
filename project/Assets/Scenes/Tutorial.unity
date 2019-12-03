@@ -3132,6 +3132,7 @@ GameObject:
   - component: {fileID: 509271015}
   - component: {fileID: 509271014}
   - component: {fileID: 509271013}
+  - component: {fileID: 509271016}
   m_Layer: 5
   m_Name: Notification
   m_TagString: Notification
@@ -3176,6 +3177,7 @@ MonoBehaviour:
   yesButton: {fileID: 1837739418}
   noButton: {fileID: 1065744110}
   okButton: {fileID: 755174281}
+  canvasGroup: {fileID: 509271016}
 --- !u!114 &509271014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3212,6 +3214,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 509271011}
   m_CullTransparentMesh: 0
+--- !u!225 &509271016
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509271011}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &541767432
 GameObject:
   m_ObjectHideFlags: 0
