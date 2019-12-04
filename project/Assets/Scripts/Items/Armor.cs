@@ -8,12 +8,19 @@ public class Armor : Item
     public ArmorType armorType;
 
     [Header("Armor")]   //values 0-100%
-    public double physicalArmor; 
-    public double fireArmor;
-    public double waterArmor;
-    public double earthArmor;
-    public double airArmor;
+    public float physicalArmor; 
+    public float fireArmor;
+    public float waterArmor;
+    public float earthArmor;
+    public float airArmor;
 
+    public Elements armor;
+
+    private void OnEnable()
+    {
+        armor = new Elements(physicalArmor, airArmor, waterArmor,fireArmor, earthArmor);
+        
+    }
 
     public override string GetDescription()
     {

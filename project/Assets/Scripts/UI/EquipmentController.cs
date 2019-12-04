@@ -81,53 +81,32 @@ public class EquipmentController : MonoBehaviour
                 equipmentModel.RemoveItem(item);
                 inventoryModel.AddInventoryItem(item);
             }
-            else if(notification.IsFree())
+            else if (notification.IsFree())
             {
                 notification.SetText("There is no space in your inventory.");
-                notification.ActiveOk();                     
+                notification.ActiveOk();
             }
         }
     }
     public void GetStats()
     {
         List<Armor> armors = equipmentModel.armorList;
-        double armor;
-        Weapon weapon = equipmentModel.weapon;
-        double damage;
-        //do przetestowania
-        foreach (DamageType damageType in (DamageType[])Enum.GetValues(typeof(DamageType)))
+
+        Elements fullArmor = new Elements(0, 0, 0, 0, 0);
+        foreach (Armor armor in armors)
         {
-            armor = 0;
-            damage = 0;
-            switch (damageType)
-            {
-                case DamageType.Physical:
-                    armor = armors.Sum(x => x!=null ? x.physicalArmor : 0);
-                    damage = weapon != null ? weapon.physicalDamage : 0;
-                    break;
-                case DamageType.Air:
-                    armor = armors.Sum(x => x != null ? x.airArmor : 0);
-                    damage = weapon != null ? weapon.airDamage : 0;
-                    break;
-                case DamageType.Water:
-                    armor = armors.Sum(x => x != null ? x.waterArmor : 0);
-                    damage = weapon != null ? weapon.waterDamage : 0;
-                    break;
-                case DamageType.Fire:
-                    armor = armors.Sum(x => x != null ? x.fireArmor : 0);
-                    damage = weapon != null ? weapon.fireDamage : 0;
-                    break;
-                case DamageType.Earth:
-                    armor = armors.Sum(x => x != null ? x.earthArmor : 0);
-                    damage = weapon != null ? weapon.earthDamage : 0;
-                    break;
-            }
-            _playerController.ChangeCurrentArmor(damageType, armor);
-            _playerController.ChangeCurrentDamage(damageType, damage);
-            SetDescription();
+            if (armor != null)
+                fullArmor.Add(armor.armor);
         }
+        _playerController.ChangeCurrentArmor(fullArmor);
+
+        if (equipmentModel.weapon != null)
+            _playerController.ChangeCurrentDamage(equipmentModel.weapon.damage);
+        else
+            _playerController.ChangeCurrentDamage(_playerController.GetBaseDamage());
+        SetDescription();
     }
-   
+
 
     private void SetDescription()
     {
@@ -136,6 +115,6 @@ public class EquipmentController : MonoBehaviour
         defValue.text = stats[1];
         dmgStats.text = stats[2];
         dmgValue.text = stats[3];
-        
+
     }
 }

@@ -16,7 +16,7 @@ public class PlayerView : MonoBehaviour
     }
     public Vector3 PerformMovement(ref  Vector3 playerVelocityY, ref Vector3 direction, float rotationSpeed, ref float speed, float walkSpeed, float sprintSpeed)
     {
-        Debug.Log( "Y:     " + _playerRigidBody.velocity.y);
+       
         if (!IsGrounded() || playerVelocityY.y > 0)
         {
             playerVelocityY += Vector3.up * Physics.gravity.y * Time.fixedDeltaTime;
@@ -85,7 +85,6 @@ public class PlayerView : MonoBehaviour
 
     public bool PerformAttack1()
     {
-        
         return Input.GetButtonDown("Fire1") && IsGrounded() ;
     }
 

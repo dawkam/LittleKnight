@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 
 public class PlayerModel : CharacterStats
@@ -18,23 +19,19 @@ public class PlayerModel : CharacterStats
              "\nFire armor: " +
              "\nEarth armor: " ;
 
-        stats[1] = CurrentPhysicalArmor +
-             "\n" + CurrentAirArmor +
-             "\n" + CurrentWaterArmor +
-             "\n" + CurrentFireArmor +
-             "\n" + CurrentEarthArmor;
+        foreach (float element in armor.elements)
+        {
+        stats[1] += element.ToString() + "\n" ;
+        }
         stats[2] = "Phys. armor: " +
             "\nAir damage: " +
             "\nWater damage: " +
             "\nFire damage: " +
             "\nEarth damage: ";
-
-        stats[3] = CurrentPhysicalDamage +
-             "\n" + CurrentAirDamage +
-             "\n" + CurrentWaterDamage +
-             "\n" + CurrentFireDamage +
-             "\n" + CurrentEarthDamage;
-
+        foreach (float element in damage.elements)
+        {
+            stats[3] += element.ToString() + "\n";
+        }
 
         return stats;
     }

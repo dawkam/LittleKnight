@@ -5,175 +5,44 @@ using UnityEngine;
 [System.Serializable]
 public class CharacterStats : MonoBehaviour
 {
+    [SerializeField]
+    public string characterName;
+
     [Header("Health")]
-    public double maxHealth;
+    public double baseHealth;
     public double CurrentHealth { get; private set; }
 
     [Header("Armor")]   //default values 0-100%
-    public double basePhysicalArmor;
-    public double baseFireArmor;
-    public double baseWaterArmor;
-    public double baseEarthArmor;
-    public double baseAirArmor;
+    public float basePhysicalArmor = 0;
+    public float baseFireArmor;
+    public float baseWaterArmor;
+    public float baseEarthArmor;
+    public float baseAirArmor;
 
-    private double currentPhysicalArmor;
-    private double currentFireArmor;
-    private double currentWaterArmor;
-    private double currentEarthArmor;
-    private double currentAirArmor;
+    public Elements baseArmor;
+    public Elements armor;
 
-    public double CurrentPhysicalArmor
-    {
-        get => currentPhysicalArmor;
-        set
-        {
-            if (value > 100)
-                currentPhysicalArmor = 100;
-            else if (value < 0)
-                currentPhysicalArmor = 0;
-            else
-                currentPhysicalArmor = value;
-        }
-    }
-    public double CurrentFireArmor
-    {
-        get => currentFireArmor;
-        set
-        {
-            if (value > 100)
-                currentFireArmor = 100;
-            else if (value < 0)
-                currentFireArmor = 0;
-            else
-                currentFireArmor = value;
-        }
-    }
-    public double CurrentWaterArmor
-    {
-        get => currentWaterArmor;
-        set
-        {
-            if (value > 100)
-                currentWaterArmor = 100;
-            else if (value < 0)
-                currentWaterArmor = 0;
-            else
-                currentWaterArmor = value;
-        }
-    }
-    public double CurrentEarthArmor
-    {
-        get => currentEarthArmor;
-        set
-        {
-            if (value > 100)
-                currentEarthArmor = 100;
-            else if (value < 0)
-                currentEarthArmor = 0;
-            else
-                currentEarthArmor = value;
-        }
-    }
-    public double CurrentAirArmor
-    {
-        get => currentAirArmor;
-        set
-        {
-            if (value > 100)
-                currentAirArmor = 100;
-            else if (value < 0)
-                currentAirArmor = 0;
-            else
-                currentAirArmor = value;
-        }
-    }
+    public float basePhysicalDamage;
+    public float baseFireDamage;
+    public float baseWaterDamage;
+    public float baseEarthDamage;
+    public float baseAirDamage;
 
-    public double basePhysicalDamage;
-    public double baseFireDamage;
-    public double baseWaterDamage;
-    public double baseEarthDamage;
-    public double baseAirDamage;
-
-    private double currentPhysicalDamage;
-    private double currentFireDamage;
-    private double currentWaterDamage;
-    private double currentEarthDamage;
-    private double currentAirDamage;
-
-    public double CurrentPhysicalDamage
-    {
-        get => currentPhysicalDamage;
-        set
-        {
-            if (value < 0)
-                currentPhysicalDamage = 0;
-            else
-                currentPhysicalDamage = value;
-        }
-    }
-    public double CurrentFireDamage
-    {
-        get => currentFireDamage;
-        set
-        {
-            if (value < 0)
-                currentFireDamage = 0;
-            else
-                currentFireDamage = value;
-        }
-    }
-    public double CurrentWaterDamage
-    {
-        get => currentWaterDamage;
-        set
-        {
-            if (value < 0)
-                currentWaterDamage = 0;
-            else
-                currentWaterDamage = value;
-        }
-    }
-    public double CurrentEarthDamage
-    {
-        get => currentEarthDamage;
-        set
-        {
-            if (value < 0)
-                currentEarthDamage = 0;
-            else
-                currentEarthDamage = value;
-        }
-    }
-    public double CurrentAirDamage
-    {
-        get => currentAirDamage;
-        set
-        {
-            if (value > 100)
-                currentAirDamage = 100;
-            else if (value < 0)
-                currentAirDamage = 0;
-            else
-                currentAirDamage = value;
-        }
-    }
-
+    public Elements baseDamage;
+    public Elements damage;
 
     protected virtual void Awake()
     {
-        CurrentHealth = maxHealth;
-        CurrentPhysicalArmor = basePhysicalArmor;
-        CurrentFireArmor = baseFireArmor;
-        CurrentWaterArmor = baseWaterArmor;
-        CurrentEarthArmor = baseEarthArmor;
-        CurrentAirArmor = baseAirArmor;
-
+        CurrentHealth = baseHealth;
+        baseArmor = new Elements(basePhysicalArmor, baseAirArmor, baseWaterArmor, baseFireArmor, baseEarthArmor);
+        armor = new Elements(basePhysicalArmor, baseAirArmor, baseWaterArmor, baseFireArmor, baseEarthArmor);
+        baseDamage = new Elements(basePhysicalDamage, baseAirDamage, baseWaterDamage, baseFireDamage, baseEarthDamage);
+        damage = new Elements(basePhysicalDamage, baseAirDamage, baseWaterDamage, baseFireDamage, baseEarthDamage);
     }
 
-    public void TakeDamage(double damage, DamageType damageType)
+    public void TakeDamage(Elements incomeDamage)
     {
-
-        damage = GetTrueDamage(damage, damageType);
+        float damage = armor.GetTrueDamage(incomeDamage);
 
         CurrentHealth -= damage;
         Debug.Log(transform.name + " takes " + damage + " damage.");
@@ -187,12 +56,12 @@ public class CharacterStats : MonoBehaviour
 
     public void Heal(double healValue)
     {
-        if (CurrentHealth != maxHealth)
+        if (CurrentHealth != baseHealth)
         {
             CurrentHealth += healValue;
             Debug.Log(transform.name + healValue + " healed.");
-            if (CurrentHealth > maxHealth)
-                CurrentHealth = maxHealth;
+            if (CurrentHealth > baseHealth)
+                CurrentHealth = baseHealth;
 
         }
     }
@@ -203,28 +72,7 @@ public class CharacterStats : MonoBehaviour
         Debug.Log(transform.name + " died");
     }
 
-    protected double GetTrueDamage(double damage, DamageType damageType)
-    {
-        switch (damageType)
-        {
-            case DamageType.Physical:
-                damage -= (damage * CurrentPhysicalArmor) / 100;
-                break;
-            case DamageType.Air:
-                damage -= (damage * CurrentAirArmor) / 100;
-                break;
-            case DamageType.Water:
-                damage -= (damage * CurrentWaterArmor) / 100;
-                break;
-            case DamageType.Fire:
-                damage -= (damage * CurrentFireArmor) / 100;
-                break;
-            case DamageType.Earth:
-                damage -= (damage * CurrentEarthArmor) / 100;
-                break;
-        }
-        return damage;
-    }
+
 }
 
-public enum DamageType { Physical, Air, Water, Fire, Earth }
+

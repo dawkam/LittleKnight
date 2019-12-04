@@ -4,26 +4,28 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
-    
+
     private PlayerModel _playerModel;
     private PlayerView _playerView;
+    private PlayerAnimation _playerAnimation;
 
     private float _speed;
     private Vector3 _direction;
     private Vector3 _playerVelocity;
     private Vector3 _playerVelocityY;
 
-    private PlayerAnimation _playerAnimation;
+    private Weapon _weapon;
+
 
     // Start is called before the first frame update
     void Start()
     {
-         Animator animator = GetComponentInChildren<Animator>();//GetComponent<Animator>();
+        Animator animator = GetComponentInChildren<Animator>();//GetComponent<Animator>();
         _playerAnimation = new PlayerAnimation(animator);
         _playerModel = GetComponent<PlayerModel>();
         _playerView = GetComponent<PlayerView>();
         _speed = _playerModel.sprintSpeed;
-        
+
     }
 
     void FixedUpdate()
@@ -52,53 +54,27 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void ChangeCurrentArmor(DamageType damageType, double armor)
+    public void ChangeCurrentArmor(Elements armorEq)
     {
-        switch (damageType)
-        {
-            case DamageType.Physical:
-                _playerModel.CurrentPhysicalArmor = armor + _playerModel.basePhysicalArmor ;
-                break;
-            case DamageType.Air:
-                _playerModel.CurrentAirArmor = armor + _playerModel.baseAirArmor;
-                break;
-            case DamageType.Water:
-                _playerModel.CurrentWaterArmor = armor + _playerModel.baseWaterArmor;
-                break;
-            case DamageType.Fire:
-                _playerModel.CurrentFireArmor = armor + _playerModel.baseFireArmor;
-                break;
-            case DamageType.Earth:
-                _playerModel.CurrentEarthArmor += armor + _playerModel.baseEarthArmor;
-                break;
-        }
+        armorEq.Add(_playerModel.baseArmor);
+        _playerModel.armor = armorEq;
+
     }
 
-    public void ChangeCurrentDamage(DamageType damageType, double damage)
+    public void ChangeCurrentDamage(Elements damageEq)
     {
-        switch (damageType)
-        {
-            case DamageType.Physical:
-                _playerModel.CurrentPhysicalDamage = damage + _playerModel.basePhysicalDamage;
-                break;
-            case DamageType.Air:
-                _playerModel.CurrentAirDamage = damage + _playerModel.baseAirDamage;
-                break;
-            case DamageType.Water:
-                _playerModel.CurrentWaterDamage = damage + _playerModel.baseWaterDamage;
-                break;
-            case DamageType.Fire:
-                _playerModel.CurrentFireDamage = damage + _playerModel.baseFireDamage;
-                break;
-            case DamageType.Earth:
-                _playerModel.CurrentEarthDamage += damage + _playerModel.baseEarthDamage;
-                break;
-        }
+        damageEq.Add(_playerModel.baseDamage);
+        _playerModel.damage = damageEq;
     }
 
     public string[] GetStats()
     {
         return _playerModel.GetStats();
 
+    }
+
+    public Elements GetBaseDamage()
+    {
+        return _playerModel.damage;
     }
 }
