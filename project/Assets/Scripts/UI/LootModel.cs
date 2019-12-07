@@ -25,7 +25,7 @@ public class LootModel : MonoBehaviour
     public int lootSize;
 
     #region waitingsItem
-    public void AddWaitingItems(List<Item> Items)
+    public void AddWaitingItems(ref List<Item> Items)
     {
 
         waitingItems.Add(Items);
@@ -33,11 +33,16 @@ public class LootModel : MonoBehaviour
             onLootItemChangedCallback.Invoke();
     }
 
-    public void RemoveWaitingItems()
+    public void TakeAllItems()
     {
+        waitingItems[0].Clear();
         waitingItems.RemoveAt(0);
         if (onLootItemChangedCallback != null)
             onLootItemChangedCallback.Invoke();
+    }
+    public void RemoveWaitingItems()
+    {
+        waitingItems.RemoveAt(0);
     }
 
     public void RemoveWaitingItems(List<Item> items)

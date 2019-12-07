@@ -50,7 +50,6 @@ public class CharacterStats : MonoBehaviour
         if (CurrentHealth <= 0)
         {
             CurrentHealth = 0;
-            Die();
         }
     }
 
@@ -64,12 +63,6 @@ public class CharacterStats : MonoBehaviour
                 CurrentHealth = baseHealth;
 
         }
-    }
-
-    public virtual void Die()
-    {
-        //This method is meant to be overwrriten
-        Debug.Log(transform.name + " died");
     }
 
 

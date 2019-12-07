@@ -64,7 +64,10 @@ public class EquipmentController : MonoBehaviour
         else
             slots[2].ClearSlot();
         if (equipmentModel.weapon != null)
+        {
             slots[3].AddItem(equipmentModel.weapon);
+            _playerController.hasWeapon = true;
+        }
         else
             slots[3].ClearSlot();
 

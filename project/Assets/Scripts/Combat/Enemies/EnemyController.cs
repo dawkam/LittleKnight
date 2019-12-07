@@ -54,6 +54,11 @@ public class EnemyController : MonoBehaviour
         else if (_enemyAnimation.DieAnimationEnd())
         {
             Destroy(gameObject);
+
+        }
+        else
+        {
+            Die();
         }
     }
 
@@ -74,5 +79,12 @@ public class EnemyController : MonoBehaviour
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(center, _enemyView.GetStoppingDistance());
         }
+    }
+
+    public virtual void Die()
+    {
+        _enemyAnimation.DieAnimation();
+        //Debug.Log(transform.name + " died");
+        //Destroy(gameObject);
     }
 }

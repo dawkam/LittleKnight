@@ -65,7 +65,7 @@ public class LootController : MonoBehaviour
     {
         if (inventoryModel.AddInventoryItems(lootModel.waitingItems[0]))
         {
-            lootModel.RemoveWaitingItems();
+            lootModel.TakeAllItems();
         }else
         {
             //alert

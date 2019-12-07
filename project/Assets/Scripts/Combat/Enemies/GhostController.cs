@@ -14,20 +14,5 @@ public class GhostController : EnemyController
         _enemyModel.characterName = "Ghost";
     }
 
-    // Update is called once per frame
-    protected override void Update()
-    {
-        base.Update();
-
-    }
-
-
-
-    //public override void Die()
-    //{
-    //    _enemyAnimation.DieAnimation(ref _anim);
-    //    Debug.Log(transform.name + " died");
-    //    // Destroy(gameObject);
-    //}
 }
 

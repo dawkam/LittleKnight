@@ -14,8 +14,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _playerVelocity;
     private Vector3 _playerVelocityY;
 
-    private Weapon _weapon;
-
+    public bool hasWeapon;
 
     // Start is called before the first frame update
     void Start()
@@ -34,9 +33,9 @@ public class PlayerController : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
-        if (_playerView.PerformAttack1())
+        if (hasWeapon && _playerView.PerformAttack1())
             _playerAnimation.PerformAttack1();
-        else if (_playerView.PerformAttack2())
+        else if (hasWeapon && _playerView.PerformAttack2())
             _playerAnimation.PerformAttack2();
         else
         {

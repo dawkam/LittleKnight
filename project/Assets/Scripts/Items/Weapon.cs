@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+
 [CreateAssetMenu(fileName = "NewWeapon", menuName = "Inventory/Weapon")]
 public class Weapon : Item
 {
@@ -22,12 +23,16 @@ public class Weapon : Item
     private void OnEnable()
     {
         damage = new Elements(physicalDamage, airDamage, waterDamage, fireDamage, earthDamage);
+
     }
     public override void Use()
     {
         if (_weaponPlace == null)
             _weaponPlace = GameObject.FindGameObjectWithTag("WeaponPlace");
         _weapon = Instantiate(prefab, _weaponPlace.transform);
+        WeaponCollider _weaponCollider = _weapon.AddComponent<WeaponCollider>();
+        _weaponCollider.SetDamage(damage);
+
     }
 
     public override string GetDescription()
@@ -45,16 +50,6 @@ public class Weapon : Item
     }
 
 
-    // scriptable object nie obsługuje on trgger
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    CharacterStats parent = other.GetComponentInParent<CharacterStats>();
-    //    if (parent != null && other.tag == "Player")
-    //    {
-    //        parent.TakeDamage(damage);
 
-    //    }
-    //}
 
-    
 }
