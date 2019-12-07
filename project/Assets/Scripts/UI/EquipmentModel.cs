@@ -49,6 +49,8 @@ public class EquipmentModel : MonoBehaviour
             else
                 RemoveArmor(((Armor)item).armorType);
         }
+        if (onEquipmentItemChangedCallback != null)
+            onEquipmentItemChangedCallback.Invoke();
     }
 
     public Weapon RemoveWeapon()

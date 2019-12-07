@@ -43,6 +43,8 @@ public class LootModel : MonoBehaviour
     public void RemoveWaitingItems()
     {
         waitingItems.RemoveAt(0);
+        if (onLootItemChangedCallback != null)
+            onLootItemChangedCallback.Invoke();
     }
 
     public void RemoveWaitingItems(List<Item> items)

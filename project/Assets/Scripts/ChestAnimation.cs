@@ -10,9 +10,9 @@ public class ChestAnimation : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
     }
 
-    public void OpenAnimation()
+    public void OpenAnimation(bool isOpennig)
     {
-        _animator.SetTrigger("Open");
+        _animator.SetBool("Open", isOpennig);
     }
 
     public void CloseAnimation()

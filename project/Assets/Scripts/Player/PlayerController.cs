@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _playerVelocity;
     private Vector3 _playerVelocityY;
 
-    public bool hasWeapon;
+    public Collider weapon;
 
     // Start is called before the first frame update
     void Start()
@@ -30,15 +30,25 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         //PerformJump();
+        if (weapon != null)
+            weapon.enabled = _playerAnimation.IsAttacking();
+
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
-        if (hasWeapon && _playerView.PerformAttack1())
+        if (weapon != null && _playerView.PerformAttack1())
+        {
+            weapon.enabled = true;
             _playerAnimation.PerformAttack1();
-        else if (hasWeapon && _playerView.PerformAttack2())
+        }
+        else if (weapon != null && _playerView.PerformAttack2())
+        {
+            weapon.enabled = true;
             _playerAnimation.PerformAttack2();
+        }
         else
         {
+
             _playerVelocity = _playerView.PerformMovement(ref _playerVelocityY, ref _direction, _playerModel.rotationSpeed, ref _speed, _playerModel.walkSpeed, _playerModel.sprintSpeed);
 
             if (_playerVelocityY.y < 0.3 && _playerVelocityY.y > -0.3)
@@ -75,5 +85,15 @@ public class PlayerController : MonoBehaviour
     public Elements GetBaseDamage()
     {
         return _playerModel.damage;
+    }
+
+    public void SetWeaponCollider(Collider collider)
+    {
+        weapon = collider;
+        weapon.enabled = false;
+    }
+    public void RemoveWeaponCollider()
+    {
+        weapon = null;
     }
 }

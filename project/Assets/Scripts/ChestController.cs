@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class ChestController : MonoBehaviour
@@ -17,32 +18,38 @@ public class ChestController : MonoBehaviour
         lootModel = LootModel.instance;
         _chestAnimation = GetComponentInChildren<ChestAnimation>();
 
-    }
-    private void Update()
-    {
-        if (items.Count == 0)
+        //Store all Gameobjects in an array like this
+        Object[] allItems = Resources.LoadAll("Items");
+        int numberOfItems = Random.Range(1, 5);
+
+        for (int i = 0; i < numberOfItems; i++)
         {
-            if (!_endParticleOnScene)
-            {
-                endParticle = Instantiate(endParticle, this.transform.position, this.transform.rotation, null);
-                _endParticleOnScene = true;
-            }
-            else if (_chestAnimation == null || _chestAnimation.EndCloseAnimation())
-                Destroy(gameObject);
+            items.Add((Item)allItems[Random.Range(0, allItems.Length - 1)]);
         }
 
     }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
+            if (items.Count == 0)
+            {
+                if (!_endParticleOnScene)
+                {
+                    endParticle = Instantiate(endParticle, this.transform.position, this.transform.rotation, null);
+                    _endParticleOnScene = true;
+                }
+                else if (_chestAnimation == null || _chestAnimation.EndCloseAnimation())
+                    Destroy(gameObject);
+            }
 
             if (Input.GetButtonDown("Interact") && !isOpennig && items.Count != 0)
             {
 
                 isOpennig = true;
                 if (_chestAnimation != null)
-                    _chestAnimation.OpenAnimation();
+                    _chestAnimation.OpenAnimation(isOpennig);
                 // show items
                 if (lootModel.lootSize < items.Count)
                 {
@@ -73,6 +80,8 @@ public class ChestController : MonoBehaviour
         {
 
             isOpennig = false;
+            if (items.Count != 0)
+                _chestAnimation.OpenAnimation(isOpennig);
             lootModel.RemoveWaitingItems(items);
             if (_chestAnimation != null)
                 _chestAnimation.CloseAnimation();

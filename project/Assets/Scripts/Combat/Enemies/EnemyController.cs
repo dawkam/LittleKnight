@@ -53,6 +53,8 @@ public class EnemyController : MonoBehaviour
         }
         else if (_enemyAnimation.DieAnimationEnd())
         {
+            GameObject loot = Resources.Load("Prefabs/Loot/Loot", typeof(GameObject)) as GameObject;
+            Instantiate(loot, this.transform.position, this.transform.rotation, null);
             Destroy(gameObject);
 
         }

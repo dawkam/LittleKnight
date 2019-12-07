@@ -52,4 +52,9 @@ public class PlayerAnimation : AnimationController
     {
         _animator.SetTrigger("Attack2");
     }
+
+    public bool IsAttacking()
+    {
+        return _animator.GetCurrentAnimatorStateInfo(0).IsName("Attack1") || _animator.GetCurrentAnimatorStateInfo(0).IsName("Attack2");
+    }
 }

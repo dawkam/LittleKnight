@@ -25,13 +25,19 @@ public class Weapon : Item
         damage = new Elements(physicalDamage, airDamage, waterDamage, fireDamage, earthDamage);
 
     }
+
     public override void Use()
     {
         if (_weaponPlace == null)
             _weaponPlace = GameObject.FindGameObjectWithTag("WeaponPlace");
         _weapon = Instantiate(prefab, _weaponPlace.transform);
+
+        PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>() as PlayerController;
         WeaponCollider _weaponCollider = _weapon.AddComponent<WeaponCollider>();
-        _weaponCollider.SetDamage(damage);
+        player.SetWeaponCollider(_weapon.GetComponent<Collider>());
+        Elements outputDamagae = new Elements(damage);
+        outputDamagae.Add(player.GetBaseDamage());
+        _weaponCollider.SetDamage(outputDamagae);
 
     }
 
