@@ -31,11 +31,11 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        CharacterStats parent = other.GetComponentInParent<CharacterStats>();
-        if (parent != null && other.tag == "Player")
+        PlayerController parent = other.GetComponentInParent<PlayerController>();
+        if (parent != null )
             parent.TakeDamage(damage);
 
-        if (other.tag != "Particles")
+        if (other.tag != "Particles" || other.tag != "Enemy")
             Destroy(gameObject);
     }
 

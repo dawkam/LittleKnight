@@ -1919,7 +1919,7 @@ MonoBehaviour:
   lookRadius: 80
   baseAttackCooldown: 2
   firePoint: {fileID: 7440340699358268515}
-  projectileSpeed: 100
+  projectileSpeed: 30
   projectileLifeSpawn: 3
   projectile: {fileID: 1564851882551653276, guid: 14b9bfe67faef6840a771c13dad988fe,
     type: 3}

@@ -9,8 +9,8 @@ public class CharacterStats : MonoBehaviour
     public string characterName;
 
     [Header("Health")]
-    public double baseHealth;
-    public double CurrentHealth { get; private set; }
+    public float baseHealth;
+    public float CurrentHealth { get; private set; }
 
     [Header("Armor")]   //default values 0-100%
     public float basePhysicalArmor = 0;
@@ -47,13 +47,11 @@ public class CharacterStats : MonoBehaviour
         CurrentHealth -= damage;
         Debug.Log(transform.name + " takes " + damage + " damage.");
 
-        if (CurrentHealth <= 0)
-        {
-            CurrentHealth = 0;
-        }
+        CurrentHealth = CurrentHealth < 0 ? CurrentHealth = 0 : CurrentHealth;
+
     }
 
-    public void Heal(double healValue)
+    public void Heal(float healValue)
     {
         if (CurrentHealth != baseHealth)
         {

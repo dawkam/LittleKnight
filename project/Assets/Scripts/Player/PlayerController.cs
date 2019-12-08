@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private PlayerModel _playerModel;
     private PlayerView _playerView;
     private PlayerAnimation _playerAnimation;
+    private HealthBar _healthBar;
 
     private float _speed;
     private Vector3 _direction;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
         _playerAnimation = new PlayerAnimation(animator);
         _playerModel = GetComponent<PlayerModel>();
         _playerView = GetComponent<PlayerView>();
+        _healthBar = GetComponent<HealthBar>();
         _speed = _playerModel.sprintSpeed;
 
     }
@@ -48,7 +50,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-
             _playerVelocity = _playerView.PerformMovement(ref _playerVelocityY, ref _direction, _playerModel.rotationSpeed, ref _speed, _playerModel.walkSpeed, _playerModel.sprintSpeed);
 
             if (_playerVelocityY.y < 0.3 && _playerVelocityY.y > -0.3)
@@ -95,5 +96,12 @@ public class PlayerController : MonoBehaviour
     public void RemoveWeaponCollider()
     {
         weapon = null;
+    }
+
+    public void TakeDamage(Elements damage)
+    {
+        _playerModel.TakeDamage(damage);
+        _healthBar.SetSize(_playerModel.CurrentHealth/ _playerModel.baseHealth);
+
     }
 }
