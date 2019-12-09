@@ -28,6 +28,7 @@ public class Weapon : Item
 
     public override void Use()
     {
+
         if (_weaponPlace == null)
             _weaponPlace = GameObject.FindGameObjectWithTag("WeaponPlace");
         _weapon = Instantiate(prefab, _weaponPlace.transform);

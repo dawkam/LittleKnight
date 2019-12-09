@@ -99,9 +99,9 @@ public class EquipmentController : MonoBehaviour
         _playerController.ChangeCurrentArmor(fullArmor);
 
         if (equipmentModel.weapon != null)
-            _playerController.ChangeCurrentDamage(equipmentModel.weapon.damage);
+            _playerController.ChangeCurrentDamage(new Elements(equipmentModel.weapon.damage));
         else
-            _playerController.ChangeCurrentDamage(_playerController.GetBaseDamage());
+            _playerController.ChangeCurrentDamage(new Elements(0, 0, 0, 0, 0));
         SetDescription();
     }
 

@@ -18,7 +18,7 @@ public class NPC : MonoBehaviour
     {
         if (other.gameObject.tag == "Player" && Input.GetButtonDown("Interact"))
         {
-            notification.SetText("You get a new quest!");
+            notification.SetText("You got a new quest!");
             notification.ActiveOk();
             questLogController.AddQuest(quest);
         }

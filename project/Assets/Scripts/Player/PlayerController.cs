@@ -36,8 +36,8 @@ public class PlayerController : MonoBehaviour
         if (weapon != null)
             weapon.enabled = _playerAnimation.IsAttacking();
 
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
+        //if (EventSystem.current.IsPointerOverGameObject())
+        //    return;
 
         if (weapon != null && _playerView.PerformAttack1())
         {
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
     public Elements GetBaseDamage()
     {
-        return _playerModel.damage;
+        return _playerModel.baseDamage;
     }
 
     public void SetWeaponCollider(Collider collider)

@@ -13,7 +13,7 @@ public class InventoryController : MonoBehaviour
     private InventoryModel _inventoryModel;
     private EquipmentController _equipmentController;
 
-    InventorySlot[] slots;  // inventory slots pełnią funkcije widoku
+    private InventorySlot[] slots;  // inventory slots pełnią funkcije widoku
     // Start is called before the first frame update
     void Start()
     {
@@ -33,10 +33,21 @@ public class InventoryController : MonoBehaviour
     {
         if (Input.GetButtonDown("Inventory"))
         {
-            inventoryUI.SetActive(!inventoryUI.activeSelf);
+            if (inventoryUI.activeSelf)
+            {
+                inventoryUI.SetActive(false);
+                Time.timeScale = 1.0f;
+            }
+            else
+            {
+                Time.timeScale =  0.0f;
+                inventoryUI.SetActive(true);
+            }
+
         }
         if (Input.GetButtonDown("Cancel"))
         {
+            Time.timeScale = 1.0f;
             inventoryUI.SetActive(false);
         }
     }

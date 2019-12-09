@@ -22,15 +22,34 @@ public class QuestLogController : MonoBehaviour
     private QuestLogModel _questLogModel;
     private QuestLogView _questLogView;
 
-
-
     void Start()
     {
         _questLogModel = QuestLogModel.instance;
         _questLogView = GetComponent<QuestLogView>();
-        
+        _questLogView.questLogUI.SetActive(false);
     }
+    void Update()
+    {
+        if (Input.GetButtonDown("Inventory"))
+        {
+            if (_questLogView.questLogUI.activeSelf)
+            {
+                _questLogView.questLogUI.SetActive(false);
+                Time.timeScale = 1.0f;
+            }
+            else
+            {
+                Time.timeScale = 0.0f;
+                _questLogView.questLogUI.SetActive(true);
+            }
 
+        }
+        if (Input.GetButtonDown("Cancel"))
+        {
+            Time.timeScale = 1.0f;
+            _questLogView.questLogUI.SetActive(false);
+        }
+    }
     public void AddQuest(Quest quest)
     {
         if (_questLogModel.AddQuest(quest))
@@ -46,9 +65,9 @@ public class QuestLogController : MonoBehaviour
 
     public void CheckGoal(string goal)
     {
-       List<Quest> completedQuests =_questLogModel.AddProgressGoal(goal);// zwraca questy, które się zakończyły z tym progresem
+        List<Quest> completedQuests = _questLogModel.AddProgressGoal(goal);// zwraca questy, które się zakończyły z tym progresem
         _questLogView.SetCompletedIcon(completedQuests);
-        if (_questLogView.quest !=null && _questLogView.quest.goalName == goal)
+        if (_questLogView.quest != null && _questLogView.quest.goalName == goal)
             _questLogView.UpdateProgress();
     }
 
