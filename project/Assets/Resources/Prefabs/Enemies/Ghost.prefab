@@ -1904,7 +1904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b09337d979eb641a7c38b7941b9a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: 
+  characterName: Ghost
   baseHealth: 100
   basePhysicalArmor: 0
   baseFireArmor: 0

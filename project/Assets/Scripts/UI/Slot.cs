@@ -24,7 +24,6 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public virtual void ClearSlot()
     {
         _item = null;
-
         icon.sprite = null;
         icon.enabled = false;
     }
@@ -33,7 +32,6 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (description != null && _item != null)
         {
-
             description.SetActive(true);
         }
     }

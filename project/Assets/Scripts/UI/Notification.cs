@@ -18,6 +18,21 @@ public class Notification :MonoBehaviour
     private object[] _parameters;
 
 
+    #region Singleton
+    public static Notification instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of Notification !");
+        }
+
+        instance = this;
+    }
+
+    #endregion
+
     public void SetYesButton()
     {
         notificationWindow.SetActive(false);

@@ -10,25 +10,20 @@ public class InventoryController : MonoBehaviour
 
     private Notification notification;
 
-    InventoryModel inventoryModel;
-    EquipmentModel equipmentModel;
+    private InventoryModel _inventoryModel;
+    private EquipmentController _equipmentController;
 
     InventorySlot[] slots;  // inventory slots pełnią funkcije widoku
     // Start is called before the first frame update
     void Start()
     {
-        inventoryModel = InventoryModel.instance;
-        inventoryModel.onInventoryItemChangedCallback += UpdateUI;
+        _inventoryModel = InventoryModel.instance;
+        _inventoryModel.onInventoryItemChangedCallback += UpdateUI;
 
-        equipmentModel = EquipmentModel.instance;
+        _equipmentController = GetComponentInChildren<EquipmentController>();
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
 
-        var tmp = GameObject.FindGameObjectWithTag("Notification");
-;
-        if (tmp != null)
-            notification = tmp.GetComponent(typeof(Notification)) as Notification;
-        else
-            Debug.LogError("Brak tagu notification");
+        notification = Notification.instance;
 
         inventoryUI.SetActive(false);
     }
@@ -50,9 +45,9 @@ public class InventoryController : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            if (i < inventoryModel.inventoryItems.Count)
+            if (i < _inventoryModel.inventoryItems.Count)
             {
-                slots[i].AddItem(inventoryModel.inventoryItems[i]);
+                slots[i].AddItem(_inventoryModel.inventoryItems[i]);
             }
             else
             {
@@ -75,19 +70,19 @@ public class InventoryController : MonoBehaviour
         {
             if (item.GetType() == typeof(Armor))
             {
-                Armor oldArmor =equipmentModel.AddArmor((Armor)item);
-                inventoryModel.RemoveInventoryItem(item);
+                Armor oldArmor =_equipmentController.AddArmor((Armor)item);
+                _inventoryModel.RemoveInventoryItem(item);
                 if(oldArmor != null)
-                    inventoryModel.AddInventoryItem(oldArmor);
+                    _inventoryModel.AddInventoryItem(oldArmor);
             }
             else if (item.GetType() == typeof(Weapon))
             {
                 item.Use();
-                Weapon oldWeapon = equipmentModel.AddWeapon((Weapon)item);
-                inventoryModel.RemoveInventoryItem(item);
+                Weapon oldWeapon = _equipmentController.AddWeapon((Weapon)item);
+                _inventoryModel.RemoveInventoryItem(item);
                 if (oldWeapon != null)
                 {
-                    inventoryModel.AddInventoryItem(oldWeapon);
+                    _inventoryModel.AddInventoryItem(oldWeapon);
                     oldWeapon.UnEquip();
                 }
             }
@@ -106,8 +101,23 @@ public class InventoryController : MonoBehaviour
             notification.SetText("Do you really want remove this item?");
             object[] tmp = new object[1];
             tmp[0] = inventorySlot.GetItem();
-            notification.ActiveYesNo((Action<Item>)inventoryModel.RemoveInventoryItem, tmp);
+            notification.ActiveYesNo((Action<Item>)_inventoryModel.RemoveInventoryItem, tmp);
         }
+    }
+
+    public int GetInventorySize()
+    {
+        return _inventoryModel.inventorySize;
+    }
+
+    public int GetItemsCount()
+    {
+        return _inventoryModel.inventoryItems.Count;
+    }
+
+    public void AddInventoryItem(Item item)
+    {
+        _inventoryModel.AddInventoryItem(item);
     }
 
 }

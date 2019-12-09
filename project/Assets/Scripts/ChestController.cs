@@ -24,7 +24,7 @@ public class ChestController : MonoBehaviour
 
         for (int i = 0; i < numberOfItems; i++)
         {
-            items.Add((Item)allItems[Random.Range(0, allItems.Length - 1)]);
+            items.Add((Item)allItems[Random.Range(0, allItems.Length )]);
         }
 
     }
@@ -80,7 +80,7 @@ public class ChestController : MonoBehaviour
         {
 
             isOpennig = false;
-            if (items.Count != 0)
+            if (items.Count != 0 && _chestAnimation != null)
                 _chestAnimation.OpenAnimation(isOpennig);
             lootModel.RemoveWaitingItems(items);
             if (_chestAnimation != null)

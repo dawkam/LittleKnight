@@ -1,0 +1,102 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class LootController : MonoBehaviour
+{
+    public Transform itemsParent;
+    public GameObject lootUI;
+
+    private Notification _notification;
+    private LootModel _lootModel;
+    private InventoryModel _inventoryModel;
+    private QuestLogController _questLogController;
+
+    private LootSlot[] _slots; // inventory slots pełnią funkcije widoku
+
+
+    void Start()
+    {
+        _lootModel = LootModel.instance;
+        _lootModel.onLootItemChangedCallback += UpdateUI;
+
+        _inventoryModel = InventoryModel.instance;
+        _slots = itemsParent.GetComponentsInChildren<LootSlot>();
+
+        _questLogController = QuestLogController.instance;
+        _notification = Notification.instance;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (_lootModel.waitingItems.Count != 0)
+        {
+            lootUI.SetActive(true);
+        }
+        else if (_lootModel.waitingItems.Count == 0)
+        {
+            lootUI.SetActive(false);
+        }
+
+    }
+
+    void UpdateUI()
+    {
+
+        for (int i = 0; i < _slots.Length; i++)
+        {
+            if(_lootModel.waitingItems.Count != 0 && i < _lootModel.waitingItems[0].Count)
+            {
+                _slots[i].AddItem(_lootModel.waitingItems[0][i]);
+            }
+            else
+            {
+                _slots[i].ClearSlot();
+                _slots[i].RemoveDescription();
+            }
+
+        }
+       // lootSystem.waitingItems.RemoveAt(0);
+    }
+
+    public void TakeAllItemsFromWaitingList()
+    {
+        if (_inventoryModel.AddInventoryItems(_lootModel.waitingItems[0]))
+        {
+            _lootModel.TakeAllItems();
+        }else
+        {
+            //alert
+        }
+    }
+
+    public void CloseLoot()
+    {
+        _lootModel.RemoveWaitingItems();
+    }
+
+    public void AddInventoryItem(Item item)
+    {
+        if (_inventoryModel.AddInventoryItem(item)) //próba dodania do inventory
+        {
+            _questLogController.CheckGoal(item.name);
+            _lootModel.RemoveWaitingItem(item); //usuwanie z okna lootu 
+
+        }
+        else if(_notification.IsFree())
+        {
+            _notification.SetText("There is no space in your inventory.");
+            _notification.ActiveOk();
+        }
+
+    }
+    public void UseItem(LootSlot lootSlot)
+    {
+        Item item = lootSlot.GetItem();
+        if ( item != null)
+        {
+            AddInventoryItem(item);
+        }
+    }
+}

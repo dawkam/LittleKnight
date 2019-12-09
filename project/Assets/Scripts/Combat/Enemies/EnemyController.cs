@@ -11,10 +11,14 @@ public class EnemyController : MonoBehaviour
     protected EnemyModel _enemyModel;
     protected EnemyView _enemyView;
     protected EnemyAnimation _enemyAnimation;
+    protected QuestLogController _questLogController;
+    protected bool alive;
 
     protected virtual void Start()
     {
         _target = GameObject.FindGameObjectWithTag("Player").transform;
+        _questLogController = QuestLogController.instance;
+        alive = true;
     }
 
     protected virtual void Update()
@@ -58,7 +62,7 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject);
 
         }
-        else
+        else if (alive)
         {
             Die();
         }
@@ -85,7 +89,9 @@ public class EnemyController : MonoBehaviour
 
     public virtual void Die()
     {
+        alive = false;
         _enemyAnimation.DieAnimation();
+        _questLogController.CheckGoal(_enemyModel.characterName);
         //Debug.Log(transform.name + " died");
         //Destroy(gameObject);
     }

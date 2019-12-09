@@ -13,13 +13,11 @@ public class EquipmentController : MonoBehaviour
 
     private PlayerController _playerController;
     private Notification notification;
-    public Text defStats;
-    public Text defValue;
-    public Text dmgStats;
-    public Text dmgValue;
 
-    EquipmentModel equipmentModel;
-    InventoryModel inventoryModel;
+    private EquipmentModel equipmentModel;
+    private EquipmentView equipmentView;
+
+    private InventoryController inventoryController;// do zmiany
 
     EquipmentSlot[] slots; // inventory slots pełnią funkcije widoku, 0 - hełm, 1 - tors, 2 - buty, 3 - broń
 
@@ -29,7 +27,9 @@ public class EquipmentController : MonoBehaviour
         equipmentModel.onEquipmentItemChangedCallback += UpdateUI;
         equipmentModel.onEquipmentItemChangedCallback += GetStats;
 
-        inventoryModel = InventoryModel.instance;
+        equipmentView = GetComponent<EquipmentView>();
+
+        inventoryController = GetComponentInChildren<InventoryController>();
         slots = itemsParent.GetComponentsInChildren<EquipmentSlot>();
 
         GameObject player = GameObject.FindGameObjectsWithTag("Player").FirstOrDefault();
@@ -37,11 +37,7 @@ public class EquipmentController : MonoBehaviour
 
         SetDescription();
 
-        var tmp = GameObject.FindGameObjectWithTag("Notification");
-        if (tmp != null)
-            notification = tmp.GetComponent(typeof(Notification)) as Notification;
-        else
-            Debug.LogError("Brak tagu notification");
+        notification = Notification.instance;
     }
 
     void UpdateUI()
@@ -77,11 +73,11 @@ public class EquipmentController : MonoBehaviour
         Item item = equipmentSlot.GetItem();
         if (item != null)
         {
-            if (inventoryModel.inventoryItems.Count != inventoryModel.inventorySize)
+            if (inventoryController.GetItemsCount() != inventoryController.GetInventorySize())
             {
                 item.UnEquip();
                 equipmentModel.RemoveItem(item);
-                inventoryModel.AddInventoryItem(item);
+                inventoryController.AddInventoryItem(item);
             }
             else if (notification.IsFree())
             {
@@ -113,10 +109,17 @@ public class EquipmentController : MonoBehaviour
     private void SetDescription()
     {
         string[] stats = _playerController.GetStats();
-        defStats.text = stats[0];
-        defValue.text = stats[1];
-        dmgStats.text = stats[2];
-        dmgValue.text = stats[3];
+        equipmentView.SetDescription(stats);
 
+    }
+
+    public Armor AddArmor(Armor armor)
+    {
+        return equipmentModel.AddArmor(armor);
+    }
+
+    public Weapon AddWeapon(Weapon weapon)
+    {
+        return equipmentModel.AddWeapon(weapon);
     }
 }
