@@ -15,8 +15,6 @@ public class Quest : ScriptableObject
 
     public bool isCompleted;
 
-
-    public Quest prevQuest;
     public Quest nextQuest;
 
     public string goalName;
@@ -24,6 +22,8 @@ public class Quest : ScriptableObject
     public int progress;
 
     public int maxProgress;
+
+
 
     private void OnEnable()
     {
@@ -35,6 +35,11 @@ public class Quest : ScriptableObject
         progress++;
         if (progress == maxProgress)
         {
+            if (nextQuest != null)
+            {
+                QuestLogController questLogController = QuestLogController.instance;
+                questLogController.AddQuest(nextQuest);
+            }
             isCompleted = true;
             return true; ;
         }

@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Boots o Speed
   m_EditorClassIdentifier: 
   name: Boots o Speed
-  icon: {fileID: 21300000, guid: b634c8a51d4a2d440b44719a9c1329ba, type: 3}
+  icon: {fileID: 21300000, guid: 27e65fb9967c5474184b7026e1fdf42d, type: 3}
   isDefault: 0
-  isEquipped: 0
   armorType: 2
   physicalArmor: 0
   fireArmor: 0

@@ -12,9 +12,9 @@ public class WeaponCollider : MonoBehaviour
         this.damage = damage;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     { 
-        CharacterStats parent = other.GetComponentInParent<CharacterStats>();
+        EnemyController parent = other.GetComponentInParent<EnemyController>();
         if (parent != null && other.tag != "Player")
         {
             parent.TakeDamage(damage);

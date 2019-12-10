@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Iron Helmet
   m_EditorClassIdentifier: 
   name: Iron Helmet
-  icon: {fileID: 21300000, guid: f8fceb41b68ef0a4ea35add24f4635e0, type: 3}
+  icon: {fileID: 21300000, guid: e8069cc04449aef49b06c8fd23947eed, type: 3}
   isDefault: 0
-  isEquipped: 0
   armorType: 0
   physicalArmor: 50
   fireArmor: 0

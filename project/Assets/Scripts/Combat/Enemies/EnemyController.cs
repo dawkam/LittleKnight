@@ -13,12 +13,14 @@ public class EnemyController : MonoBehaviour
     protected EnemyAnimation _enemyAnimation;
     protected QuestLogController _questLogController;
     protected bool alive;
+    protected HealthBar _healthBar;
 
     protected virtual void Start()
     {
         _target = GameObject.FindGameObjectWithTag("Player").transform;
         _questLogController = QuestLogController.instance;
         alive = true;
+        _healthBar = GetComponent<HealthBar>();
     }
 
     protected virtual void Update()
@@ -95,4 +97,12 @@ public class EnemyController : MonoBehaviour
         //Debug.Log(transform.name + " died");
         //Destroy(gameObject);
     }
+
+
+    public void TakeDamage(Elements damage)
+    {
+        _enemyModel.TakeDamage(damage);
+        _healthBar.SetSize(_enemyModel.CurrentHealth / _enemyModel.baseHealth);
+    }
+
 }

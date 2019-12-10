@@ -71,4 +71,8 @@ public class QuestLogController : MonoBehaviour
             _questLogView.UpdateProgress();
     }
 
+    public bool IsQuestTaken(Quest quest)
+    {
+        return _questLogModel.IsQuestTaken(quest);
+    }
 }

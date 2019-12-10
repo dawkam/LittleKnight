@@ -36,8 +36,8 @@ public class PlayerController : MonoBehaviour
         if (weapon != null)
             weapon.enabled = _playerAnimation.IsAttacking();
 
-        //if (EventSystem.current.IsPointerOverGameObject())
-        //    return;
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
 
         if (weapon != null && _playerView.PerformAttack1())
         {
@@ -58,11 +58,6 @@ public class PlayerController : MonoBehaviour
             else
                 _playerAnimation.Walk(0);
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void ChangeCurrentArmor(Elements armorEq)

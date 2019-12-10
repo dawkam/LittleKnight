@@ -16,7 +16,7 @@ public class NPC : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player" && Input.GetButtonDown("Interact"))
+        if (other.gameObject.tag == "Player" && Input.GetButtonDown("Interact") && !questLogController.IsQuestTaken(quest))
         {
             notification.SetText("You got a new quest!");
             notification.ActiveOk();

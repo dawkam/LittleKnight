@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Armor Of Flame
   m_EditorClassIdentifier: 
   name: Armor Of Flame
-  icon: {fileID: 21300000, guid: 65a9410232dbc154c9cec96a5fbd07b1, type: 3}
+  icon: {fileID: 21300000, guid: 9aef4875e15a7f244818545501182ba1, type: 3}
   isDefault: 0
-  isEquipped: 0
   armorType: 1
   physicalArmor: 0
   fireArmor: 20

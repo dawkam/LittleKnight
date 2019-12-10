@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Sword Of Flames
   m_EditorClassIdentifier: 
   name: Sword Of Flames
-  icon: {fileID: 21300000, guid: af50dc4fa7b6d314895d0f8c79adb4a5, type: 3}
+  icon: {fileID: 21300000, guid: 7260f244749cf9047af277914ffb2544, type: 3}
   isDefault: 0
-  isEquipped: 0
   prefab: {fileID: 5144653489352128048, guid: 9d0ef1179d07311468999f6f5341cb48, type: 3}
   physicalDamage: 100
   fireDamage: 250

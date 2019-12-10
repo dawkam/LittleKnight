@@ -48,4 +48,8 @@ public class QuestLogModel : MonoBehaviour
         
     }
 
+    public bool IsQuestTaken(Quest quest)
+    {
+        return quests.Contains(quest);
+    }
 }

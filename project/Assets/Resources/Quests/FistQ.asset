@@ -17,7 +17,7 @@ MonoBehaviour:
   itemReward: {fileID: 11400000, guid: cc80eac0a1faebd44b4c66ebba6ad5e2, type: 2}
   expReward: 10
   isCompleted: 0
-  prevQuest: {fileID: 0}
-  nextQuest: {fileID: 0}
+  nextQuest: {fileID: 11400000, guid: 57992c13a0150304e9d4c57517c58e9c, type: 2}
   goalName: Ghost
+  progress: 0
   maxProgress: 1
