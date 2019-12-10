@@ -14,7 +14,23 @@ public class InventoryController : MonoBehaviour
     private EquipmentController _equipmentController;
 
     private InventorySlot[] slots;  // inventory slots pełnią funkcije widoku
-    // Start is called before the first frame update
+                                    // Start is called before the first frame update
+
+    #region Singleton
+    public static InventoryController instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of InventoryController !");
+        }
+
+        instance = this;
+    }
+
+    #endregion
+
     void Start()
     {
         _inventoryModel = InventoryModel.instance;

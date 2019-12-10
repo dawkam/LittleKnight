@@ -10,6 +10,12 @@ public class PlayerModel : CharacterStats
     public float rotationSpeed;
     public float jumpForce;
 
+    public int level = 1;
+    public float exp = 0;
+    public float expToNextLvl = 10;
+    public float multiplier = 1.2f;
+
+    public float healthPerLvl;
     public string[] GetStats()
     {
         string[] stats = new string[4];
@@ -36,5 +42,24 @@ public class PlayerModel : CharacterStats
         return stats;
     }
 
+    public bool AddExp(float exp)
+    {
+        this.exp += exp;
+        if (this.exp >= expToNextLvl)
+        {
+            LvlUp();
+            return true;
+        }
+        return false;
+    }
 
+    private void LvlUp()
+    {
+        level++;
+        this.exp -= expToNextLvl;
+        expToNextLvl *= multiplier;
+        baseHealth += healthPerLvl;
+        CurrentHealth = baseHealth;
+
+    }
 }

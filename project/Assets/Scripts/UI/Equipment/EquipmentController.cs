@@ -29,7 +29,7 @@ public class EquipmentController : MonoBehaviour
 
         equipmentView = GetComponent<EquipmentView>();
 
-        inventoryController = GetComponentInChildren<InventoryController>();
+        inventoryController = InventoryController.instance;
         slots = itemsParent.GetComponentsInChildren<EquipmentSlot>();
 
         GameObject player = GameObject.FindGameObjectsWithTag("Player").FirstOrDefault();

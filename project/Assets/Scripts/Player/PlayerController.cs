@@ -18,6 +18,21 @@ public class PlayerController : MonoBehaviour
     public Collider weapon;
 
 
+    #region Singleton
+    public static PlayerController instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of PlayerController !");
+        }
+
+        instance = this;
+    }
+
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +70,8 @@ public class PlayerController : MonoBehaviour
 
             if (_playerVelocityY.y < 0.3 && _playerVelocityY.y > -0.3)
                 _playerAnimation.Walk(Math.Abs(_playerVelocity.x) + Math.Abs(_playerVelocity.z));
-            else
+            else if((_playerVelocity.z < 1 && _playerVelocity.z > -1) &&
+                    (_playerVelocity.x < 1 && _playerVelocity.x > -1) )
                 _playerAnimation.Walk(0);
         }
     }
@@ -99,5 +115,15 @@ public class PlayerController : MonoBehaviour
         _playerModel.TakeDamage(damage);
         _healthBar.SetSize(_playerModel.CurrentHealth/ _playerModel.baseHealth);
 
+    }
+
+    public void AddExp(float exp)
+    {
+        if (_playerModel.AddExp(exp))
+        {
+            Instantiate(_playerView.LvlUpEffect, this.transform);
+            _healthBar.SetLvl(_playerModel.level.ToString());
+            _healthBar.SetSize(_playerModel.CurrentHealth / _playerModel.baseHealth);
+        }
     }
 }

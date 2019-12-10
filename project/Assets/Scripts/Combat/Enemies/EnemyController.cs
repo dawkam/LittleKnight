@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour
     protected QuestLogController _questLogController;
     protected bool alive;
     protected HealthBar _healthBar;
+    protected PlayerController _player;
 
     protected virtual void Start()
     {
@@ -21,6 +22,8 @@ public class EnemyController : MonoBehaviour
         _questLogController = QuestLogController.instance;
         alive = true;
         _healthBar = GetComponent<HealthBar>();
+        _player = PlayerController.instance;
+
     }
 
     protected virtual void Update()
@@ -89,20 +92,19 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public virtual void Die()
-    {
-        alive = false;
-        _enemyAnimation.DieAnimation();
-        _questLogController.CheckGoal(_enemyModel.characterName);
-        //Debug.Log(transform.name + " died");
-        //Destroy(gameObject);
-    }
-
-
     public void TakeDamage(Elements damage)
     {
         _enemyModel.TakeDamage(damage);
         _healthBar.SetSize(_enemyModel.CurrentHealth / _enemyModel.baseHealth);
     }
 
+    public virtual void Die()
+    {
+        alive = false;
+        _enemyAnimation.DieAnimation();
+        _questLogController.CheckGoal(_enemyModel.characterName);
+        _player.AddExp(_enemyModel.exp);
+        //Debug.Log(transform.name + " died");
+        //Destroy(gameObject);
+    }
 }

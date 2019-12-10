@@ -32,12 +32,18 @@ public class Notification :MonoBehaviour
     }
 
     #endregion
+    private void Update()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+
+            CloseWindow();
+        }
+    }
 
     public void SetYesButton()
     {
-        notificationWindow.SetActive(false);
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
+        CloseWindow();
         if (_action != null)
         {
             _action.DynamicInvoke(_parameters);
@@ -46,16 +52,12 @@ public class Notification :MonoBehaviour
     }
     public void SetNoButton()
     {
-        notificationWindow.SetActive(false);
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
+        CloseWindow();
 
     }
     public void SetOkButton()
     {
-        notificationWindow.SetActive(false);
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
+        CloseWindow();
 
     }
 
@@ -107,5 +109,12 @@ public class Notification :MonoBehaviour
     {
         return !notificationWindow.activeSelf;
 
+    }
+
+    private void CloseWindow()
+    {
+        notificationWindow.SetActive(false);
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
     }
 }

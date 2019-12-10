@@ -21,12 +21,16 @@ public class QuestLogController : MonoBehaviour
 
     private QuestLogModel _questLogModel;
     private QuestLogView _questLogView;
+    private PlayerController _playerController;
+    private InventoryController _inventoryController;
 
     void Start()
     {
         _questLogModel = QuestLogModel.instance;
         _questLogView = GetComponent<QuestLogView>();
         _questLogView.questLogUI.SetActive(false);
+        _playerController = PlayerController.instance;
+        _inventoryController = InventoryController.instance;
     }
     void Update()
     {
@@ -67,6 +71,12 @@ public class QuestLogController : MonoBehaviour
     {
         List<Quest> completedQuests = _questLogModel.AddProgressGoal(goal);// zwraca questy, które się zakończyły z tym progresem
         _questLogView.SetCompletedIcon(completedQuests);
+        foreach (Quest q in completedQuests)
+        {
+            _playerController.AddExp(q.expReward);
+            _inventoryController.AddInventoryItem(q.itemReward);
+            CheckGoal(q.itemReward.name);
+        }
         if (_questLogView.quest != null && _questLogView.quest.goalName == goal)
             _questLogView.UpdateProgress();
     }

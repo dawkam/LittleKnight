@@ -8,23 +8,24 @@ public class PlayerView : MonoBehaviour
     private Collider _collider;
 
     private Camera _playerCamera;
+    public GameObject LvlUpEffect;
     public void Awake()
     {
         _playerCamera = Camera.main;
         _playerRigidBody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
     }
-    public Vector3 PerformMovement(ref  Vector3 playerVelocityY, ref Vector3 direction, float rotationSpeed, ref float speed, float walkSpeed, float sprintSpeed)
-    {
-       
-        if (!IsGrounded() || playerVelocityY.y > 0)
-        {
-            playerVelocityY += Vector3.up * Physics.gravity.y * Time.fixedDeltaTime;
+    public Vector3 PerformMovement(ref  Vector3 playerVelocity, ref Vector3 direction, float rotationSpeed, ref float speed, float walkSpeed, float sprintSpeed)
+    {                                               //y
+                                //y
+        if (!IsGrounded() || playerVelocity.y > 0)
+        {       //y
+            playerVelocity += Vector3.up * Physics.gravity.y * Time.fixedDeltaTime;
             //_playerAnimation.Jump(_playerVelocityY.y);
         }
         else
-        {
-            playerVelocityY.y = 0;
+        {   //y
+            playerVelocity.y = 0;
             //_playerAnimation.Jump(_playerVelocityY.y);
         }
         // reset movement
@@ -56,8 +57,8 @@ public class PlayerView : MonoBehaviour
                 speed = walkSpeed;
             else if (speed == walkSpeed)
                 speed = sprintSpeed;
-        }
-        _playerRigidBody.velocity = (direction * speed * inputAmount) + playerVelocityY;
+        }                                                                       //y
+        _playerRigidBody.velocity = (direction * speed * inputAmount) + playerVelocity;
 
         // Debug.Log(PlayerBody.velocity);
         //Animation

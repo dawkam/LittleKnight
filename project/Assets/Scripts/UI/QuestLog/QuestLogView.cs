@@ -14,6 +14,7 @@ public class QuestLogView : MonoBehaviour
     public Text descriptionText;
     public Text progressText;
     public Text goalText;
+    public Text goalNameText;
 
     public Text expReward;
     public Image itemIcon;
@@ -32,6 +33,7 @@ public class QuestLogView : MonoBehaviour
         this.itemIcon.sprite = quest.itemReward.icon;
         this.progressText.text = quest.progress.ToString();
         this.goalText.text = quest.maxProgress.ToString();
+        this.goalNameText.text = quest.goalName;
 
     }
 

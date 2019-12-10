@@ -10,7 +10,7 @@ public class CharacterStats : MonoBehaviour
 
     [Header("Health")]
     public float baseHealth;
-    public float CurrentHealth { get; private set; }
+    public float CurrentHealth { get; protected set; }
 
     [Header("Armor")]   //default values 0-100%
     public float basePhysicalArmor = 0;

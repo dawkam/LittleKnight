@@ -11,6 +11,8 @@ public class EnemyModel : CharacterStats
     public float projectileLifeSpawn;
     public Projectile projectile;
 
+    public float exp;
+
     public double CurrentAttackCooldown { get; set; }
 
 

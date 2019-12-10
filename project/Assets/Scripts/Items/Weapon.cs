@@ -33,7 +33,7 @@ public class Weapon : Item
             _weaponPlace = GameObject.FindGameObjectWithTag("WeaponPlace");
         _weapon = Instantiate(prefab, _weaponPlace.transform);
 
-        PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>() as PlayerController;
+        PlayerController player = PlayerController.instance;
         WeaponCollider _weaponCollider = _weapon.AddComponent<WeaponCollider>();
         player.SetWeaponCollider(_weapon.GetComponent<Collider>());
         Elements outputDamagae = new Elements(damage);
