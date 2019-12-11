@@ -222,7 +222,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.0141509175, g: 0.22213778, b: 1, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -666,8 +666,8 @@ ParticleSystem:
     radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 272.34967, y: 179.99988, z: 180.00012}
-    m_Scale: {x: 1, y: 1, z: 1}
+    m_Rotation: {x: 272.3496, y: 179.99988, z: 180.00012}
+    m_Scale: {x: 1.8021742, y: 1.8021742, z: 1.8021742}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -4709,7 +4709,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 0}
-  - {fileID: 2100000, guid: aac8c2d15db78104ba4efcddca91ba0e, type: 2}
+  - {fileID: 2100000, guid: b043b75e352cf5f4380a978af1eb920c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -10,12 +10,12 @@ public class ChestController : MonoBehaviour
     private bool isOpennig;
 
     private ChestAnimation _chestAnimation;
-    private LootModel lootModel;
+    private LootModel _lootController;
     private bool _endParticleOnScene;
 
     void Start()
     {
-        lootModel = LootModel.instance;
+        _lootController = LootModel.instance;
         _chestAnimation = GetComponentInChildren<ChestAnimation>();
 
         //Store all Gameobjects in an array like this
@@ -43,7 +43,6 @@ public class ChestController : MonoBehaviour
                 else if (_chestAnimation == null || _chestAnimation.EndCloseAnimation())
                     Destroy(gameObject);
             }
-
             if (Input.GetButtonDown("Interact") && !isOpennig && items.Count != 0)
             {
 
@@ -51,14 +50,14 @@ public class ChestController : MonoBehaviour
                 if (_chestAnimation != null)
                     _chestAnimation.OpenAnimation(isOpennig);
                 // show items
-                if (lootModel.lootSize < items.Count)
+                if (_lootController.lootSize < items.Count)
                 {
                     Debug.LogError("Too many items in chest!");
 
                 }
                 else
                 {
-                    lootModel.AddWaitingItems(ref items);
+                    _lootController.AddWaitingItems(ref items);
                 }
 
             }
@@ -78,11 +77,10 @@ public class ChestController : MonoBehaviour
     {
         if (isOpennig)
         {
-
             isOpennig = false;
             if (items.Count != 0 && _chestAnimation != null)
                 _chestAnimation.OpenAnimation(isOpennig);
-            lootModel.RemoveWaitingItems(items);
+            _lootController.RemoveWaitingItems(items);
             if (_chestAnimation != null)
                 _chestAnimation.CloseAnimation();
         }

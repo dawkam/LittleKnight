@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class LootController : MonoBehaviour
 {
+    #region Singleton
+    public static LootController instance;
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of LootController !");
+        }
+
+        instance = this;
+    }
+    #endregion
+
+
     public Transform itemsParent;
     public GameObject lootUI;
 
@@ -32,10 +46,12 @@ public class LootController : MonoBehaviour
     {
         if (_lootModel.waitingItems.Count != 0)
         {
+            Time.timeScale = 0.0f;
             lootUI.SetActive(true);
         }
         else if (_lootModel.waitingItems.Count == 0)
         {
+            Time.timeScale = 1.0f;
             lootUI.SetActive(false);
         }
 

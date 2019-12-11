@@ -16,15 +16,14 @@ public class PlayerView : MonoBehaviour
         _collider = GetComponent<Collider>();
     }
     public Vector3 PerformMovement(ref  Vector3 playerVelocity, ref Vector3 direction, float rotationSpeed, ref float speed, float walkSpeed, float sprintSpeed)
-    {                                               //y
-                                //y
+    {                          
         if (!IsGrounded() || playerVelocity.y > 0)
-        {       //y
+        {      
             playerVelocity += Vector3.up * Physics.gravity.y * Time.fixedDeltaTime;
             //_playerAnimation.Jump(_playerVelocityY.y);
         }
         else
-        {   //y
+        {  
             playerVelocity.y = 0;
             //_playerAnimation.Jump(_playerVelocityY.y);
         }
@@ -57,7 +56,7 @@ public class PlayerView : MonoBehaviour
                 speed = walkSpeed;
             else if (speed == walkSpeed)
                 speed = sprintSpeed;
-        }                                                                       //y
+        }                                                                       
         _playerRigidBody.velocity = (direction * speed * inputAmount) + playerVelocity;
 
         // Debug.Log(PlayerBody.velocity);

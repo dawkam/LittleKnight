@@ -51,27 +51,27 @@ public class PlayerController : MonoBehaviour
         if (weapon != null)
             weapon.enabled = _playerAnimation.IsAttacking();
 
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
+        //if (EventSystem.current.IsPointerOverGameObject())
+        //    return;
 
-        if (weapon != null && _playerView.PerformAttack1())
+        if (weapon != null && _playerView.PerformAttack1() && Math.Abs(_playerVelocity.z)  < 1 && Math.Abs( _playerVelocity.x) < 1)
         {
+
             weapon.enabled = true;
             _playerAnimation.PerformAttack1();
         }
-        else if (weapon != null && _playerView.PerformAttack2())
+        else if (weapon != null && _playerView.PerformAttack2() && Math.Abs(_playerVelocity.z) < 1 && Math.Abs(_playerVelocity.x) < 1)
         {
             weapon.enabled = true;
             _playerAnimation.PerformAttack2();
         }
-        else
+        else if(!_playerAnimation.IsAttacking())
         {
             _playerVelocity = _playerView.PerformMovement(ref _playerVelocityY, ref _direction, _playerModel.rotationSpeed, ref _speed, _playerModel.walkSpeed, _playerModel.sprintSpeed);
 
-            if (_playerVelocityY.y < 0.3 && _playerVelocityY.y > -0.3)
+            if (Math.Abs(_playerVelocityY.y) < 0.3)
                 _playerAnimation.Walk(Math.Abs(_playerVelocity.x) + Math.Abs(_playerVelocity.z));
-            else if((_playerVelocity.z < 1 && _playerVelocity.z > -1) &&
-                    (_playerVelocity.x < 1 && _playerVelocity.x > -1) )
+            else if(Math.Abs(_playerVelocity.z) < 1 && Math.Abs(_playerVelocity.x) < 1 )
                 _playerAnimation.Walk(0);
         }
     }
