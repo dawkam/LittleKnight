@@ -33,27 +33,21 @@ public class LootController : MonoBehaviour
     {
         _lootModel = LootModel.instance;
         _lootModel.onLootItemChangedCallback += UpdateUI;
+        _lootModel.onLootItemChangedCallback += ActiveUI;
 
         _inventoryModel = InventoryModel.instance;
         _slots = itemsParent.GetComponentsInChildren<LootSlot>();
 
         _questLogController = QuestLogController.instance;
         _notification = Notification.instance;
+
+        lootUI.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_lootModel.waitingItems.Count != 0)
-        {
-            Time.timeScale = 0.0f;
-            lootUI.SetActive(true);
-        }
-        else if (_lootModel.waitingItems.Count == 0)
-        {
-            Time.timeScale = 1.0f;
-            lootUI.SetActive(false);
-        }
+
 
     }
 
@@ -74,6 +68,20 @@ public class LootController : MonoBehaviour
 
         }
        // lootSystem.waitingItems.RemoveAt(0);
+    }
+
+    void ActiveUI()
+    {
+        if (_lootModel.waitingItems.Count != 0)
+        {
+            Time.timeScale = 0.0f;
+            lootUI.SetActive(true);
+        }
+        else if (_lootModel.waitingItems.Count == 0)
+        {
+            Time.timeScale = 1.0f;
+            lootUI.SetActive(false);
+        }
     }
 
     public void TakeAllItemsFromWaitingList()
