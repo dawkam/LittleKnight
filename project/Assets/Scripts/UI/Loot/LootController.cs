@@ -47,8 +47,8 @@ public class LootController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
+        if (lootUI.activeSelf)
+            Time.timeScale = 0.0f; // po wyłączeniu ui eq czas nie wróci do normy
     }
 
     void UpdateUI()

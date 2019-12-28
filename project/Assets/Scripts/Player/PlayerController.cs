@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     public Collider weapon;
 
+    private bool alive;
 
     #region Singleton
     public static PlayerController instance;
@@ -42,38 +43,50 @@ public class PlayerController : MonoBehaviour
         _playerView = GetComponent<PlayerView>();
         _healthBar = GetComponent<HealthBar>();
         _speed = _playerModel.sprintSpeed;
-
+        alive = true;
     }
 
     void FixedUpdate()
     {
-        //PerformJump();
-        if (weapon != null)
-            weapon.enabled = _playerAnimation.IsAttacking();
-
-        //if (EventSystem.current.IsPointerOverGameObject())
-        //    return;
-
-        if (weapon != null && _playerView.PerformAttack1() && Math.Abs(_playerVelocity.z)  < 1 && Math.Abs( _playerVelocity.x) < 1)
+        if (_playerModel.CurrentHealth > 0)
         {
+            bool isAttacking = _playerAnimation.IsAttacking();
+            //PerformJump();
+            if (weapon != null)
+                weapon.enabled = _playerAnimation.IsAttacking();
 
-            weapon.enabled = true;
-            _playerAnimation.PerformAttack1();
-        }
-        else if (weapon != null && _playerView.PerformAttack2() && Math.Abs(_playerVelocity.z) < 1 && Math.Abs(_playerVelocity.x) < 1)
-        {
-            weapon.enabled = true;
-            _playerAnimation.PerformAttack2();
-        }
-        else if(!_playerAnimation.IsAttacking())
-        {
-            _playerVelocity = _playerView.PerformMovement(ref _playerVelocityY, ref _direction, _playerModel.rotationSpeed, ref _speed, _playerModel.walkSpeed, _playerModel.sprintSpeed);
+            //if (EventSystem.current.IsPointerOverGameObject())
+            //    return;
 
-            if (Math.Abs(_playerVelocityY.y) < 0.3)
-                _playerAnimation.Walk(Math.Abs(_playerVelocity.x) + Math.Abs(_playerVelocity.z));
-            else if(Math.Abs(_playerVelocity.z) < 1 && Math.Abs(_playerVelocity.x) < 1 )
-                _playerAnimation.Walk(0);
+            if (weapon != null && _playerView.PerformAttack1() )//&& Math.Abs(_playerVelocity.z) < 3 && Math.Abs(_playerVelocity.x) < 3)
+            {
+                
+                weapon.enabled = true;
+                _playerAnimation.PerformAttack1();
+            }
+            else if (weapon != null && _playerView.PerformAttack2() )//&& Math.Abs(_playerVelocity.z) < 3 && Math.Abs(_playerVelocity.x) < 3)
+            {
+                
+                weapon.enabled = true;
+                _playerAnimation.PerformAttack2();
+            }
+
+            _playerVelocity = _playerView.PerformMovement(ref _playerVelocityY, ref _direction,  ref _speed, isAttacking );
+
+            if (!isAttacking)
+            {
+                if (Math.Abs(_playerVelocityY.y) < 0.3)
+                    _playerAnimation.Walk(Math.Abs(_playerVelocity.x) + Math.Abs(_playerVelocity.z));
+                else if (Math.Abs(_playerVelocity.z) < 1 && Math.Abs(_playerVelocity.x) < 1)
+                    _playerAnimation.Walk(0);
+            }
         }
+        else if(alive)
+        {
+            alive = false;
+            _playerAnimation.Die();
+        }
+        
     }
 
     public void ChangeCurrentArmor(Elements armorEq)
@@ -126,4 +139,6 @@ public class PlayerController : MonoBehaviour
             _healthBar.SetSize(_playerModel.CurrentHealth / _playerModel.baseHealth);
         }
     }
+
+
 }

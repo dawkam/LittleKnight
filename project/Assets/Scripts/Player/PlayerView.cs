@@ -9,17 +9,21 @@ public class PlayerView : MonoBehaviour
 
     private Camera _playerCamera;
     public GameObject LvlUpEffect;
+    public float rotationSpeed;
+    public float walkSpeed;
+    public float sprintSpeed;
     public void Awake()
     {
         _playerCamera = Camera.main;
         _playerRigidBody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
     }
-    public Vector3 PerformMovement(ref  Vector3 playerVelocity, ref Vector3 direction, float rotationSpeed, ref float speed, float walkSpeed, float sprintSpeed)
-    {                          
+    public Vector3 PerformMovement(ref  Vector3 playerVelocity, ref Vector3 direction, ref float speed, bool isAttacking)
+    {      
+        speed = sprintSpeed;
         if (!IsGrounded() || playerVelocity.y > 0)
         {      
-            playerVelocity += Vector3.up * Physics.gravity.y * Time.fixedDeltaTime;
+            playerVelocity += Vector3.up * Physics.gravity.y * Time.fixedDeltaTime *5;
             //_playerAnimation.Jump(_playerVelocityY.y);
         }
         else
@@ -50,13 +54,16 @@ public class PlayerView : MonoBehaviour
             Quaternion rot = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.fixedDeltaTime * inputAmount * rotationSpeed);
         }
-        if (Input.GetButtonDown("Walk/Run"))
-        {
-            if (speed == sprintSpeed)
-                speed = walkSpeed;
-            else if (speed == walkSpeed)
-                speed = sprintSpeed;
-        }                                                                       
+        //if (Input.GetButtonDown("Walk/Run"))
+        //{
+        //    if (speed == sprintSpeed)
+        //        speed = walkSpeed;
+        //    else if (speed == walkSpeed)
+        //        speed = sprintSpeed;
+        //} 
+        if(isAttacking)
+            speed = walkSpeed;
+
         _playerRigidBody.velocity = (direction * speed * inputAmount) + playerVelocity;
 
         // Debug.Log(PlayerBody.velocity);

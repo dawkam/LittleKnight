@@ -13,9 +13,9 @@ public abstract class AnimationController
         this._animator = animator;
     }
     abstract public void Walk(float speed);
-    abstract public void FastAttack();
+    abstract public void PerformAttack1();
 
-    abstract public void StrongAttack();
+    abstract public void PerformAttack2();
 
     abstract public bool Jump(float velocityY);
 

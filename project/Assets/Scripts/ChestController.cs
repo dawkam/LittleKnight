@@ -18,15 +18,17 @@ public class ChestController : MonoBehaviour
         _lootController = LootModel.instance;
         _chestAnimation = GetComponentInChildren<ChestAnimation>();
 
-        //Store all Gameobjects in an array like this
-        Object[] allItems = Resources.LoadAll("Items");
-        int numberOfItems = Random.Range(1, 5);
-
-        for (int i = 0; i < numberOfItems; i++)
+        if (items.Count == 0)
         {
-            items.Add((Item)allItems[Random.Range(0, allItems.Length )]);
-        }
+            //Store all Gameobjects in an array like this
+            Object[] allItems = Resources.LoadAll("Items");
+            int numberOfItems = Random.Range(1, 5);
 
+            for (int i = 0; i < numberOfItems; i++)
+            {
+                items.Add((Item)allItems[Random.Range(0, allItems.Length)]);
+            }
+        }
     }
 
     private void OnTriggerStay(Collider other)

@@ -67,7 +67,7 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject);
 
         }
-        else if (alive)
+        else if (alive)//a nimacja śmierci nie odpali soię więcej niż raz
         {
             Die();
         }

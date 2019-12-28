@@ -8,13 +8,9 @@ public class PlayerAnimation : AnimationController
 
     public override void Die()
     {
-        throw new System.NotImplementedException();
+        _animator.SetTrigger("Die");
     }
 
-    public override void FastAttack()
-    {
-        throw new System.NotImplementedException();
-    }
 
     public override bool Jump(float velocityY) // return if hump is started
     {
@@ -34,21 +30,18 @@ public class PlayerAnimation : AnimationController
         return false;
     }
 
-    public override void StrongAttack()
-    {
-        throw new System.NotImplementedException();
-    }
+
 
     public override void Walk(float speed)
     {
         _animator.SetFloat("Speed", speed);
     }
 
-    public void PerformAttack1()
+    public override void PerformAttack1()
     {
         _animator.SetTrigger("Attack1");
     }
-    public void PerformAttack2()
+    public override void PerformAttack2()
     {
         _animator.SetTrigger("Attack2");
     }

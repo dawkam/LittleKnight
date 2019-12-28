@@ -56,7 +56,7 @@ public class InventoryController : MonoBehaviour
             }
             else
             {
-                Time.timeScale =  0.0f;
+                inventoryUI.SetActive(true);
                 inventoryUI.SetActive(true);
             }
 
@@ -66,6 +66,11 @@ public class InventoryController : MonoBehaviour
             Time.timeScale = 1.0f;
             inventoryUI.SetActive(false);
         }
+
+        if (inventoryUI.activeSelf)
+            Time.timeScale = 0.0f;
+        
+
     }
 
     void UpdateUI()
