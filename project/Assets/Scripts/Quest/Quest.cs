@@ -23,8 +23,6 @@ public class Quest : ScriptableObject
 
     public int maxProgress;
 
-
-
     private void OnEnable()
     {
         progress = 0;

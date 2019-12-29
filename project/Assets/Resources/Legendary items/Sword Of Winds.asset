@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505421d3797913041aa7860158e61a6e, type: 3}
   m_Name: Sword Of Winds
   m_EditorClassIdentifier: 
-  name: Sword Of Nature
+  name: Sword Of Winds
   icon: {fileID: 21300000, guid: a87a3b9144ec2424fb24bd6cba9296b2, type: 3}
   isDefault: 0
-  prefab: {fileID: 631932545879735057, guid: bbee2f94bbc9bdf44ae88175753c4d2b, type: 3}
+  prefab: {fileID: 631932545879735057, guid: d78f48fbbe9726d41989ebc549856833, type: 3}
   physicalDamage: 100
   fireDamage: 0
   waterDamage: 0
-  earthDamage: 250
-  airDamage: 0
+  earthDamage: 0
+  airDamage: 250
