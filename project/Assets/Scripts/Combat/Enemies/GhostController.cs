@@ -11,7 +11,7 @@ public class GhostController : EnemyController
         _enemyModel = GetComponent<EnemyModel>();
         _enemyView = GetComponent<EnemyView>();
         if(_enemyModel != null)
-        _enemyModel.characterName = "Ghost";
+        //_enemyModel.characterName = "Ghost";
         _healthBar.SetName(_enemyModel.characterName);
     }
 
