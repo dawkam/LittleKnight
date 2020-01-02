@@ -11829,7 +11829,7 @@ MonoBehaviour:
   firePoint: {fileID: 7440340699358268515}
   projectileSpeed: 30
   projectileLifeSpawn: 3
-  projectile: {fileID: 1564851882551653276, guid: 82a73bd79d15aed40b66e63b8d491708,
+  projectile: {fileID: 1564851882551653276, guid: 81ca4995e0371c04d8ea6872533cb6f1,
     type: 3}
   exp: 10000
 --- !u!114 &186717843192309782

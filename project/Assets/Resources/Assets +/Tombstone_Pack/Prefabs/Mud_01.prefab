@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4563204197245340}
   - component: {fileID: 33578490966128598}
   - component: {fileID: 23930194202961714}
+  - component: {fileID: 248757736247953389}
   m_Layer: 0
   m_Name: Mud_01
   m_TagString: Untagged
@@ -78,3 +79,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &248757736247953389
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673173391502366}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.656197, y: 0.3304897, z: 10.403478}
+  m_Center: {x: 0.2800119, y: 0.20633963, z: -0.22727823}

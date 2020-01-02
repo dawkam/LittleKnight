@@ -81,8 +81,7 @@ public class EquipmentController : MonoBehaviour
             }
             else if (notification.IsFree())
             {
-                notification.SetText("There is no space in your inventory.");
-                notification.ActiveOk();
+                notification.ActiveOk("There is no space in your inventory.");
             }
         }
     }

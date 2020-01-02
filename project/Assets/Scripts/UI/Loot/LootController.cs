@@ -110,8 +110,7 @@ public class LootController : MonoBehaviour
         }
         else if(_notification.IsFree())
         {
-            _notification.SetText("There is no space in your inventory.");
-            _notification.ActiveOk();
+            _notification.ActiveOk("There is no space in your inventory.");
         }
 
     }

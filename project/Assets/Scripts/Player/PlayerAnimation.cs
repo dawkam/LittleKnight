@@ -50,4 +50,9 @@ public class PlayerAnimation : AnimationController
     {
         return _animator.GetCurrentAnimatorStateInfo(0).IsName("Attack1") || _animator.GetCurrentAnimatorStateInfo(0).IsName("Attack2");
     }
+
+    public bool DieAnimationEnd()
+    {
+        return _animator.GetCurrentAnimatorStateInfo(0).IsName("Die") && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f;
+    }
 }

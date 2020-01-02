@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4833898083488800}
   - component: {fileID: 33778698736633920}
   - component: {fileID: 23539595810877020}
+  - component: {fileID: 1782893115998430745}
   m_Layer: 0
   m_Name: coffin_01
   m_TagString: Untagged
@@ -78,3 +79,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &1782893115998430745
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839972693036966}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.8199024, y: 2.160859, z: 12.140018}
+  m_Center: {x: -0.008179307, y: 1.0950303, z: 0.27656913}

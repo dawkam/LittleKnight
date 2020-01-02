@@ -23,8 +23,7 @@ public class NPC : MonoBehaviour
         {
             if (NotificationText != "")
             {
-                notification.SetText(NotificationText);
-                notification.ActiveOk();
+                notification.ActiveOk(NotificationText);
             }
             questLogController.AddQuest(quest);
             if (_questionMark != null)

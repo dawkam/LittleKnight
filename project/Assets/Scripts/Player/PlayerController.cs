@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _playerVelocityY;
 
     public Collider weapon;
+    public GameObject GameOverSreen;
 
     private bool alive;
 
@@ -85,6 +86,10 @@ public class PlayerController : MonoBehaviour
         {
             alive = false;
             _playerAnimation.Die();
+            
+        }else if (_playerAnimation.DieAnimationEnd())
+        {
+            GameOverSreen.SetActive(true);
         }
         
     }

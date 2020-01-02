@@ -39,7 +39,7 @@ public class Elements
         float result = 0;
         for (int i = 0; i < elements.Count; i++)
         {
-            result += (other.elements[i] - other.elements[i] * elements[i]);
+            result += (other.elements[i] - other.elements[i] * elements[i]/100);
         }
         return result;
     }

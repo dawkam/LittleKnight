@@ -130,10 +130,9 @@ public class InventoryController : MonoBehaviour
     {
         if (notification.IsFree())
         {
-            notification.SetText("Do you really want remove this item?");
             object[] tmp = new object[1];
             tmp[0] = inventorySlot.GetItem();
-            notification.ActiveYesNo((Action<Item>)_inventoryModel.RemoveInventoryItem, tmp);
+            notification.ActiveYesNo((Action<Item>)_inventoryModel.RemoveInventoryItem, tmp, "Do you really want remove this item?");
         }
     }
 
@@ -152,4 +151,13 @@ public class InventoryController : MonoBehaviour
         _inventoryModel.AddInventoryItem(item);
     }
 
+    public bool ContainsItem(Item item)
+    {
+        return _inventoryModel.ContainsItem(item);
+    }
+
+    public void RemoveItem(Item item)
+    {
+        _inventoryModel.RemoveInventoryItem(item);
+    }
 }

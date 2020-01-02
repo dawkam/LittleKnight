@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4922311978429774}
   - component: {fileID: 33527918168935006}
   - component: {fileID: 23536956875426654}
+  - component: {fileID: 3482273125759431154}
   m_Layer: 0
   m_Name: Tombstone_11
   m_TagString: Untagged
@@ -78,3 +79,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &3482273125759431154
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943977553285964}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.486741, y: 1.3750463, z: 11.080078}
+  m_Center: {x: 0.0003002882, y: 0.62005174, z: 0.0016551018}

@@ -61,17 +61,12 @@ public class Notification :MonoBehaviour
 
     }
 
-
-    public void SetText(string text)
-    {
-        _text.text = text;
-    }
-
-    public void ActiveYesNo(Delegate action, object[] parameters)
+    public void ActiveYesNo(Delegate action, object[] parameters, string text)
     {
 
         if (!notificationWindow.activeSelf)
         {
+            _text.text = text;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
             _action = action;
@@ -86,11 +81,12 @@ public class Notification :MonoBehaviour
             Debug.LogWarning("Istnieje już jedno powiadomienie");
         }
     }
-    public void ActiveOk()
+    public void ActiveOk(string text)
     {
 
         if (!notificationWindow.activeSelf)
         {
+            _text.text = text;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
             _action = default;

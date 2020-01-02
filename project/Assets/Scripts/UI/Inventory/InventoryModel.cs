@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class InventoryModel : MonoBehaviour
 {
@@ -62,6 +63,11 @@ public class InventoryModel : MonoBehaviour
         inventoryItems.Remove(item);
         if (onInventoryItemChangedCallback != null)
             onInventoryItemChangedCallback.Invoke();
+    }
+
+    public bool ContainsItem(Item item)
+    {
+        return inventoryItems.Contains(item);
     }
     #endregion
 }
