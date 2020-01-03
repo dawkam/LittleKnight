@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
         _healthBar = GetComponent<HealthBar>();
         _speed = _playerModel.sprintSpeed;
         alive = true;
+        _healthBar.SetMaxProgress(_playerModel.expToNextLvl.ToString());
     }
 
     void FixedUpdate()
@@ -142,7 +143,9 @@ public class PlayerController : MonoBehaviour
             Instantiate(_playerView.LvlUpEffect, this.transform);
             _healthBar.SetLvl(_playerModel.level.ToString());
             _healthBar.SetSize(_playerModel.CurrentHealth / _playerModel.baseHealth);
+            _healthBar.SetMaxProgress(_playerModel.expToNextLvl.ToString());
         }
+        _healthBar.SetProgress(_playerModel.exp.ToString());
     }
 
 

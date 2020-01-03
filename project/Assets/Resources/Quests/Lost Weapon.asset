@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32fbb6e6aa8f4ca4ea3a7e1cfcb2a856, type: 3}
+  m_Name: Lost Weapon
+  m_EditorClassIdentifier: 
+  title: Lost Weapon
+  description: Once the weapon from distant lands was stolen. Find it and it will
+    be yours
+  itemReward: {fileID: 11400000, guid: dda280c7b603cb34f8e9544871ddcbe1, type: 2}
+  expReward: 100
+  isCompleted: 0
+  nextQuest: {fileID: 0}
+  goalName: Katana
+  progress: 0
+  maxProgress: 1

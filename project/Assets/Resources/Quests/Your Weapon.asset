@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32fbb6e6aa8f4ca4ea3a7e1cfcb2a856, type: 3}
-  m_Name: FistQ
+  m_Name: Your Weapon
   m_EditorClassIdentifier: 
-  title: Good start!
-  description: Begining.
-  itemReward: {fileID: 11400000, guid: cc80eac0a1faebd44b4c66ebba6ad5e2, type: 2}
-  expReward: 10
-  isCompleted: 0
-  nextQuest: {fileID: 11400000, guid: 57992c13a0150304e9d4c57517c58e9c, type: 2}
-  goalName: Ghost
-  progress: 0
+  title: Your Weapon
+  description: Someone stole your weapon and hid it. Find stolen weapon.
+  itemReward: {fileID: 11400000, guid: 9be8eced6866b39428a558cd797af446, type: 2}
+  expReward: 50
+  isCompleted: 1
+  nextQuest: {fileID: 11400000, guid: 84a5b7b26eff6934fa827b26b7b2ab3e, type: 2}
+  goalName: Simple Sword
+  progress: 1
   maxProgress: 1

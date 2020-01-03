@@ -160,4 +160,9 @@ public class InventoryController : MonoBehaviour
     {
         _inventoryModel.RemoveInventoryItem(item);
     }
+
+    public int CountOfItem(string name)
+    {
+        return _inventoryModel.CountOfItem(name) + _equipmentController.CountOfItem(name);
+    }
 }

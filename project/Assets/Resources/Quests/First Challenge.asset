@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32fbb6e6aa8f4ca4ea3a7e1cfcb2a856, type: 3}
-  m_Name: SecondQ
+  m_Name: First Challenge
   m_EditorClassIdentifier: 
-  title: Blacksmith
-  description: Find a lengendary swords.
-  itemReward: {fileID: 11400000, guid: 9be8eced6866b39428a558cd797af446, type: 2}
-  expReward: 1000
-  isCompleted: 1
-  prevQuest: {fileID: 0}
-  nextQuest: {fileID: 0}
-  goalName: Sword Of Flames
-  progress: 1
+  title: First Challenge
+  description: You finally have weapon. Now it is time to tested it.
+  itemReward: {fileID: 11400000, guid: 3007cc1471ee7554987aaca3b8594397, type: 2}
+  expReward: 50
+  isCompleted: 0
+  nextQuest: {fileID: 11400000, guid: 6e8f7ce145683294e84e88bd00d7396c, type: 2}
+  goalName: Ghost
+  progress: 0
   maxProgress: 1

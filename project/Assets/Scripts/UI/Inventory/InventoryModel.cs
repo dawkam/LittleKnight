@@ -69,5 +69,10 @@ public class InventoryModel : MonoBehaviour
     {
         return inventoryItems.Contains(item);
     }
+
+    public int CountOfItem(string item)
+    {
+        return inventoryItems.Where(x => x.name == item).Count();
+    }
     #endregion
 }

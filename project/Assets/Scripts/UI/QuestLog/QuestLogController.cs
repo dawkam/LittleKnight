@@ -59,6 +59,11 @@ public class QuestLogController : MonoBehaviour
         if (_questLogModel.AddQuest(quest))
         {
             _questLogView.AddQuest(quest);
+            int countOfItems = _inventoryController.CountOfItem(quest.goalName);
+            for (int i = 0; i < countOfItems; i++)
+            {
+                CheckGoal(quest.goalName);
+            }
         }
     }
 

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32fbb6e6aa8f4ca4ea3a7e1cfcb2a856, type: 3}
+  m_Name: Sword Of Waves
+  m_EditorClassIdentifier: 
+  title: Sword Of Waves
+  description: Old captain was buried on cemetery before undead started inhabit there.
+    He was a person who brings sword from sea long. His last wish was to be buried
+    with it. Find it.
+  itemReward: {fileID: 11400000, guid: 06d90c1fcfaa13641ae51aa5a4d2029b, type: 2}
+  expReward: 100
+  isCompleted: 1
+  nextQuest: {fileID: 11400000, guid: a615dd16a8cf14d4b9857304ad0903cf, type: 2}
+  goalName: Sword Of Waves
+  progress: 1
+  maxProgress: 1

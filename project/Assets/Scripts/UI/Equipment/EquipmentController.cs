@@ -12,59 +12,59 @@ public class EquipmentController : MonoBehaviour
     public GameObject equipmentUI;
 
     private PlayerController _playerController;
-    private Notification notification;
+    private Notification _notification;
 
-    private EquipmentModel equipmentModel;
-    private EquipmentView equipmentView;
+    private EquipmentModel _equipmentModel;
+    private EquipmentView _equipmentView;
 
-    private InventoryController inventoryController;// do zmiany
+    private InventoryController _inventoryController;// do zmiany
 
-    EquipmentSlot[] slots; // inventory slots pełnią funkcije widoku, 0 - hełm, 1 - tors, 2 - buty, 3 - broń
+    private EquipmentSlot[] _slots; // inventory slots pełnią funkcije widoku, 0 - hełm, 1 - tors, 2 - buty, 3 - broń
 
     private void Start()
     {
-        equipmentModel = EquipmentModel.instance;
-        equipmentModel.onEquipmentItemChangedCallback += UpdateUI;
-        equipmentModel.onEquipmentItemChangedCallback += GetStats;
+        _equipmentModel = EquipmentModel.instance;
+        _equipmentModel.onEquipmentItemChangedCallback += UpdateUI;
+        _equipmentModel.onEquipmentItemChangedCallback += GetStats;
 
-        equipmentView = GetComponent<EquipmentView>();
+        _equipmentView = GetComponent<EquipmentView>();
 
-        inventoryController = InventoryController.instance;
-        slots = itemsParent.GetComponentsInChildren<EquipmentSlot>();
+        _inventoryController = InventoryController.instance;
+        _slots = itemsParent.GetComponentsInChildren<EquipmentSlot>();
 
         GameObject player = GameObject.FindGameObjectsWithTag("Player").FirstOrDefault();
         _playerController = player.GetComponent(typeof(PlayerController)) as PlayerController;
 
         SetDescription();
 
-        notification = Notification.instance;
+        _notification = Notification.instance;
     }
 
     void UpdateUI()
     {
-        if (equipmentModel.armorList[0] != null)
+        if (_equipmentModel.armorList[0] != null)
         {
-            slots[0].AddItem(equipmentModel.armorList[0]);
+            _slots[0].AddItem(_equipmentModel.armorList[0]);
 
         }
         else
-            slots[0].ClearSlot();
+            _slots[0].ClearSlot();
 
-        if (equipmentModel.armorList[1] != null)
-            slots[1].AddItem(equipmentModel.armorList[1]);
+        if (_equipmentModel.armorList[1] != null)
+            _slots[1].AddItem(_equipmentModel.armorList[1]);
         else
-            slots[1].ClearSlot();
+            _slots[1].ClearSlot();
 
-        if (equipmentModel.armorList[2] != null)
-            slots[2].AddItem(equipmentModel.armorList[2]);
+        if (_equipmentModel.armorList[2] != null)
+            _slots[2].AddItem(_equipmentModel.armorList[2]);
         else
-            slots[2].ClearSlot();
-        if (equipmentModel.weapon != null)
+            _slots[2].ClearSlot();
+        if (_equipmentModel.weapon != null)
         {
-            slots[3].AddItem(equipmentModel.weapon);
+            _slots[3].AddItem(_equipmentModel.weapon);
         }
         else
-            slots[3].ClearSlot();
+            _slots[3].ClearSlot();
 
     }
 
@@ -73,21 +73,21 @@ public class EquipmentController : MonoBehaviour
         Item item = equipmentSlot.GetItem();
         if (item != null)
         {
-            if (inventoryController.GetItemsCount() != inventoryController.GetInventorySize())
+            if (_inventoryController.GetItemsCount() != _inventoryController.GetInventorySize())
             {
                 item.UnEquip();
-                equipmentModel.RemoveItem(item);
-                inventoryController.AddInventoryItem(item);
+                _equipmentModel.RemoveItem(item);
+                _inventoryController.AddInventoryItem(item);
             }
-            else if (notification.IsFree())
+            else if (_notification.IsFree())
             {
-                notification.ActiveOk("There is no space in your inventory.");
+                _notification.ActiveOk("There is no space in your inventory.");
             }
         }
     }
     public void GetStats()
     {
-        List<Armor> armors = equipmentModel.armorList;
+        List<Armor> armors = _equipmentModel.armorList;
 
         Elements fullArmor = new Elements(0, 0, 0, 0, 0);
         foreach (Armor armor in armors)
@@ -97,8 +97,8 @@ public class EquipmentController : MonoBehaviour
         }
         _playerController.ChangeCurrentArmor(fullArmor);
 
-        if (equipmentModel.weapon != null)
-            _playerController.ChangeCurrentDamage(new Elements(equipmentModel.weapon.damage));
+        if (_equipmentModel.weapon != null)
+            _playerController.ChangeCurrentDamage(new Elements(_equipmentModel.weapon.damage));
         else
             _playerController.ChangeCurrentDamage(new Elements(0, 0, 0, 0, 0));
         SetDescription();
@@ -108,17 +108,22 @@ public class EquipmentController : MonoBehaviour
     private void SetDescription()
     {
         string[] stats = _playerController.GetStats();
-        equipmentView.SetDescription(stats);
+        _equipmentView.SetDescription(stats);
 
     }
 
     public Armor AddArmor(Armor armor)
     {
-        return equipmentModel.AddArmor(armor);
+        return _equipmentModel.AddArmor(armor);
     }
 
     public Weapon AddWeapon(Weapon weapon)
     {
-        return equipmentModel.AddWeapon(weapon);
+        return _equipmentModel.AddWeapon(weapon);
+    }
+
+    public int CountOfItem(string name)
+    {
+        return _equipmentModel.CountOfItem(name);
     }
 }

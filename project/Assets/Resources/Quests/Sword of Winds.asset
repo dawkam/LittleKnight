@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32fbb6e6aa8f4ca4ea3a7e1cfcb2a856, type: 3}
+  m_Name: Sword of Winds
+  m_EditorClassIdentifier: 
+  title: Sword of Winds
+  description: Desert wasn't created by only one legendary power. The second one was
+    the Sword of Winds. When Sword of Flames was turned against it huge disaster has
+    happened. After this no one dares to visit that place. Find it.
+  itemReward: {fileID: 11400000, guid: f60e3d47efc97ef4da2f924e52c63ec6, type: 2}
+  expReward: 100
+  isCompleted: 0
+  nextQuest: {fileID: 0}
+  goalName: Sword Of Winds
+  progress: 0
+  maxProgress: 1

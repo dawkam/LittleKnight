@@ -135,5 +135,16 @@ public class EquipmentModel : MonoBehaviour
         return oldArmor;
     }
 
+    public int CountOfItem(string name)
+    {
+        int result = 0;
+        if (weapon != null)
+        {
+            result = (weapon.name == name ? 1 : 0);
+        }
+        result += armorList.Where(x =>x !=null && x.name == name).Count();
+        return   result ;
+    }
+
 }
 

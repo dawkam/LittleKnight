@@ -39,6 +39,7 @@ public class Quest : ScriptableObject
                 questLogController.AddQuest(nextQuest);
             }
             isCompleted = true;
+            Notification.instance.ActiveOk("you have completed quest ,," + title + "\".");
             return true; ;
         }
         else return false;

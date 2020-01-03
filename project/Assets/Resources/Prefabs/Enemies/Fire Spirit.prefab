@@ -7060,11 +7060,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Fire Spirit
   baseHealth: 200
-  basePhysicalArmor: 0
-  baseFireArmor: 80
+  basePhysicalArmor: 100
+  baseFireArmor: 100
   baseWaterArmor: 0
   baseEarthArmor: 0
-  baseAirArmor: 0
+  baseAirArmor: 100
   basePhysicalDamage: 1
   baseFireDamage: 2
   baseWaterDamage: 1

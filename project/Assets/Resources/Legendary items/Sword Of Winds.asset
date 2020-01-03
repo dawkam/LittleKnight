@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sword Of Winds
   m_EditorClassIdentifier: 
   name: Sword Of Winds
-  icon: {fileID: 21300000, guid: a87a3b9144ec2424fb24bd6cba9296b2, type: 3}
+  icon: {fileID: 21300000, guid: 62cb41d2eceb45d4584121629cb58ded, type: 3}
   isDefault: 0
   prefab: {fileID: 631932545879735057, guid: d78f48fbbe9726d41989ebc549856833, type: 3}
   physicalDamage: 100
