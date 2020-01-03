@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Your Weapon
   m_EditorClassIdentifier: 
   title: Your Weapon
-  description: Someone stole your weapon and hid it. Find stolen weapon.
+  description: The ritual of summoning you wasn't complete, your weapon was too powerful.
+    We can only offer you sword one of our squire. Go to the chest behind training
+    field and take it.
   itemReward: {fileID: 11400000, guid: 9be8eced6866b39428a558cd797af446, type: 2}
   expReward: 50
-  isCompleted: 1
+  isCompleted: 0
   nextQuest: {fileID: 11400000, guid: 84a5b7b26eff6934fa827b26b7b2ab3e, type: 2}
   goalName: Simple Sword
-  progress: 1
+  progress: 0
   maxProgress: 1

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Lost Weapon
   description: Once the weapon from distant lands was stolen. Find it and it will
-    be yours
+    be yours.
   itemReward: {fileID: 11400000, guid: dda280c7b603cb34f8e9544871ddcbe1, type: 2}
   expReward: 100
   isCompleted: 0

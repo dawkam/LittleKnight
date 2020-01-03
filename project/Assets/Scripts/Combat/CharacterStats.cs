@@ -45,7 +45,7 @@ public class CharacterStats : MonoBehaviour
         float damage = armor.GetTrueDamage(incomeDamage);
 
         CurrentHealth -= damage;
-        Debug.Log(transform.name + " takes " + damage + " damage.");
+        //Debug.Log(transform.name + " takes " + damage + " damage.");
 
         CurrentHealth = CurrentHealth < 0 ? CurrentHealth = 0 : CurrentHealth;
 
@@ -56,7 +56,7 @@ public class CharacterStats : MonoBehaviour
         if (CurrentHealth != baseHealth)
         {
             CurrentHealth += healValue;
-            Debug.Log(transform.name + healValue + " healed.");
+            //Debug.Log(transform.name + healValue + " healed.");
             if (CurrentHealth > baseHealth)
                 CurrentHealth = baseHealth;
 

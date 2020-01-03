@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Save World!
   description: We finally summoned you Mighty Little Knight. You have to save us.
-    Power of Legendaries powers of swords brings to our World Powerful enemy - Light
-    Spirt. Humans can't handle power of more than one Legendery weapon, but to create
-    weapon which is able to defeat him we need every Legndary weapons. Now he is prisoned,
-    but not for long. Create Exodia - legendery Sword Of Death and defeat Light Spirit.
+    Power of Legendaries swords brings to our World powerful enemy - Light Spirt.
+    Humans can't handle power of more than one Legendery weapon, but to create weapon
+    which is able to defeat him we need every Legndary weapons. Now he is prisoned,
+    but not for long. Create Exodia - legendery Sword Of Death and defeat the Light
+    Spirit.
   itemReward: {fileID: 11400000, guid: 844cb0cfcd86597429196109bf9fd2c9, type: 2}
   expReward: 0
   isCompleted: 0

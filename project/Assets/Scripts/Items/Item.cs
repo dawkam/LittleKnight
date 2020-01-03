@@ -9,7 +9,7 @@ public class Item : ScriptableObject
     public string description;
     public virtual void Use()
     {
-        Debug.Log("Using " + name);
+        //Debug.Log("Using " + name);
     }
 
     public virtual string GetDescription()

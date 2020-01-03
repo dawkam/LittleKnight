@@ -15,8 +15,8 @@ MonoBehaviour:
   title: Sword Of Flames
   description: Fire is very unsteady and danger element. Legendary Sword of Flames
     was used long ago by inexperienced knight, his lack of discipline change half
-    of our World into desert. After that sword split in Fire spirits. Kill them and
-    gather their essence to create this sword.
+    of our World into desert. After that sword split into Fire spirits. Kill them
+    and gather their essence to create this sword.
   itemReward: {fileID: 11400000, guid: 643e88498db9d184eaab345d7e719a07, type: 2}
   expReward: 0
   isCompleted: 0

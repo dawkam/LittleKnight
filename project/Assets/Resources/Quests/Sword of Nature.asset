@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Sword of Nature
   m_EditorClassIdentifier: 
   title: Sword of Nature
-  description: If u want save the World, you have to gather all five legendary weapons
+  description: If you want save the World, you have to gather all five legendary weapons
     and create forbidden Sword of Death - Exodia. First of them is guarded by cursed
-    souls on cemetery. To get reward uyou have to purge that place.
+    souls on cemetery. To get reward you have to purge that place.
   itemReward: {fileID: 11400000, guid: 2d2cb0e1c1604e34282cb9d9caa91a17, type: 2}
   expReward: 100
   isCompleted: 0
