@@ -2,7 +2,6 @@
 
 public class CameraView : MonoBehaviour
 {
-    // Start is called before the first frame update
 
     public void HandleZoom(ref float zoom, float zoomMin , float zoomMax, float zoomSpeed, float zoomRoughness)
     {

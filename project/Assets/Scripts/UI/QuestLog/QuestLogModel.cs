@@ -20,6 +20,8 @@ public class QuestLogModel : MonoBehaviour
     }
     #endregion
 
+    public Transform questsParent;
+    public GameObject questLogUI;
 
     private List<Quest> quests = new List<Quest>();
 

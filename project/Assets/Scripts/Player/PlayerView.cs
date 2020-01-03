@@ -8,10 +8,9 @@ public class PlayerView : MonoBehaviour
     private Collider _collider;
 
     private Camera _playerCamera;
-    public GameObject LvlUpEffect;
-    public float rotationSpeed;
-    public float walkSpeed;
-    public float sprintSpeed;
+    private float rotationSpeed;
+    private float walkSpeed;
+    private float sprintSpeed;
     public void Awake()
     {
         _playerCamera = Camera.main;
@@ -100,5 +99,10 @@ public class PlayerView : MonoBehaviour
         return Input.GetButtonDown("Fire2") && IsGrounded();
     }
 
-
+    public void SetSpeeds(float walkSpeed, float sprintSpeed, float rotationSpeed)
+    {
+        this.walkSpeed = walkSpeed;
+        this.sprintSpeed = sprintSpeed;
+        this.rotationSpeed = rotationSpeed;
+    }
 }

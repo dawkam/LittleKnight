@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
-    public Transform itemsParent;
-    public GameObject inventoryUI;
 
     private Notification notification;
 
@@ -14,7 +12,7 @@ public class InventoryController : MonoBehaviour
     private EquipmentController _equipmentController;
 
     private InventorySlot[] slots;  // inventory slots pełnią funkcije widoku
-                                    // Start is called before the first frame update
+                                    
 
     #region Singleton
     public static InventoryController instance;
@@ -37,11 +35,11 @@ public class InventoryController : MonoBehaviour
         _inventoryModel.onInventoryItemChangedCallback += UpdateUI;
 
         _equipmentController = GetComponentInChildren<EquipmentController>();
-        slots = itemsParent.GetComponentsInChildren<InventorySlot>();
+        slots = _inventoryModel.itemsParent.GetComponentsInChildren<InventorySlot>();
 
         notification = Notification.instance;
 
-        inventoryUI.SetActive(false);
+        _inventoryModel.inventoryUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -49,25 +47,25 @@ public class InventoryController : MonoBehaviour
     {
         if (Input.GetButtonDown("Inventory"))
         {
-            if (inventoryUI.activeSelf)
+            if (_inventoryModel.inventoryUI.activeSelf)
             {
-                inventoryUI.SetActive(false);
+                _inventoryModel.inventoryUI.SetActive(false);
                 Time.timeScale = 1.0f;
             }
             else
             {
-                inventoryUI.SetActive(true);
-                inventoryUI.SetActive(true);
+                _inventoryModel.inventoryUI.SetActive(true);
+                _inventoryModel.inventoryUI.SetActive(true);
             }
 
         }
         if (Input.GetButtonDown("Cancel"))
         {
             Time.timeScale = 1.0f;
-            inventoryUI.SetActive(false);
+            _inventoryModel.inventoryUI.SetActive(false);
         }
 
-        if (inventoryUI.activeSelf)
+        if (_inventoryModel.inventoryUI.activeSelf)
             Time.timeScale = 0.0f;
         
 
@@ -92,7 +90,7 @@ public class InventoryController : MonoBehaviour
 
     public void CloseInventory()
     {
-        inventoryUI.SetActive(false);
+        _inventoryModel.inventoryUI.SetActive(false);
     }
 
     public void UseItem(InventorySlot inventorySlot)

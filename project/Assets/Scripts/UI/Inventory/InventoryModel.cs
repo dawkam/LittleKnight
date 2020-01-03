@@ -20,12 +20,16 @@ public class InventoryModel : MonoBehaviour
 
     #endregion
 
+    public Transform itemsParent;
+    public GameObject inventoryUI;
+
     public delegate void OnInventoryItemChanged();
     public OnInventoryItemChanged onInventoryItemChangedCallback;
 
     public List<Item> inventoryItems;
 
     public int inventorySize;
+
 
     #region Inventory
     public bool AddInventoryItem(Item item)

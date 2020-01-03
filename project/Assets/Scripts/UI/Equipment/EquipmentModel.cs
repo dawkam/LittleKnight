@@ -19,12 +19,16 @@ public class EquipmentModel : MonoBehaviour
     }
     #endregion
 
+    [Header("System")]
+    public Transform itemsParent;
+    public GameObject equipmentUI;
+
     public delegate void OnEquipmentItemChanged();
     public OnEquipmentItemChanged onEquipmentItemChangedCallback;
 
+    [Header("Equipment")]
     public Weapon weapon;
     public List<Armor> armorList = new List<Armor>(3); // 3 sloty hełm, zbroja, buty
-
     public Weapon AddWeapon(Weapon weapon)
     {
         Weapon oldWeapon = null;

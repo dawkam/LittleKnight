@@ -10,12 +10,15 @@ public class PlayerModel : CharacterStats
     public float rotationSpeed;
     public float jumpForce;
 
+    [Header("Level")]
     public int level = 1;
     public float exp = 0;
     public float expToNextLvl = 10;
     public float multiplier = 1.2f;
-
     public float healthPerLvl;
+
+    [Header("Effects")]
+    public GameObject LvlUpEffect;
     public string[] GetStats()
     {
         string[] stats = new string[4];

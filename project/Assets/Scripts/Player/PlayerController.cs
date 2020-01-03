@@ -15,10 +15,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 _playerVelocity;
     private Vector3 _playerVelocityY;
 
+    private bool alive;
+
     public Collider weapon;
     public GameObject GameOverSreen;
 
-    private bool alive;
 
     #region Singleton
     public static PlayerController instance;
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
         _playerAnimation = new PlayerAnimation(animator);
         _playerModel = GetComponent<PlayerModel>();
         _playerView = GetComponent<PlayerView>();
+        _playerView.SetSpeeds(_playerModel.walkSpeed, _playerModel.sprintSpeed, _playerModel.rotationSpeed);
         _healthBar = GetComponent<HealthBar>();
         _speed = _playerModel.sprintSpeed;
         alive = true;
@@ -140,7 +142,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_playerModel.AddExp(exp))
         {
-            Instantiate(_playerView.LvlUpEffect, this.transform);
+            Instantiate(_playerModel.LvlUpEffect, this.transform);
             _healthBar.SetLvl(_playerModel.level.ToString());
             _healthBar.SetSize(_playerModel.CurrentHealth / _playerModel.baseHealth);
             _healthBar.SetMaxProgress(_playerModel.expToNextLvl.ToString());

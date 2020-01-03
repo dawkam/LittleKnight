@@ -7,12 +7,10 @@ public class Door : MonoBehaviour
     public Item key;
     public GameObject door;
 
-    private Collider _collider;
     private Notification _notification;
     private InventoryController _inventoryController;
     private void Start()
     {
-        _collider = GetComponent<Collider>();
         _notification = Notification.instance;
         _inventoryController = InventoryController.instance;
     }

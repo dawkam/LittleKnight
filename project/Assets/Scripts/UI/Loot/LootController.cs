@@ -17,10 +17,6 @@ public class LootController : MonoBehaviour
     }
     #endregion
 
-
-    public Transform itemsParent;
-    public GameObject lootUI;
-
     private Notification _notification;
     private LootModel _lootModel;
     private InventoryModel _inventoryModel;
@@ -36,18 +32,18 @@ public class LootController : MonoBehaviour
         _lootModel.onLootItemChangedCallback += ActiveUI;
 
         _inventoryModel = InventoryModel.instance;
-        _slots = itemsParent.GetComponentsInChildren<LootSlot>();
+        _slots = _lootModel.itemsParent.GetComponentsInChildren<LootSlot>();
 
         _questLogController = QuestLogController.instance;
         _notification = Notification.instance;
 
-        lootUI.SetActive(false);
+        _lootModel.lootUI.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (lootUI.activeSelf)
+        if (_lootModel.lootUI.activeSelf)
             Time.timeScale = 0.0f; // po wyłączeniu ui eq czas nie wróci do normy
     }
 
@@ -75,12 +71,12 @@ public class LootController : MonoBehaviour
         if (_lootModel.waitingItems.Count != 0)
         {
             Time.timeScale = 0.0f;
-            lootUI.SetActive(true);
+            _lootModel.lootUI.SetActive(true);
         }
         else if (_lootModel.waitingItems.Count == 0)
         {
             Time.timeScale = 1.0f;
-            lootUI.SetActive(false);
+            _lootModel.lootUI.SetActive(false);
         }
     }
 

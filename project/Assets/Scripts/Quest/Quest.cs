@@ -8,6 +8,7 @@ public class Quest : ScriptableObject
 {
 
     public string title;
+    [TextArea]
     public string description;
 
     public Item itemReward;

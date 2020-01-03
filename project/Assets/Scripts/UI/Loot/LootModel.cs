@@ -21,6 +21,9 @@ public class LootModel : MonoBehaviour
     public delegate void OnLootItemChanged();
     public OnLootItemChanged onLootItemChangedCallback;
 
+    public Transform itemsParent;
+    public GameObject lootUI;
+
     public List<List<Item>> waitingItems;           // wykorzystywane przy np. otwarciu wielu skrzynek naraz. Są odczytywane po kolei od pozycji 0 po odczytaniu pozycja 0 jest usuwana i leci dalej   
     public int lootSize;
 

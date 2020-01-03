@@ -7,8 +7,7 @@ using System.Linq;
 
 public class QuestLogView : MonoBehaviour
 {
-    public Transform questsParent;
-    public GameObject questLogUI;
+    private Transform questsParent;
 
     public Text titleText;
     public Text descriptionText;
@@ -61,5 +60,10 @@ public class QuestLogView : MonoBehaviour
     public void UpdateProgress()
     {
         this.progressText.text = quest.progress.ToString();
+    }
+
+    public void SetQuestParent(Transform questsParent)
+    {
+        this.questsParent = questsParent;
     }
 }

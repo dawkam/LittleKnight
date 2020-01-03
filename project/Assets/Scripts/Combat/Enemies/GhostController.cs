@@ -10,7 +10,7 @@ public class GhostController : EnemyController
         _enemyAnimation = GetComponent<GhostAnimation>();
         _enemyModel = GetComponent<EnemyModel>();
         _enemyView = GetComponent<EnemyView>();
-        if(_enemyModel != null)
+        //if(_enemyModel != null)
         //_enemyModel.characterName = "Ghost";
         _healthBar.SetName(_enemyModel.characterName);
     }

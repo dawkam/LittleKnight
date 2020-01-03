@@ -5,8 +5,8 @@ public class Item : ScriptableObject
 {
     new public string name = "New item";
     public Sprite icon = null;
-    public bool isDefault = false;
-
+    //public bool isDefault = false;
+    public string description;
     public virtual void Use()
     {
         Debug.Log("Using " + name);
@@ -14,7 +14,7 @@ public class Item : ScriptableObject
 
     public virtual string GetDescription()
     {
-        return "No description";
+        return description;
     }
 
     public virtual string GetName()

@@ -28,32 +28,33 @@ public class QuestLogController : MonoBehaviour
     {
         _questLogModel = QuestLogModel.instance;
         _questLogView = GetComponent<QuestLogView>();
-        _questLogView.questLogUI.SetActive(false);
+        _questLogModel.questLogUI.SetActive(false);
+        _questLogView.SetQuestParent(_questLogModel.questsParent);
         _playerController = PlayerController.instance;
         _inventoryController = InventoryController.instance;
     }
-    void Update()
-    {
-        if (Input.GetButtonDown("Inventory"))
-        {
-            if (_questLogView.questLogUI.activeSelf)
-            {
-                _questLogView.questLogUI.SetActive(false);
-                Time.timeScale = 1.0f;
-            }
-            else
-            {
-                Time.timeScale = 0.0f;
-                _questLogView.questLogUI.SetActive(true);
-            }
+    //void Update()
+    //{
+    //    if (Input.GetButtonDown("Inventory"))
+    //    {
+    //        if (_questLogModel.questLogUI.activeSelf)
+    //        {
+    //            _questLogModel.questLogUI.SetActive(false);
+    //            Time.timeScale = 1.0f;
+    //        }
+    //        else
+    //        {
+    //            Time.timeScale = 0.0f;
+    //            _questLogModel.questLogUI.SetActive(true);
+    //        }
 
-        }
-        if (Input.GetButtonDown("Cancel"))
-        {
-            Time.timeScale = 1.0f;
-            _questLogView.questLogUI.SetActive(false);
-        }
-    }
+    //    }
+    //    if (Input.GetButtonDown("Cancel"))
+    //    {
+    //        Time.timeScale = 1.0f;
+    //        _questLogModel.questLogUI.SetActive(false);
+    //    }
+    //}
     public void AddQuest(Quest quest)
     {
         if (_questLogModel.AddQuest(quest))

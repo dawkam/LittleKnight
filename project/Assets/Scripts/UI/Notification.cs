@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Notification :MonoBehaviour
 {
-    public Text _text;
+    public Text text;
     public GameObject notificationWindow;
     public GameObject yesButton;
     public GameObject noButton;
@@ -66,7 +66,7 @@ public class Notification :MonoBehaviour
 
         if (!notificationWindow.activeSelf)
         {
-            _text.text = text;
+            this.text.text = text;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
             _action = action;
@@ -86,7 +86,7 @@ public class Notification :MonoBehaviour
 
         if (!notificationWindow.activeSelf)
         {
-            _text.text = text;
+            this.text.text = text;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
             _action = default;

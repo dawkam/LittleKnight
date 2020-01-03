@@ -7077,7 +7077,7 @@ MonoBehaviour:
   projectileLifeSpawn: 3
   projectile: {fileID: 1564851882551653276, guid: 82a73bd79d15aed40b66e63b8d491708,
     type: 3}
-  exp: 20
+  exp: 100
 --- !u!114 &186717843192309782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7092,6 +7092,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   helthBar: {fileID: 7083269489614743398}
   level: {fileID: 0}
+  progress: {fileID: 0}
+  maxProgress: {fileID: 0}
   name: {fileID: 2592887708507156792}
 --- !u!1 &9100375873086419865
 GameObject:

@@ -8,9 +8,7 @@ using static Notification;
 
 public class EquipmentController : MonoBehaviour
 {
-    public Transform itemsParent;
-    public GameObject equipmentUI;
-
+   
     private PlayerController _playerController;
     private Notification _notification;
 
@@ -30,7 +28,7 @@ public class EquipmentController : MonoBehaviour
         _equipmentView = GetComponent<EquipmentView>();
 
         _inventoryController = InventoryController.instance;
-        _slots = itemsParent.GetComponentsInChildren<EquipmentSlot>();
+        _slots = _equipmentModel.itemsParent.GetComponentsInChildren<EquipmentSlot>();
 
         GameObject player = GameObject.FindGameObjectsWithTag("Player").FirstOrDefault();
         _playerController = player.GetComponent(typeof(PlayerController)) as PlayerController;
