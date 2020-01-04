@@ -1797,6 +1797,7 @@ GameObject:
   - component: {fileID: 1317731209727967946}
   - component: {fileID: 1317731209727967945}
   - component: {fileID: 1317731209727967942}
+  - component: {fileID: 317315608}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1882,22 +1883,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165a50656e84eb74f884757ee8340f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: 
-  baseHealth: 0
+  characterName: Little Knight
+  baseHealth: 100
   basePhysicalArmor: 0
   baseFireArmor: 0
   baseWaterArmor: 0
   baseEarthArmor: 0
   baseAirArmor: 0
-  basePhysicalDamage: 0
-  baseFireDamage: 0
-  baseWaterDamage: 0
-  baseEarthDamage: 0
-  baseAirDamage: 0
+  basePhysicalDamage: 1
+  baseFireDamage: 1
+  baseWaterDamage: 1
+  baseEarthDamage: 1
+  baseAirDamage: 1
   sprintSpeed: 20
   walkSpeed: 5
   rotationSpeed: 20
   jumpForce: 10
+  level: 1
+  exp: 0
+  expToNextLvl: 100
+  multiplier: 1.2
+  healthPerLvl: 100
+  LvlUpEffect: {fileID: 2631772782701719902, guid: 481c9b716aec5f8409afb0f2ecb68928,
+    type: 3}
 --- !u!114 &1317731209727967945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1911,6 +1919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 0}
+  GameOverSreen: {fileID: 0}
 --- !u!114 &1317731209727967942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1923,6 +1932,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e16a48ec0847d49978ce4c4bf45dca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &317315608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7018975038297904149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab9f3593cf7b074a81c25cae86f715b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  helthBar: {fileID: 0}
+  level: {fileID: 0}
+  progress: {fileID: 0}
+  maxProgress: {fileID: 0}
+  name: {fileID: 0}
 --- !u!1 &7025015911419925457
 GameObject:
   m_ObjectHideFlags: 0
@@ -2367,7 +2393,7 @@ GameObject:
   - component: {fileID: 5462794910213746492}
   m_Layer: 0
   m_Name: Weapon.R
-  m_TagString: Untagged
+  m_TagString: WeaponPlace
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

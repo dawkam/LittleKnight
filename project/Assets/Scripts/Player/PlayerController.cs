@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,9 +36,7 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
         Animator animator = GetComponentInChildren<Animator>();//GetComponent<Animator>();
         _playerAnimation = new PlayerAnimation(animator);
@@ -49,6 +48,15 @@ public class PlayerController : MonoBehaviour
         alive = true;
         _healthBar.SetMaxProgress(_playerModel.expToNextLvl.ToString());
     }
+    // Start is called before the first frame update
+    //void Start()
+    //{
+    //    _playerView.SetSpeeds(_playerModel.walkSpeed, _playerModel.sprintSpeed, _playerModel.rotationSpeed);
+    //    _healthBar = GetComponent<HealthBar>();
+    //    _speed = _playerModel.sprintSpeed;
+    //    alive = true;
+    //    _healthBar.SetMaxProgress(_playerModel.expToNextLvl.ToString());
+    //}
 
     void FixedUpdate()
     {

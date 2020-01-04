@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Silent Killer
   icon: {fileID: 21300000, guid: c019ed02d56f7e449a2ed34b20f92672, type: 3}
-  isDefault: 0
-  prefab: {fileID: 0}
+  description: 
+  prefab: {fileID: 7371490912661639013, guid: 9cb1b9236f720734d9660187bfb5179c, type: 3}
   physicalDamage: 50
   fireDamage: 0
   waterDamage: 0

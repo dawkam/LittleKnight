@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class EnemyController : MonoBehaviour
     protected EnemyView _enemyView;
     protected EnemyAnimation _enemyAnimation;
     protected QuestLogController _questLogController;
-    protected bool alive;
+    protected bool _alive;
     protected HealthBar _healthBar;
     protected PlayerController _playerController;
 
@@ -20,7 +21,7 @@ public class EnemyController : MonoBehaviour
     {
         _target = GameObject.FindGameObjectWithTag("Player").transform;
         _questLogController = QuestLogController.instance;
-        alive = true;
+        _alive = true;
         _healthBar = GetComponent<HealthBar>();
         _playerController = PlayerController.instance;
 
@@ -67,9 +68,16 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject);
 
         }
-        else if (alive)//a nimacja śmierci nie odpali soię więcej niż raz
+        else if (_alive)//a nimacja śmierci nie odpali soię więcej niż raz
         {
             Die();
+        }
+        else if (_enemyModel.isBoss)
+        {
+            _enemyModel.text.text = "You save sthe World, congratulation!";
+            _enemyModel.gameOverSreen.GetComponent<Image>().color = new Color(0.4f, 0.6f, 0.8f); ;
+            _enemyModel.text.color = new Color(0.33f, 0.5f, 0.01f); ;
+            _enemyModel.gameOverSreen.SetActive(true);
         }
     }
 
@@ -100,7 +108,7 @@ public class EnemyController : MonoBehaviour
 
     public virtual void Die()
     {
-        alive = false;
+        _alive = false;
         _enemyAnimation.DieAnimation();
         _questLogController.CheckGoal(_enemyModel.characterName);
         _playerController.AddExp(_enemyModel.exp);

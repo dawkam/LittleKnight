@@ -33,28 +33,28 @@ public class QuestLogController : MonoBehaviour
         _playerController = PlayerController.instance;
         _inventoryController = InventoryController.instance;
     }
-    //void Update()
-    //{
-    //    if (Input.GetButtonDown("Inventory"))
-    //    {
-    //        if (_questLogModel.questLogUI.activeSelf)
-    //        {
-    //            _questLogModel.questLogUI.SetActive(false);
-    //            Time.timeScale = 1.0f;
-    //        }
-    //        else
-    //        {
-    //            Time.timeScale = 0.0f;
-    //            _questLogModel.questLogUI.SetActive(true);
-    //        }
+    void Update()
+    {
+        if (Input.GetButtonDown("Inventory"))
+        {
+            if (_questLogModel.questLogUI.activeSelf)
+            {
+                _questLogModel.questLogUI.SetActive(false);
+                Time.timeScale = 1.0f;
+            }
+            else
+            {
+                Time.timeScale = 0.0f;
+                _questLogModel.questLogUI.SetActive(true);
+            }
 
-    //    }
-    //    if (Input.GetButtonDown("Cancel"))
-    //    {
-    //        Time.timeScale = 1.0f;
-    //        _questLogModel.questLogUI.SetActive(false);
-    //    }
-    //}
+        }
+        if (Input.GetButtonDown("Cancel"))
+        {
+            Time.timeScale = 1.0f;
+            _questLogModel.questLogUI.SetActive(false);
+        }
+    }
     public void AddQuest(Quest quest)
     {
         if (_questLogModel.AddQuest(quest))

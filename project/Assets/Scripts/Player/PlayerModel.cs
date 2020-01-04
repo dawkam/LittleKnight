@@ -32,7 +32,7 @@ public class PlayerModel : CharacterStats
         {
         stats[1] += element.ToString() + "\n" ;
         }
-        stats[2] = "Phys. armor: " +
+        stats[2] = "Phys. damage: " +
             "\nAir damage: " +
             "\nWater damage: " +
             "\nFire damage: " +
@@ -60,7 +60,7 @@ public class PlayerModel : CharacterStats
     {
         level++;
         this.exp -= expToNextLvl;
-        expToNextLvl *= multiplier;
+        expToNextLvl = Mathf.Round(expToNextLvl * multiplier);
         baseHealth += healthPerLvl;
         CurrentHealth = baseHealth;
 

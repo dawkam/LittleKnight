@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyModel : CharacterStats
 {
@@ -11,8 +12,11 @@ public class EnemyModel : CharacterStats
     public float projectileLifeSpawn;
     public Projectile projectile;
 
+    public bool isBoss;
     public float exp;
 
+    public GameObject gameOverSreen;
+    public Text text;
     public double CurrentAttackCooldown { get; set; }
 
 

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-#if UNITY_EDITOR
-using UnityEditor.Events;
-#endif
+//using UnityEditor.Events;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -23,12 +21,13 @@ public class QuestLogSlot : MonoBehaviour
 
     public void SetButtonFunction()
     {
-#if UNITY_EDITOR
-        QuestLogController myScriptInstance = FindObjectOfType<QuestLogController>();
+
+        QuestLogController questLogController = QuestLogController.instance;
         var btn = GetComponent<Button>();
-        UnityAction<QuestLogSlot> action1 = new UnityAction<QuestLogSlot>(myScriptInstance.SetDescription);
-        UnityEventTools.AddObjectPersistentListener(btn.onClick, action1, this);
-#endif
+        btn.onClick.AddListener(delegate { questLogController.SetDescription(this); });
+        //UnityAction<QuestLogSlot> action1 = new UnityAction<QuestLogSlot>(myScriptInstance.SetDescription);
+        //UnityEventTools.AddObjectPersistentListener(btn.onClick, action1, this);
+
     }
 
     public void SetCompletedIcon()
