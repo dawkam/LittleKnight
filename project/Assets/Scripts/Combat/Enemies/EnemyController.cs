@@ -75,8 +75,8 @@ public class EnemyController : MonoBehaviour
         else if (_enemyModel.isBoss)
         {
             _enemyModel.text.text = "You save sthe World, congratulation!";
-            _enemyModel.gameOverSreen.GetComponent<Image>().color = new Color(0.4f, 0.6f, 0.8f); ;
-            _enemyModel.text.color = new Color(0.33f, 0.5f, 0.01f); ;
+            _enemyModel.gameOverSreen.GetComponent<Image>().color = new Color(0.4f, 0.6f, 0.8f); 
+            _enemyModel.text.color = new Color(0.6f, 0.8f, 0.4f); 
             _enemyModel.gameOverSreen.SetActive(true);
         }
     }
