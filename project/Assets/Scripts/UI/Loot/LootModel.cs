@@ -68,4 +68,10 @@ public class LootModel : MonoBehaviour
 
     #endregion
 
+    public int GetLootSize() 
+    {
+        return lootSize;
+    }
+
+
 }

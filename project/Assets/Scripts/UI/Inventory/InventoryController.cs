@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -12,7 +13,7 @@ public class InventoryController : MonoBehaviour
     private EquipmentController _equipmentController;
 
     private InventorySlot[] slots;  // inventory slots pełnią funkcije widoku
-                                    
+
 
     #region Singleton
     public static InventoryController instance;
@@ -67,7 +68,7 @@ public class InventoryController : MonoBehaviour
 
         if (_inventoryModel.inventoryUI.activeSelf)
             Time.timeScale = 0.0f;
-        
+
 
     }
 
@@ -100,9 +101,9 @@ public class InventoryController : MonoBehaviour
         {
             if (item.GetType() == typeof(Armor))
             {
-                Armor oldArmor =_equipmentController.AddArmor((Armor)item);
+                Armor oldArmor = _equipmentController.AddArmor((Armor)item);
                 _inventoryModel.RemoveInventoryItem(item);
-                if(oldArmor != null)
+                if (oldArmor != null)
                     _inventoryModel.AddInventoryItem(oldArmor);
             }
             else if (item.GetType() == typeof(Weapon))
@@ -144,9 +145,14 @@ public class InventoryController : MonoBehaviour
         return _inventoryModel.inventoryItems.Count;
     }
 
-    public void AddInventoryItem(Item item)
+    public bool AddInventoryItem(Item item)
     {
-        _inventoryModel.AddInventoryItem(item);
+        return _inventoryModel.AddInventoryItem(item);
+    }
+
+    public bool AddInventoryItems(List<Item> items)
+    {
+        return _inventoryModel.AddInventoryItems(items);
     }
 
     public bool ContainsItem(Item item)
@@ -163,4 +169,6 @@ public class InventoryController : MonoBehaviour
     {
         return _inventoryModel.CountOfItem(name) + _equipmentController.CountOfItem(name);
     }
+
+
 }

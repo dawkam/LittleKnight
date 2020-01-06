@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-public class ChestController : MonoBehaviour
+public class Chest : MonoBehaviour
 {
     public List<Item> items;
 
@@ -10,12 +10,12 @@ public class ChestController : MonoBehaviour
     private bool isOpennig;
 
     private ChestAnimation _chestAnimation;
-    private LootModel _lootController;
+    private LootController _lootController;
     private bool _endParticleOnScene;
 
     void Start()
     {
-        _lootController = LootModel.instance;
+        _lootController = LootController.instance;
         _chestAnimation = GetComponentInChildren<ChestAnimation>();
 
         if (items.Count == 0)
@@ -52,7 +52,7 @@ public class ChestController : MonoBehaviour
                 if (_chestAnimation != null)
                     _chestAnimation.OpenAnimation(isOpennig);
                 // show items
-                if (_lootController.lootSize < items.Count)
+                if (_lootController.GetLootSize() < items.Count)
                 {
                     Debug.LogError("Too many items in chest!");
 

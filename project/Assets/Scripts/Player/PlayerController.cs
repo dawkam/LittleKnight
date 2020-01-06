@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     private bool alive;
 
     public Collider weapon;
-    public GameObject GameOverSreen;
+    public GameObject gameOverSreen;
 
 
     #region Singleton
@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
             
         }else if (_playerAnimation.DieAnimationEnd())
         {
-            GameOverSreen.SetActive(true);
+            gameOverSreen.SetActive(true);
         }
         
     }

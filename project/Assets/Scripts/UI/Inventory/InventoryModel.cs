@@ -51,10 +51,8 @@ public class InventoryModel : MonoBehaviour
     {
         if (inventoryItems.Count + items.Count > inventorySize)
         {
-            Debug.LogWarning("Full inventory");
             return false;
         }
-
 
             inventoryItems.AddRange(items);
             

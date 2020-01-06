@@ -19,7 +19,7 @@ public class LootController : MonoBehaviour
 
     private Notification _notification;
     private LootModel _lootModel;
-    private InventoryModel _inventoryModel;
+    private InventoryController _inventoryController;
     private QuestLogController _questLogController;
 
     private LootSlot[] _slots; // inventory slots pełnią funkcije widoku
@@ -31,7 +31,7 @@ public class LootController : MonoBehaviour
         _lootModel.onLootItemChangedCallback += UpdateUI;
         _lootModel.onLootItemChangedCallback += ActiveUI;
 
-        _inventoryModel = InventoryModel.instance;
+        _inventoryController = InventoryController.instance;
         _slots = _lootModel.itemsParent.GetComponentsInChildren<LootSlot>();
 
         _questLogController = QuestLogController.instance;
@@ -52,7 +52,7 @@ public class LootController : MonoBehaviour
 
         for (int i = 0; i < _slots.Length; i++)
         {
-            if(_lootModel.waitingItems.Count != 0 && i < _lootModel.waitingItems[0].Count)
+            if (_lootModel.waitingItems.Count != 0 && i < _lootModel.waitingItems[0].Count)
             {
                 _slots[i].AddItem(_lootModel.waitingItems[0][i]);
             }
@@ -63,7 +63,7 @@ public class LootController : MonoBehaviour
             }
 
         }
-       // lootSystem.waitingItems.RemoveAt(0);
+        // lootSystem.waitingItems.RemoveAt(0);
     }
 
     void ActiveUI()
@@ -82,29 +82,47 @@ public class LootController : MonoBehaviour
 
     public void TakeAllItemsFromWaitingList()
     {
-        if (_inventoryModel.AddInventoryItems(_lootModel.waitingItems[0]))
+        List<Item> items = _lootModel.waitingItems[0];
+        if (_inventoryController.AddInventoryItems(items))
         {
+            foreach (Item item in items)
+            {
+                _questLogController.CheckGoal(item.name);
+            }
             _lootModel.TakeAllItems();
-        }else
+        }
+        else
         {
-            //alert
+            _notification.ActiveOk("There is no space in your inventory.");
         }
     }
 
-    public void CloseLoot()
+    public void AddWaitingItems(ref List<Item> items) 
+    {
+        _lootModel.AddWaitingItems(ref items);
+    }
+
+
+    public void RemoveWaitingItems(List<Item> items)
+    {
+        _lootModel.RemoveWaitingItems(items);
+    }
+
+
+        public void CloseLoot()
     {
         _lootModel.RemoveWaitingItems();
     }
 
     public void AddInventoryItem(Item item)
     {
-        if (_inventoryModel.AddInventoryItem(item)) //próba dodania do inventory
+        if (_inventoryController.AddInventoryItem(item)) //próba dodania do inventory
         {
             _questLogController.CheckGoal(item.name);
             _lootModel.RemoveWaitingItem(item); //usuwanie z okna lootu 
 
         }
-        else if(_notification.IsFree())
+        else if (_notification.IsFree())
         {
             _notification.ActiveOk("There is no space in your inventory.");
         }
@@ -113,9 +131,14 @@ public class LootController : MonoBehaviour
     public void UseItem(LootSlot lootSlot)
     {
         Item item = lootSlot.GetItem();
-        if ( item != null)
+        if (item != null)
         {
             AddInventoryItem(item);
         }
+    }
+
+    public int GetLootSize() 
+    {
+        return _lootModel.GetLootSize();
     }
 }
