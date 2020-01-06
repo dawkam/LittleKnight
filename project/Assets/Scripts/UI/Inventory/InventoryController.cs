@@ -6,7 +6,7 @@ using UnityEngine;
 public class InventoryController : MonoBehaviour
 {
 
-    private Notification notification;
+    private Notification _notification;
 
     private InventoryModel _inventoryModel;
     private EquipmentController _equipmentController;
@@ -37,7 +37,7 @@ public class InventoryController : MonoBehaviour
         _equipmentController = GetComponentInChildren<EquipmentController>();
         slots = _inventoryModel.itemsParent.GetComponentsInChildren<InventorySlot>();
 
-        notification = Notification.instance;
+        _notification = Notification.instance;
 
         _inventoryModel.inventoryUI.SetActive(false);
     }
@@ -126,11 +126,11 @@ public class InventoryController : MonoBehaviour
 
     public void OnRemoveButton(InventorySlot inventorySlot)
     {
-        if (notification.IsFree())
+        if (_notification.IsFree())
         {
             object[] tmp = new object[1];
             tmp[0] = inventorySlot.GetItem();
-            notification.ActiveYesNo((Action<Item>)_inventoryModel.RemoveInventoryItem, tmp, "Do you really want remove this item?");
+            _notification.ActiveYesNo((Action<Item>)_inventoryModel.RemoveInventoryItem, tmp, "Do you really want remove this item?");
         }
     }
 

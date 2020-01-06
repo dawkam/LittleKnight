@@ -11928,6 +11928,7 @@ GameObject:
   - component: {fileID: 1494291237}
   - component: {fileID: 1494291236}
   - component: {fileID: 1494291238}
+  - component: {fileID: 1494291239}
   m_Layer: 0
   m_Name: Notatki
   m_TagString: Untagged
@@ -11978,6 +11979,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Notes: "System walki do poprawy. Buga na przycisku zbieranie przedmiot\xF3w all,
     reset post\u0119pu po przej\u015Bciu gry."
+--- !u!114 &1494291239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494291235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180f588621372584aa8f2a6a89da7d9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Notes: "wywalenie odwo\u0142a\u0144 do inventory model z innych klas ni\u017C inventory
+    controller"
 --- !u!1001 &1527511330
 PrefabInstance:
   m_ObjectHideFlags: 0
