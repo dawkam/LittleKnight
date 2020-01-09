@@ -47,7 +47,7 @@ public class Weapon : Item
         return "Physical Damage: " + physicalDamage +
              "\nFire Damage: " + fireDamage +
              "\nWater Damage: " + waterDamage +
-             "\nAir Damage: " + waterDamage +
+             "\nAir Damage: " + airDamage +
              "\nEarth Damage: " + earthDamage;
     }
 

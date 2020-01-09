@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Sword Of Waves
   m_EditorClassIdentifier: 
   title: Sword Of Waves
-  description: Old captain was buried on cemetery before undead started inhabit there.
-    He was a person who brings sword from sea long ago. His last wish was to be buried
-    with it. Find it.
+  description: The Old captain was buried on a cemetery before undeads started inhabiting
+    there. He was a person who brought sword from a sea a long ago. His last wish
+    was to be buried with it. Find it.
   itemReward: {fileID: 11400000, guid: 06d90c1fcfaa13641ae51aa5a4d2029b, type: 2}
   expReward: 100
   isCompleted: 0

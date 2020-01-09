@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: First Challenge
   m_EditorClassIdentifier: 
   title: First Challenge
-  description: You finally have a weapon. Now it is time to tested it.
+  description: You finally have a weapon. Now it is time to test it.
   itemReward: {fileID: 11400000, guid: 3007cc1471ee7554987aaca3b8594397, type: 2}
   expReward: 50
   isCompleted: 0

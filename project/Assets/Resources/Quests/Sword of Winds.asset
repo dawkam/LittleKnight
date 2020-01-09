@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Sword of Winds
   description: Desert wasn't created by only one legendary power. The second one was
-    the Sword of Winds. When Sword of Flames was turned against it huge disaster has
-    happened. After this no one dares to visit that place. Find it.
+    the Sword of Winds. When Sword of Flames was turned against it, huge disaster
+    has happened. After this no one dares to visit that place. Find it.
   itemReward: {fileID: 11400000, guid: f60e3d47efc97ef4da2f924e52c63ec6, type: 2}
   expReward: 100
   isCompleted: 0
