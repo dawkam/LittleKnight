@@ -9,6 +9,8 @@ TagManager:
   - Notification
   - WeaponPlace
   - Enemy
+  - baby
+  - fish
   layers:
   - Default
   - TransparentFX
