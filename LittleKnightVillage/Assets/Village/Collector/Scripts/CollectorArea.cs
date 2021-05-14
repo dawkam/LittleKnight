@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CollectorArea : MonoBehaviour
 {
     public GameObject baby;
     public GameObject predator;
-    public GameObject collector;
+    public CollectorAgent collector;
     public GameObject fruitPrefab;
+    public TextMeshPro cumulativeRewardText;
 
     public float radius;
 
@@ -22,12 +24,17 @@ public class CollectorArea : MonoBehaviour
         ResetArea();
     }
 
+    private void Update()
+    {
+        cumulativeRewardText.text = collector.GetCumulativeReward().ToString("0.00");
+    }
+
     public void ResetArea()
     {
         collectableList = new List<GameObject>();
         PlaceGameObject(baby, 90f, 180f, 10f, 14f);
         baby.transform.LookAt(transform.position);
-        PlaceGameObject(collector, 90f, 180f, 10f, 14f);
+        PlaceGameObject(collector.gameObject, 90f, 180f, 10f, 14f);
         PlaceGameObject(predator, 0f, 360f, 0f, 8f);
         SpawnFruits();
     }
@@ -49,7 +56,7 @@ public class CollectorArea : MonoBehaviour
 
     private void SpawnFruits()
     {
-        int count = Random.Range(3, 10);
+        int count = Random.Range(3, 5);
         for (int i = 0; i < count; i++)
         {
             GameObject fruit = Instantiate(fruitPrefab, transform);
