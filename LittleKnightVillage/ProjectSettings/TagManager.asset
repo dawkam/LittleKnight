@@ -11,6 +11,9 @@ TagManager:
   - Enemy
   - baby
   - fish
+  - Collectable
+  - Predator
+  - Collector
   layers:
   - Default
   - TransparentFX

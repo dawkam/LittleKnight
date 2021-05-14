@@ -4,7 +4,7 @@ using System;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 
-public class PenguinAgent : Agent
+public class CollectorAgent : Agent
 {
 
     [Tooltip("How fast the agent moves forward")]
@@ -19,10 +19,13 @@ public class PenguinAgent : Agent
     [Tooltip("Prefab of the regurgitated fish that appears when the baby is fed")]
     public GameObject regurgitatedFishPrefab;
 
-    private PenguinArea penguinArea;
+    private CollectorArea collectorArea;
     new private Rigidbody rigidbody;
     private GameObject baby;
     private bool isFull; // If true, penguin has a full stomach
+    private bool isAlive;
+
+
     private float feedRadius = 0f;
 
     /// <summary>
@@ -31,8 +34,8 @@ public class PenguinAgent : Agent
     public override void Initialize()
     {
         base.Initialize();
-        penguinArea = GetComponentInParent<PenguinArea>();
-        baby = penguinArea.penguinBaby;
+        collectorArea = GetComponentInParent<CollectorArea>();
+        baby = collectorArea.baby;
         rigidbody = GetComponent<Rigidbody>();
     }
 
@@ -95,7 +98,8 @@ public class PenguinAgent : Agent
     public override void OnEpisodeBegin()
     {
         isFull = false;
-        penguinArea.ResetArea();
+        isAlive = true;
+        collectorArea.ResetArea();
         feedRadius = Academy.Instance.EnvironmentParameters.GetWithDefault("feed_radius", 0f);
     }
 
@@ -107,6 +111,9 @@ public class PenguinAgent : Agent
         // Whether the penguin has eaten a fish (1 float = 1 value)
         sensor.AddObservation(isFull);
 
+        // Whether the penguin is alive (1 float = 1 value)
+        sensor.AddObservation(isAlive);
+
         // Distance to the baby (1 float = 1 value)
         sensor.AddObservation(Vector3.Distance(baby.transform.position, transform.position));
 
@@ -116,7 +123,8 @@ public class PenguinAgent : Agent
         // Direction penguin is facing (1 Vector3 = 3 values)
         sensor.AddObservation(transform.forward);
 
-        // 1 + 1 + 3 + 3 = 8 total values
+
+        // 1 + 1 + 1 + 3 + 3 = 9 total values
     }
 
     private void FixedUpdate()
@@ -137,7 +145,7 @@ public class PenguinAgent : Agent
         if (Vector3.Distance(transform.position, baby.transform.position) < feedRadius)
         {
             // Close enough, try to feed the baby
-            RegurgitateFish();
+            GiveCollectable();
         }
     }
 
@@ -147,27 +155,27 @@ public class PenguinAgent : Agent
     /// <param name="collision">The collision info</param>
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.CompareTag("fish"))
+        if (collision.transform.CompareTag("Collectable"))
         {
             // Try to eat the fish
-            EatFish(collision.gameObject);
+            Collect(collision.gameObject);
         }
         else if (collision.transform.CompareTag("baby"))
         {
             // Try to feed the baby
-            RegurgitateFish();
+            GiveCollectable();
         }
     }
     /// <summary>
     /// Check if agent is full, if not, eat the fish and get a reward
     /// </summary>
-    /// <param name="fishObject">The fish to eat</param>
-    private void EatFish(GameObject fishObject)
+    /// <param name="collectable">The fish to eat</param>
+    private void Collect(GameObject collectable)
     {
         if (isFull) return; // Can't eat another fish while full
         isFull = true;
 
-        penguinArea.RemoveSpecificFish(fishObject);
+        collectorArea.RemoveSpecificCollectable(collectable);
 
         AddReward(1f);
     }
@@ -175,7 +183,7 @@ public class PenguinAgent : Agent
     /// <summary>
     /// Check if agent is full, if yes, feed the baby
     /// </summary>
-    private void RegurgitateFish()
+    private void GiveCollectable()
     {
         if (!isFull) return; // Nothing to regurgitate
         isFull = false;
@@ -194,9 +202,16 @@ public class PenguinAgent : Agent
 
         AddReward(1f);
 
-        if (penguinArea.FishRemaining <= 0)
+        if (collectorArea.CollectableCount <= 0)
         {
             EndEpisode();
         }
     }
+    public void Die()
+    {
+        isAlive = false;
+        AddReward(-MaxStep);
+        EndEpisode();
+    }
+
 }
