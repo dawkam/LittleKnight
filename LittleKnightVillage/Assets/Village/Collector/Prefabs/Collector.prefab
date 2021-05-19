@@ -138,10 +138,10 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 7721b68164f605c4193b878f34527034, type: 3}
   m_InferenceDevice: 1
   m_BehaviorType: 0
-  m_BehaviorName: My Behavior
+  m_BehaviorName: Collector
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -161,7 +161,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
+  MaxStep: 5000
   moveSpeed: 5
   turnSpeed: 180
   heartPrefab: {fileID: 258169711157126506, guid: 53798300c5ce6e9498a26d240cd70f68,
@@ -181,10 +181,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SensorName: RayPerceptionSensor
-  m_DetectableTags: []
-  m_RaysPerDirection: 3
+  m_DetectableTags:
+  - Collectable
+  - Predator
+  - Baby
+  - Untagged
+  m_RaysPerDirection: 2
   m_MaxRayDegrees: 70
-  m_SphereCastRadius: 0.5
+  m_SphereCastRadius: 1
   m_RayLength: 20
   m_RayLayerMask:
     serializedVersion: 2

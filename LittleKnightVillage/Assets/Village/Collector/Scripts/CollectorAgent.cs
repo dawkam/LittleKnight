@@ -160,7 +160,7 @@ public class CollectorAgent : Agent
             // Try to eat the fish
             Collect(collision.gameObject);
         }
-        else if (collision.transform.CompareTag("baby"))
+        else if (collision.transform.CompareTag("Baby"))
         {
             // Try to feed the baby
             GiveCollectable();
@@ -210,7 +210,7 @@ public class CollectorAgent : Agent
     public void Die()
     {
         isAlive = false;
-        AddReward(-MaxStep);
+        AddReward(-1f);
         EndEpisode();
     }
 

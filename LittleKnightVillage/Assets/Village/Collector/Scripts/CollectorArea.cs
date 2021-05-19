@@ -31,18 +31,34 @@ public class CollectorArea : MonoBehaviour
 
     public void ResetArea()
     {
-        collectableList = new List<GameObject>();
-        PlaceGameObject(baby, 90f, 180f, 10f, 14f);
+        RemoveAllCollectable();
+        PlaceGameObject(baby, 90f, 180f, 7f, 10f);
         baby.transform.LookAt(transform.position);
-        PlaceGameObject(collector.gameObject, 90f, 180f, 10f, 14f);
-        PlaceGameObject(predator, 0f, 360f, 0f, 8f);
+        PlaceGameObject(collector.gameObject, 90f, 180f, 7f, 10f);
+        PlaceGameObject(predator, 270f, 360f, 0f, 6f);
         SpawnFruits();
     }
-
     private void FixedUpdate()
     {
         Hunt();
     }
+
+    private void RemoveAllCollectable()
+    {
+        if (collectableList != null)
+        {
+            for (int i = 0; i < collectableList.Count; i++)
+            {
+                if (collectableList[i] != null)
+                {
+                    Destroy(collectableList[i]);
+                }
+            }
+        }
+
+        collectableList = new List<GameObject>();
+    }
+
 
     private void PlaceGameObject(GameObject gameObject, float minAngle, float maxAngle, float minRadius, float maxRadius)
     {
