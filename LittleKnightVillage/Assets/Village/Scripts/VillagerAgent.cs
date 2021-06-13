@@ -27,6 +27,11 @@ public class VillagerAgent : Agent, IObserver
     private GameObject warehouse;
     private GameObject well;
 
+    public float HungerCurrent { get => hungerCurrent; private set => hungerCurrent = value; }
+    public float ThirstCurrent { get => thirstCurrent; private set => thirstCurrent = value; }
+    public float StaminaCurrent { get => staminaCurrent; private set => staminaCurrent = value; }
+    public float RestTimeCurrent { get => restTimeCurrent; private set => restTimeCurrent = value; }
+
     public override void Initialize()
     {
         base.Initialize();
@@ -35,7 +40,7 @@ public class VillagerAgent : Agent, IObserver
         warehouse = GameObject.FindGameObjectWithTag("Warehouse");
         well = GameObject.FindGameObjectWithTag("Well");
         if (parametersGiver == null || warehouse == null || well == null)
-            Debug.LogError("Parameters giver or well or warehoise is missing!!");
+            Debug.LogError("Parameters giver or well or warehouse is missing!!");
     }
 
     public override void OnEpisodeBegin()
@@ -46,10 +51,10 @@ public class VillagerAgent : Agent, IObserver
     }
     private void ResetData()
     {
-        hungerCurrent = parametersGiver.HungerMax;
-        thirstCurrent = parametersGiver.ThirstMax;
+        HungerCurrent = parametersGiver.HungerMax;
+        ThirstCurrent = parametersGiver.ThirstMax;
 
-        staminaCurrent = parametersGiver.StaminaMax;
+        StaminaCurrent = parametersGiver.StaminaMax;
         moveSpeedCurrent = parametersGiver.MoveSpeedMax;
 
         isControlEnabled = true;
@@ -79,9 +84,8 @@ public class VillagerAgent : Agent, IObserver
             }
 
             // Apply movement
-            Move(transform.position + transform.forward * forwardAmount * moveSpeedCurrent * Time.fixedDeltaTime);
-            //rigidbody.MovePosition(transform.position + transform.forward * forwardAmount * moveSpeedCurrent * Time.fixedDeltaTime);
-            transform.Rotate(transform.up * turnAmount * parametersGiver.TurnSpeed * Time.fixedDeltaTime);
+            Move(forwardAmount ,turnAmount);
+
         }
 
         //if (actions.DiscreteActions[2] == 1)
@@ -145,16 +149,16 @@ public class VillagerAgent : Agent, IObserver
         sensor.AddObservation(transform.forward);
 
         // Whether the villager is hungry (1 float = 1 value)
-        sensor.AddObservation(hungerCurrent);
+        sensor.AddObservation(HungerCurrent);
 
         // Whether the villager is thirsty (1 float = 1 value)
-        sensor.AddObservation(thirstCurrent);
+        sensor.AddObservation(ThirstCurrent);
 
         // Whether the villager is tired (1 float = 1 value)
-        sensor.AddObservation(staminaCurrent);  
+        sensor.AddObservation(StaminaCurrent);  
         
         // Whether the villager is tired (1 float = 1 value)
-        sensor.AddObservation(restTimeCurrent);
+        sensor.AddObservation(RestTimeCurrent);
 
         //// 1 + 1 + 1 + 3 + 3 + 3 + 1 + 1 + 1 + 1 +  = 16 total values
     }
@@ -191,16 +195,17 @@ public class VillagerAgent : Agent, IObserver
 
     #region Simple action
 
-    private void Move(Vector2 movement)
+    private void Move(float forwardAmount, float turnAmount)
     {
-        if (staminaCurrent > 0)
+        if (StaminaCurrent > 0)
         {
-            rigidbody.MovePosition(movement);
+            rigidbody.MovePosition(transform.position + transform.forward * forwardAmount * moveSpeedCurrent * Time.fixedDeltaTime);
+            transform.Rotate(transform.up * turnAmount * parametersGiver.TurnSpeed * Time.fixedDeltaTime);
             // staminaCurrent -= (parametersGiver.StaminaTick * foodCount);
         }
-        else if (staminaCurrent == 0)
+        else if (StaminaCurrent == 0)
         {
-            staminaCurrent = parametersGiver.StaminaMax;
+            StaminaCurrent = parametersGiver.StaminaMax;
             StartCoroutine(Tiredness());
         }
     }
@@ -208,20 +213,20 @@ public class VillagerAgent : Agent, IObserver
     private void Eat(GameObject collectable)
     {
         //collectorArea.RemoveSpecificCollectable(collectable);
-        hungerCurrent += parametersGiver.FoodValue;
+        HungerCurrent += parametersGiver.FoodValue;
         AddReward(0.5f);
     }
 
     private void EatFromWarehouse()
     {
         //!!!!!! usuwanie z magazynu!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        hungerCurrent += parametersGiver.FoodValue;
+        HungerCurrent += parametersGiver.FoodValue;
         AddReward(1f);
     }
 
     private void Drink()
     {
-        thirstCurrent += parametersGiver.WaterValue;
+        ThirstCurrent += parametersGiver.WaterValue;
         AddReward(1f);
     }
 
@@ -238,9 +243,9 @@ public class VillagerAgent : Agent, IObserver
     IEnumerator Tiredness()
     {
         isControlEnabled = false;
-        while (restTimeCurrent > 0)
+        while (RestTimeCurrent > 0)
         {
-            restTimeCurrent--;
+            RestTimeCurrent--;
             yield return null;
         }
         isControlEnabled = true; ;
@@ -248,13 +253,13 @@ public class VillagerAgent : Agent, IObserver
 
     IEnumerator ExistancePunishment()
     {
-        while (isAlive && hungerCurrent > 0 && thirstCurrent > 0)
+        while (isAlive && HungerCurrent > 0 && ThirstCurrent > 0)
         {
-            hungerCurrent -= parametersGiver.HungerTick;
-            AddReward(-1f / hungerCurrent);
+            HungerCurrent -= parametersGiver.HungerTick;
+            AddReward(-1f / HungerCurrent);
 
-            thirstCurrent -= parametersGiver.ThirstTick;
-            AddReward(-1f / thirstCurrent);
+            ThirstCurrent -= parametersGiver.ThirstTick;
+            AddReward(-1f / ThirstCurrent);
 
             yield return null;
         }
@@ -265,8 +270,8 @@ public class VillagerAgent : Agent, IObserver
     {
         while (isAlive)
         {
-            if (staminaCurrent < parametersGiver.StaminaMax)
-                staminaCurrent += parametersGiver.StaminaTick;
+            if (StaminaCurrent < parametersGiver.StaminaMax)
+                StaminaCurrent += parametersGiver.StaminaTick;
             yield return null;
         }
     }

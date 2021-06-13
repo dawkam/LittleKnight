@@ -15,6 +15,9 @@ TagManager:
   - Predator
   - Collector
   - Baby
+  - Well
+  - Warehouse
+  - Food
   layers:
   - Default
   - TransparentFX
