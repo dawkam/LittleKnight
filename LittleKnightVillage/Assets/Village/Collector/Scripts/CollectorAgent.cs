@@ -9,6 +9,7 @@ public class CollectorAgent : Agent
 
     [Tooltip("How fast the agent moves forward")]
     public float moveSpeed = 5f;
+    private float currentMoveSpeed;
 
     [Tooltip("How fast the agent turns")]
     public float turnSpeed = 180f;
@@ -22,9 +23,9 @@ public class CollectorAgent : Agent
     private CollectorArea collectorArea;
     new private Rigidbody rigidbody;
     private GameObject baby;
-    private bool isFull; // If true, penguin has a full stomach
+    //private bool isFull; // If true, penguin has a full stomach
     private bool isAlive;
-
+    private int collected = 0;
 
     private float feedRadius = 0f;
 
@@ -60,7 +61,7 @@ public class CollectorAgent : Agent
         }
 
         // Apply movement
-        rigidbody.MovePosition(transform.position + transform.forward * forwardAmount * moveSpeed * Time.fixedDeltaTime);
+        rigidbody.MovePosition(transform.position + transform.forward * forwardAmount * currentMoveSpeed * Time.fixedDeltaTime);
         transform.Rotate(transform.up * turnAmount * turnSpeed * Time.fixedDeltaTime);
 
         // Apply a tiny negative reward every step to encourage action
@@ -97,8 +98,10 @@ public class CollectorAgent : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
-        isFull = false;
+        //isFull = false;
         isAlive = true;
+        collected = 0;
+        currentMoveSpeed = moveSpeed;
         collectorArea.ResetArea();
         feedRadius = Academy.Instance.EnvironmentParameters.GetWithDefault("feed_radius", 0f);
     }
@@ -109,7 +112,8 @@ public class CollectorAgent : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         // Whether the penguin has eaten a fish (1 float = 1 value)
-        sensor.AddObservation(isFull);
+        // sensor.AddObservation(isFull);
+        sensor.AddObservation(collected);
 
         // Whether the penguin is alive (1 float = 1 value)
         sensor.AddObservation(isAlive);
@@ -172,11 +176,12 @@ public class CollectorAgent : Agent
     /// <param name="collectable">The fish to eat</param>
     private void Collect(GameObject collectable)
     {
-        if (isFull) return; // Can't eat another fish while full
-        isFull = true;
+        //if (isFull) return; // Can't eat another fish while full
+        //isFull = true;
 
         collectorArea.RemoveSpecificCollectable(collectable);
-
+        currentMoveSpeed--;
+        collected++;
         AddReward(1f);
     }
 
@@ -185,8 +190,8 @@ public class CollectorAgent : Agent
     /// </summary>
     private void GiveCollectable()
     {
-        if (!isFull) return; // Nothing to regurgitate
-        isFull = false;
+        //if (!isFull) return; // Nothing to regurgitate
+        //isFull = false;
 
         // Spawn regurgitated fish
         GameObject regurgitatedFish = Instantiate<GameObject>(regurgitatedFishPrefab);
@@ -200,7 +205,9 @@ public class CollectorAgent : Agent
         heart.transform.position = baby.transform.position + Vector3.up;
         Destroy(heart, 4f);
 
-        AddReward(1f);
+        AddReward(2f * collected);
+        collected = 0;
+        currentMoveSpeed = moveSpeed;
 
         if (collectorArea.CollectableCount <= 0)
         {
