@@ -84,7 +84,7 @@ public class VillagerAgent : Agent, IObserver
             }
 
             // Apply movement
-            Move(forwardAmount ,turnAmount);
+            Move(forwardAmount, turnAmount);
 
         }
 
@@ -120,12 +120,6 @@ public class VillagerAgent : Agent, IObserver
             // turn right
             actionsOut.DiscreteActions.Array[1] = 2;
         }
-
-        if (Input.GetKey(KeyCode.E))
-        {
-            // eat
-            actionsOut.DiscreteActions.Array[2] = 1;
-        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -140,8 +134,8 @@ public class VillagerAgent : Agent, IObserver
         sensor.AddObservation(Vector3.Distance(warehouse.transform.position, transform.position));
 
         // Direction to well (1 Vector3 = 3 values)
-        sensor.AddObservation((well.transform.position - transform.position).normalized);  
-        
+        sensor.AddObservation((well.transform.position - transform.position).normalized);
+
         // Direction to warehouse (1 Vector3 = 3 values)
         sensor.AddObservation((warehouse.transform.position - transform.position).normalized);
 
@@ -155,8 +149,8 @@ public class VillagerAgent : Agent, IObserver
         sensor.AddObservation(ThirstCurrent);
 
         // Whether the villager is tired (1 float = 1 value)
-        sensor.AddObservation(StaminaCurrent);  
-        
+        sensor.AddObservation(StaminaCurrent);
+
         // Whether the villager is tired (1 float = 1 value)
         sensor.AddObservation(RestTimeCurrent);
 
