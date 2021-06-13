@@ -2014,6 +2014,7 @@ GameObject:
   - component: {fileID: 1362610190722032904}
   - component: {fileID: 1362610190720987600}
   - component: {fileID: 1362610190716936856}
+  - component: {fileID: 3479806747189087062}
   m_Layer: 0
   m_Name: wood_wall_enter.005
   m_TagString: Untagged
@@ -2099,6 +2100,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: d3aedc0c316425f4da97c6058168cb16, type: 3}
+--- !u!65 &3479806747189087062
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362610190723250620}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.154181, y: 4, z: 0.45022178}
+  m_Center: {x: 2.985715, y: 1.875, z: 0.004112199}
 --- !u!1 &1362610190723251320
 GameObject:
   m_ObjectHideFlags: 0
