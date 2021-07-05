@@ -5,18 +5,30 @@ using UnityEngine;
 public class ParametersGiver : MonoBehaviour
 {
     #region Villager
+
+    [Header("Hunger")]
     [SerializeField] private float hungerMax;
     [SerializeField] private float hungerTick;
+    [SerializeField] private float foodValue;
 
+    [Header("Thirst")]
     [SerializeField] private float thirstMax;
     [SerializeField] private float thirstTick;
+    [SerializeField] private float waterValue;
 
-    [SerializeField] private float staminaMax;
+    [Header("Stamina")]
+    [SerializeField] private float comfrotMin;
+    [SerializeField] private float comfortTick;
     [SerializeField] private float staminaTick;
-
-    [SerializeField] private float moveSpeedMax;
-    [SerializeField] private float turnSpeed;
+    [SerializeField] private float staminaDashTick;
     [SerializeField] private float restTime;
+
+
+    [Header("Movement")]
+    [SerializeField] private float moveSpeedMax;
+    [SerializeField] private float dashPower;
+    [SerializeField] private float turnSpeed;
+
 
     #region Existence
     public float HungerMax
@@ -39,6 +51,17 @@ public class ParametersGiver : MonoBehaviour
         }
         private set => hungerTick = value;
     }
+    public float FoodValue
+    {
+        get
+        {
+            if (foodValue == 0)
+                Debug.LogError("foodValue is 0!!");
+            return foodValue;
+        }
+        private set => foodValue = value;
+    }
+
     public float ThirstMax
     {
         get
@@ -59,15 +82,36 @@ public class ParametersGiver : MonoBehaviour
         }
         private set => thirstTick = value;
     }
-    public float StaminaMax
+    public float WaterValue
     {
         get
         {
-            if (staminaMax == 0)
-                Debug.LogError("staminaMax is 0!!");
-            return staminaMax;
+            if (waterValue == 0)
+                Debug.LogError("waterValue is 0!!");
+            return waterValue;
         }
-        private set => staminaMax = value;
+        private set => waterValue = value;
+    }
+
+    public float ComfortMin
+    {
+        get
+        {
+            if (comfrotMin == 0)
+                Debug.LogError("comfrotMin is 0!!");
+            return comfrotMin;
+        }
+        private set => comfrotMin = value;
+    }
+    public float ComfortTick
+    {
+        get
+        {
+            if (comfortTick == 0)
+                Debug.LogError("comfortTick is 0!!");
+            return comfortTick;
+        }
+        private set => comfortTick = value;
     }
     public float StaminaTick
     {
@@ -92,6 +136,17 @@ public class ParametersGiver : MonoBehaviour
         }
         private set => moveSpeedMax = value;
     }
+
+    public float DashPower
+    {
+        get
+        {
+            if (dashPower == 0)
+                Debug.LogError("dashPower is 0!!");
+            return dashPower;
+        }
+        private set => dashPower = value;
+    }
     public float TurnSpeed
     {
         get
@@ -113,13 +168,22 @@ public class ParametersGiver : MonoBehaviour
         private set => restTime = value;
     }
 
+    public float StaminaDashTick
+    {
+        get
+        {
+            if (staminaDashTick == 0)
+                Debug.LogError("staminaDashTick is 0!!");
+            return staminaDashTick;
+        }
+        private set => staminaDashTick = value;
+    }
+
     #endregion
     #endregion
 
     #region World
-    [SerializeField] private float foodValue;
-    [SerializeField] private float waterValue;
-    public float FoodValue { get => foodValue; private set => foodValue = value; }
-    public float WaterValue { get => waterValue; private set => waterValue = value; }
+
+
     #endregion
 }

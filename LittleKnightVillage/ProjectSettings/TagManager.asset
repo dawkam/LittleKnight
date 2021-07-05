@@ -18,6 +18,7 @@ TagManager:
   - Well
   - Warehouse
   - Food
+  - Village
   layers:
   - Default
   - TransparentFX

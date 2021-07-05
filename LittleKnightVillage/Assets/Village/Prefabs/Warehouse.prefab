@@ -1268,6 +1268,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1362610190723328094}
   - component: {fileID: 5239961626947395294}
+  - component: {fileID: 4164668926193558427}
+  - component: {fileID: 3436328117192391150}
+  - component: {fileID: 3122823980415893169}
   m_Layer: 0
   m_Name: Warehouse
   m_TagString: Warehouse
@@ -1325,6 +1328,44 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 13.105585, y: 10.17417, z: 13.049432}
   m_Center: {x: 0.91289, y: 4.5870867, z: -2.0147865}
+--- !u!65 &4164668926193558427
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362610190723183178}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.25881, y: 9.198433, z: 9.020881}
+  m_Center: {x: -2.3102636, y: 4.099217, z: -4.0104613}
+--- !u!65 &3436328117192391150
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362610190723183178}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.612627, y: 8.568572, z: 6.0533786}
+  m_Center: {x: 0.7346309, y: 3.784287, z: 0.6026752}
+--- !u!114 &3122823980415893169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362610190723183178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87765a093857ccb409ce1e74f2624267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1362610190723220064
 GameObject:
   m_ObjectHideFlags: 0

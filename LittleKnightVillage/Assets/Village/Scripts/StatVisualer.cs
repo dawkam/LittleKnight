@@ -21,7 +21,7 @@ public class StatVisualer : MonoBehaviour
     {
         SetSize(thirstBar.transform, villagerAgent.ThirstCurrent / parametersGiver.ThirstMax);
         SetSize(hungerBar.transform, villagerAgent.HungerCurrent / parametersGiver.HungerMax);
-        SetSize(staminaBar.transform, villagerAgent.StaminaCurrent / parametersGiver.StaminaMax);
+        SetSize(staminaBar.transform, villagerAgent.StaminaCurrent / parametersGiver.ComfortMin);
     }
 
     public void SetSize(Transform bar, float normalizedSize)

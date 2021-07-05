@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class VillagerAgent : Agent, IObserver
 {
+    [SerializeField] private bool isTraining = true;
+
     #region Currrent data
     private float hungerCurrent;
     private float thirstCurrent;
@@ -24,8 +26,12 @@ public class VillagerAgent : Agent, IObserver
 
     private ParametersGiver parametersGiver;
     new private Rigidbody rigidbody;
-    private GameObject warehouse;
+    private Warehouse warehouse;
     private GameObject well;
+    [SerializeField] private VillageArea villageArea;
+    [SerializeField] private Village village;
+
+    private readonly int rewardModifiaer = 1;
 
     public float HungerCurrent { get => hungerCurrent; private set => hungerCurrent = value; }
     public float ThirstCurrent { get => thirstCurrent; private set => thirstCurrent = value; }
@@ -35,12 +41,20 @@ public class VillagerAgent : Agent, IObserver
     public override void Initialize()
     {
         base.Initialize();
-        rigidbody = GetComponent<Rigidbody>();
-        parametersGiver = FindObjectOfType<ParametersGiver>();
-        warehouse = GameObject.FindGameObjectWithTag("Warehouse");
-        well = GameObject.FindGameObjectWithTag("Well");
+        InitializeData();
+
         if (parametersGiver == null || warehouse == null || well == null)
             Debug.LogError("Parameters giver or well or warehouse is missing!!");
+    }
+
+    private void InitializeData()
+    {
+        rigidbody = GetComponent<Rigidbody>();
+        parametersGiver = FindObjectOfType<ParametersGiver>();
+        warehouse = FindObjectOfType<Warehouse>();
+        well = GameObject.FindGameObjectWithTag("Well");
+        village = FindObjectOfType<Village>();
+        village.Attach(this);
     }
 
     public override void OnEpisodeBegin()
@@ -54,11 +68,13 @@ public class VillagerAgent : Agent, IObserver
         HungerCurrent = parametersGiver.HungerMax;
         ThirstCurrent = parametersGiver.ThirstMax;
 
-        StaminaCurrent = parametersGiver.StaminaMax;
+        StaminaCurrent = parametersGiver.ComfortMin;
         moveSpeedCurrent = parametersGiver.MoveSpeedMax;
 
         isControlEnabled = true;
         isAlive = true;
+        village.Reset();
+        villageArea.ResetArea();
     }
 
     /// <summary>
@@ -67,26 +83,26 @@ public class VillagerAgent : Agent, IObserver
     /// <param name="vectorAction">The list of actions to take</param>
     public override void OnActionReceived(ActionBuffers actions)
     {
-        if (isControlEnabled)
+
+        // Convert the first action to forward movement
+        float forwardAmount = actions.DiscreteActions[0];
+
+        // Convert the second action to turning left or right
+        float turnAmount = 0f;
+        if (actions.DiscreteActions[1] == 1f)
         {
-            // Convert the first action to forward movement
-            float forwardAmount = actions.DiscreteActions[0];
-
-            // Convert the second action to turning left or right
-            float turnAmount = 0f;
-            if (actions.DiscreteActions[1] == 1f)
-            {
-                turnAmount = -1f;
-            }
-            else if (actions.DiscreteActions[1] == 2f)
-            {
-                turnAmount = 1f;
-            }
-
-            // Apply movement
-            Move(forwardAmount, turnAmount);
-
+            turnAmount = -1f;
         }
+        else if (actions.DiscreteActions[1] == 2f)
+        {
+            turnAmount = 1f;
+        }
+
+        bool isDash = actions.DiscreteActions[2] == 1f;
+
+
+        ApplyMovement(forwardAmount, turnAmount, isDash);
+
 
         //if (actions.DiscreteActions[2] == 1)
         //    Eat();
@@ -94,6 +110,24 @@ public class VillagerAgent : Agent, IObserver
 
         // Apply a tiny negative reward every step to encourage action
         //if (MaxStep > 0) AddReward(-1f / MaxStep);
+    }
+
+    private void ApplyMovement(float forwardAmount, float turnAmount, bool isDash)
+    {
+        if (isControlEnabled)
+        {
+            if (StaminaCurrent > 0)
+            {
+                if (isDash)
+                    Dash();
+                Move(forwardAmount, turnAmount);
+            }
+            else
+            {
+                StopCoroutine(Tiredness());
+                StartCoroutine(Tiredness());
+            }
+        }
     }
 
     /// <summary>
@@ -120,6 +154,11 @@ public class VillagerAgent : Agent, IObserver
             // turn right
             actionsOut.DiscreteActions.Array[1] = 2;
         }
+        if (Input.GetKey(KeyCode.X))
+        {
+            //dash
+            actionsOut.DiscreteActions.Array[2] = 1;
+        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -132,6 +171,9 @@ public class VillagerAgent : Agent, IObserver
 
         // Distance to the warehouse (1 float = 1 value)
         sensor.AddObservation(Vector3.Distance(warehouse.transform.position, transform.position));
+
+        // Food count in warehouse (1 float = 1 value)
+        sensor.AddObservation(warehouse.foodCount);
 
         // Direction to well (1 Vector3 = 3 values)
         sensor.AddObservation((well.transform.position - transform.position).normalized);
@@ -154,7 +196,7 @@ public class VillagerAgent : Agent, IObserver
         // Whether the villager is tired (1 float = 1 value)
         sensor.AddObservation(RestTimeCurrent);
 
-        //// 1 + 1 + 1 + 3 + 3 + 3 + 1 + 1 + 1 + 1 +  = 16 total values
+        //// 1 + 1 + 1 + 1 + 3 + 3 + 3 + 1 + 1 + 1 + 1 +  = 17 total values
     }
 
     private void FixedUpdate()
@@ -179,7 +221,8 @@ public class VillagerAgent : Agent, IObserver
         }
         else if (collision.transform.CompareTag("Warehouse"))
         {
-            EatFromWarehouse();
+            Warehouse warehouse = collision.gameObject.GetComponent<Warehouse>();
+            EatFromWarehouse(warehouse);
         }
         else if (collision.transform.CompareTag("Well"))
         {
@@ -191,45 +234,59 @@ public class VillagerAgent : Agent, IObserver
 
     private void Move(float forwardAmount, float turnAmount)
     {
-        if (StaminaCurrent > 0)
-        {
-            rigidbody.MovePosition(transform.position + transform.forward * forwardAmount * moveSpeedCurrent * Time.fixedDeltaTime);
-            transform.Rotate(transform.up * turnAmount * parametersGiver.TurnSpeed * Time.fixedDeltaTime);
-            // staminaCurrent -= (parametersGiver.StaminaTick * foodCount);
-        }
-        else if (StaminaCurrent == 0)
-        {
-            StaminaCurrent = parametersGiver.StaminaMax;
-            StartCoroutine(Tiredness());
-        }
+        rigidbody.MovePosition(transform.position + transform.forward * forwardAmount * moveSpeedCurrent * Time.fixedDeltaTime);
+        transform.Rotate(transform.up * turnAmount * parametersGiver.TurnSpeed * Time.fixedDeltaTime);
+        moveSpeedCurrent = parametersGiver.MoveSpeedMax;
     }
 
+    private void Dash()
+    {
+        staminaCurrent -= parametersGiver.StaminaDashTick;
+        moveSpeedCurrent = parametersGiver.DashPower;
+    }
     private void Eat(GameObject collectable)
     {
-        //collectorArea.RemoveSpecificCollectable(collectable);
-        HungerCurrent += parametersGiver.FoodValue;
-        AddReward(0.5f);
+        if (villageArea != null)
+            villageArea.RemoveSpecificCollectable(collectable);
+        else
+            Destroy(collectable);
+
+        if (HungerCurrent + parametersGiver.FoodValue < parametersGiver.HungerMax)
+        {
+            HungerCurrent = parametersGiver.FoodValue;
+            AddReward(0.5f);
+        }
     }
 
-    private void EatFromWarehouse()
+    private void EatFromWarehouse(Warehouse warehouse)
     {
-        //!!!!!! usuwanie z magazynu!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        HungerCurrent += parametersGiver.FoodValue;
-        AddReward(1f);
+        if (HungerCurrent + parametersGiver.FoodValue < parametersGiver.HungerMax && warehouse.TakeFood())
+        {
+            HungerCurrent = parametersGiver.HungerMax;
+            AddReward(1f);
+        }
     }
 
     private void Drink()
     {
-        ThirstCurrent += parametersGiver.WaterValue;
-        AddReward(1f);
+        if (ThirstCurrent + parametersGiver.WaterValue < parametersGiver.ThirstMax)
+        {
+            ThirstCurrent = parametersGiver.ThirstMax;
+            AddReward(1f);
+        }
     }
 
     public void Die()
     {
         isAlive = false;
+        village.Detach(this);
         AddReward(-1f);
         StopAllCoroutines();
-        EndEpisode();
+
+        if (isTraining)
+            EndEpisode();
+        else
+            Destroy(this.gameObject);
     }
     #endregion
 
@@ -237,25 +294,30 @@ public class VillagerAgent : Agent, IObserver
     IEnumerator Tiredness()
     {
         isControlEnabled = false;
+        RestTimeCurrent = parametersGiver.RestTime;
         while (RestTimeCurrent > 0)
         {
             RestTimeCurrent--;
-            yield return null;
+            yield return new WaitForSeconds(1f);
         }
-        isControlEnabled = true; ;
+        isControlEnabled = true;
     }
 
     IEnumerator ExistancePunishment()
     {
-        while (isAlive && HungerCurrent > 0 && ThirstCurrent > 0)
+        while (isAlive)
         {
             HungerCurrent -= parametersGiver.HungerTick;
-            AddReward(-1f / HungerCurrent);
+            if (HungerCurrent > 0)
+                AddReward(-1f / (HungerCurrent * rewardModifiaer));
+            else break;
 
             ThirstCurrent -= parametersGiver.ThirstTick;
-            AddReward(-1f / ThirstCurrent);
+            if (ThirstCurrent > 0)
+                AddReward(-1f / (ThirstCurrent * rewardModifiaer));
+            else break;
 
-            yield return null;
+            yield return new WaitForSeconds(1f);
         }
         Die();
     }
@@ -264,7 +326,7 @@ public class VillagerAgent : Agent, IObserver
     {
         while (isAlive)
         {
-            if (StaminaCurrent < parametersGiver.StaminaMax)
+            if (StaminaCurrent < comfort)
                 StaminaCurrent += parametersGiver.StaminaTick;
             yield return null;
         }
@@ -272,7 +334,7 @@ public class VillagerAgent : Agent, IObserver
 
     public void UpdateObserver()
     {
-        //comfort = village.comfort;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        comfort = village.Comfort;
     }
 
     #endregion
@@ -282,6 +344,6 @@ public class VillagerAgent : Agent, IObserver
 // To Do:
 // 
 // 2.Ogarniecie vectora obserwacji x
-// 3. Mechanika komfortu 
-// 4. Dodanie areny nadrzędnej
-// 6. dash
+// 3. Mechanika komfortu x
+// 4. Dodanie areny nadrzędnej x
+// 6. dash x
