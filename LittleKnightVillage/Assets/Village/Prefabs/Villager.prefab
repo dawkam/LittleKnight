@@ -843,7 +843,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 1
-  m_BehaviorType: 1
+  m_BehaviorType: 0
   m_BehaviorName: Collector
   TeamId: 0
   m_UseChildSensors: 1
@@ -863,9 +863,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SensorName: RayPerceptionSensor
   m_DetectableTags:
-  - Collectable
-  - Predator
-  - Baby
+  - Food
+  - Warehouse
+  - Well
   - Untagged
   m_RaysPerDirection: 2
   m_MaxRayDegrees: 70
@@ -896,8 +896,8 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
   isTraining: 0
+  well: {fileID: 0}
   villageArea: {fileID: 0}
-  village: {fileID: 0}
 --- !u!1 &3661474564888506324
 GameObject:
   m_ObjectHideFlags: 0

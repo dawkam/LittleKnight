@@ -27,9 +27,9 @@ public class VillagerAgent : Agent, IObserver
     private ParametersGiver parametersGiver;
     new private Rigidbody rigidbody;
     private Warehouse warehouse;
-    private GameObject well;
+    [SerializeField] private GameObject well;
     [SerializeField] private VillageArea villageArea;
-    [SerializeField] private Village village;
+    private Village village;
 
     private readonly int rewardModifiaer = 1;
 
@@ -50,10 +50,9 @@ public class VillagerAgent : Agent, IObserver
     private void InitializeData()
     {
         rigidbody = GetComponent<Rigidbody>();
-        parametersGiver = FindObjectOfType<ParametersGiver>();
-        warehouse = FindObjectOfType<Warehouse>();
-        well = GameObject.FindGameObjectWithTag("Well");
-        village = FindObjectOfType<Village>();
+        parametersGiver = villageArea.GetComponent<ParametersGiver>();
+        warehouse = villageArea.GetComponentInChildren<Warehouse>();
+        village = villageArea.GetComponentInChildren<Village>();
         village.Attach(this);
     }
 

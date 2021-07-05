@@ -5,14 +5,14 @@ using UnityEngine;
 public class Village : MonoBehaviour, IObservable
 {
     private float comfort;
-    List<IObserver> observers;
+    List<IObserver> observers = new List<IObserver>();
     private ParametersGiver parametersGiver;
 
     public float Comfort { get => comfort; private set => comfort = value; }
 
     private void Awake()
     {
-        parametersGiver = FindObjectOfType<ParametersGiver>();
+        parametersGiver = GetComponentInParent<ParametersGiver>();
         Reset();
     }
 
@@ -27,7 +27,7 @@ public class Village : MonoBehaviour, IObservable
     {
         StopCoroutine(ComfortConsumption());
         Comfort = parametersGiver.ComfortMin;
-        observers = new List<IObserver>();
+        observers.Clear();
         StartCoroutine(ComfortConsumption());
     }
 

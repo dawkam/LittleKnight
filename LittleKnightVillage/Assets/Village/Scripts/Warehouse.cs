@@ -7,6 +7,12 @@ public class Warehouse : MonoBehaviour
     [SerializeField] public int foodCount { get; private set; }
     [SerializeField] public int woodCount { get; private set; }
 
+    private void Start() 
+    {
+        foodCount = Random.Range(0, 20);
+        woodCount = Random.Range(0, 20);
+    }
+
     public void AddFood()
     {
         foodCount++;
