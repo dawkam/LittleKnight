@@ -5,23 +5,31 @@ using UnityEngine;
 public class Predator : MonoBehaviour
 {
     public float speed;
-    public void Hunt(Vector3 targetPosition)
+    public Collider dangerArea;
+    public GameObject target;
+
+    private void Update()
     {
-        if (speed > 0)
+        Hunt();
+    }
+
+    public void Hunt()
+    {
+        if (speed > 0 && target != null)
         {
-            transform.LookAt(targetPosition);
+            transform.LookAt(target.transform.position);
             Vector3 moveVector = speed * transform.forward * Time.fixedDeltaTime;
-            if (moveVector.magnitude <= Vector3.Distance(transform.position, targetPosition))
+            if (moveVector.magnitude <= Vector3.Distance(transform.position, target.transform.position)
+                   && dangerArea.bounds.Contains(target.transform.position))
             {
                 transform.position += moveVector;
             }
         }
     }
 
-
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.CompareTag("Collector"))
-            collision.gameObject.GetComponent<CollectorAgent>().Die();
+        if (collision.transform.CompareTag("Villager"))
+            collision.gameObject.GetComponent<VillagerAgent>().Die();
     }
 }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class CollectorArea : MonoBehaviour
+public class CollectorAreaObsolete : MonoBehaviour
 {
     public GameObject baby;
     public GameObject predator;
-    public CollectorAgent collector;
+    public CollectorAgentObsolete collector;
     public GameObject fruitPrefab;
     public TextMeshPro cumulativeRewardText;
 
@@ -90,10 +90,10 @@ public class CollectorArea : MonoBehaviour
         float x = collector.transform.position.x;
         float z = collector.transform.position.z;
 
-        if (Mathf.Pow(x0 - x, 2) + Mathf.Pow(z0 - z, 2) < Mathf.Pow(radius, 2))
-        {
-            predator.GetComponent<Predator>().Hunt(collector.transform.position);
-        }
+        //if (Mathf.Pow(x0 - x, 2) + Mathf.Pow(z0 - z, 2) < Mathf.Pow(radius, 2))
+        //{
+        //    predator.GetComponent<Predator>().Hunt(collector.transform.position);
+        //}
     }
 
     private void OnDrawGizmosSelected()

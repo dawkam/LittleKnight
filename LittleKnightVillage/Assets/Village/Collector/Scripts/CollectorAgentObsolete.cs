@@ -4,7 +4,7 @@ using System;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 
-public class CollectorAgent : Agent
+public class CollectorAgentObsolete : Agent
 {
 
     [Tooltip("How fast the agent moves forward")]
@@ -20,7 +20,7 @@ public class CollectorAgent : Agent
     [Tooltip("Prefab of the regurgitated fish that appears when the baby is fed")]
     public GameObject regurgitatedFishPrefab;
 
-    private CollectorArea collectorArea;
+    private CollectorAreaObsolete collectorArea;
     new private Rigidbody rigidbody;
     private GameObject baby;
     //private bool isFull; // If true, penguin has a full stomach
@@ -35,7 +35,7 @@ public class CollectorAgent : Agent
     public override void Initialize()
     {
         base.Initialize();
-        collectorArea = GetComponentInParent<CollectorArea>();
+        collectorArea = GetComponentInParent<CollectorAreaObsolete>();
         baby = collectorArea.baby;
         rigidbody = GetComponent<Rigidbody>();
     }

@@ -8,7 +8,12 @@ public class Village : MonoBehaviour, IObservable
     List<IObserver> observers = new List<IObserver>();
     private ParametersGiver parametersGiver;
 
-    public float Comfort { get => comfort; private set => comfort = value; }
+    public float Comfort { get => comfort;
+
+        private set {
+            NotifyObservers();
+            comfort = value; 
+        } }
 
     private void Awake()
     {

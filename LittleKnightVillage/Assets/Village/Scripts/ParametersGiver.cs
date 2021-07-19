@@ -30,6 +30,9 @@ public class ParametersGiver : MonoBehaviour
     [SerializeField] private float turnSpeed;
 
 
+    [Header("Collector")]
+    [SerializeField] private int foodBagSize;
+
     #region Existence
     public float HungerMax
     {
@@ -179,8 +182,20 @@ public class ParametersGiver : MonoBehaviour
         private set => staminaDashTick = value;
     }
 
+
     #endregion
     #endregion
+    public int FoodBagSize 
+    {
+        get
+        {
+            if (foodBagSize == 0)
+                Debug.LogError("foodBagSize is 0!!");
+            return foodBagSize;
+        }
+        private set => foodBagSize = value;
+
+    }
 
     #region World
 

@@ -8,35 +8,36 @@ using UnityEngine;
 
 public class VillagerAgent : Agent, IObserver
 {
-    [SerializeField] private bool isTraining = true;
+    [SerializeField] protected bool isTraining = true;
 
     #region Currrent data
-    private float hungerCurrent;
-    private float thirstCurrent;
-    private float staminaCurrent;
-    private float restTimeCurrent;
+    protected float hungerCurrent;
+    protected float thirstCurrent;
+    protected float staminaCurrent;
+    protected float restTimeCurrent;
 
-    private float comfort = 1f;
+    protected float comfort = 1f;
 
-    private float moveSpeedCurrent;
+    protected float moveSpeedCurrent;
 
-    private bool isAlive;
-    private bool isControlEnabled;
+    protected bool isAlive;
+    protected bool isControlEnabled;
     #endregion
 
-    private ParametersGiver parametersGiver;
-    new private Rigidbody rigidbody;
-    private Warehouse warehouse;
-    [SerializeField] private GameObject well;
-    [SerializeField] private VillageArea villageArea;
-    private Village village;
+    protected ParametersGiver parametersGiver;
+    new protected Rigidbody rigidbody;
+    protected Warehouse warehouse;
+    [SerializeField] protected GameObject well;
+    [SerializeField] protected VillageArea villageArea;
+    protected Village village;
 
-    private readonly int rewardModifiaer = 1;
+    protected readonly int rewardModifier = 1;
+    protected float moveSpeedMax;
 
-    public float HungerCurrent { get => hungerCurrent; private set => hungerCurrent = value; }
-    public float ThirstCurrent { get => thirstCurrent; private set => thirstCurrent = value; }
-    public float StaminaCurrent { get => staminaCurrent; private set => staminaCurrent = value; }
-    public float RestTimeCurrent { get => restTimeCurrent; private set => restTimeCurrent = value; }
+    public float HungerCurrent { get => hungerCurrent; protected set => hungerCurrent = value; }
+    public float ThirstCurrent { get => thirstCurrent; protected set => thirstCurrent = value; }
+    public float StaminaCurrent { get => staminaCurrent; protected set => staminaCurrent = value; }
+    public float RestTimeCurrent { get => restTimeCurrent; protected set => restTimeCurrent = value; }
 
     public override void Initialize()
     {
@@ -47,13 +48,14 @@ public class VillagerAgent : Agent, IObserver
             Debug.LogError("Parameters giver or well or warehouse is missing!!");
     }
 
-    private void InitializeData()
+    protected void InitializeData()
     {
         rigidbody = GetComponent<Rigidbody>();
         parametersGiver = villageArea.GetComponent<ParametersGiver>();
         warehouse = villageArea.GetComponentInChildren<Warehouse>();
         village = villageArea.GetComponentInChildren<Village>();
         village.Attach(this);
+        moveSpeedMax = parametersGiver.MoveSpeedMax;
     }
 
     public override void OnEpisodeBegin()
@@ -62,13 +64,14 @@ public class VillagerAgent : Agent, IObserver
         StartCoroutine(ExistancePunishment());
         StartCoroutine(StaminaRegeration());
     }
-    private void ResetData()
+    protected virtual void ResetData()
     {
         HungerCurrent = parametersGiver.HungerMax;
         ThirstCurrent = parametersGiver.ThirstMax;
 
         StaminaCurrent = parametersGiver.ComfortMin;
-        moveSpeedCurrent = parametersGiver.MoveSpeedMax;
+        moveSpeedMax = parametersGiver.MoveSpeedMax;
+        moveSpeedCurrent = moveSpeedMax;
 
         isControlEnabled = true;
         isAlive = true;
@@ -111,7 +114,7 @@ public class VillagerAgent : Agent, IObserver
         //if (MaxStep > 0) AddReward(-1f / MaxStep);
     }
 
-    private void ApplyMovement(float forwardAmount, float turnAmount, bool isDash)
+    protected void ApplyMovement(float forwardAmount, float turnAmount, bool isDash)
     {
         if (isControlEnabled)
         {
@@ -198,7 +201,7 @@ public class VillagerAgent : Agent, IObserver
         //// 1 + 1 + 1 + 1 + 3 + 3 + 3 + 1 + 1 + 1 + 1 +  = 17 total values
     }
 
-    private void FixedUpdate()
+    protected void FixedUpdate()
     {
         // Request a decision every 5 steps. RequestDecision() automatically calls RequestAction(),
         // but for the steps in between, we need to call it explicitly to take action using the results
@@ -212,16 +215,16 @@ public class VillagerAgent : Agent, IObserver
             RequestAction();
         }
     }
-    private void OnCollisionEnter(Collision collision)
+    protected void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.CompareTag("Food"))
         {
-            Eat(collision.gameObject);
+            CollideFood(collision.gameObject);
         }
         else if (collision.transform.CompareTag("Warehouse"))
         {
             Warehouse warehouse = collision.gameObject.GetComponent<Warehouse>();
-            EatFromWarehouse(warehouse);
+            CollideWarehouse(warehouse);
         }
         else if (collision.transform.CompareTag("Well"))
         {
@@ -231,19 +234,19 @@ public class VillagerAgent : Agent, IObserver
 
     #region Simple action
 
-    private void Move(float forwardAmount, float turnAmount)
+    protected void Move(float forwardAmount, float turnAmount)
     {
         rigidbody.MovePosition(transform.position + transform.forward * forwardAmount * moveSpeedCurrent * Time.fixedDeltaTime);
         transform.Rotate(transform.up * turnAmount * parametersGiver.TurnSpeed * Time.fixedDeltaTime);
-        moveSpeedCurrent = parametersGiver.MoveSpeedMax;
+        moveSpeedCurrent = moveSpeedMax;
     }
 
-    private void Dash()
+    protected void Dash()
     {
         staminaCurrent -= parametersGiver.StaminaDashTick;
         moveSpeedCurrent = parametersGiver.DashPower;
     }
-    private void Eat(GameObject collectable)
+    protected virtual void CollideFood(GameObject collectable)
     {
         if (villageArea != null)
             villageArea.RemoveSpecificCollectable(collectable);
@@ -252,26 +255,26 @@ public class VillagerAgent : Agent, IObserver
 
         if (HungerCurrent + parametersGiver.FoodValue < parametersGiver.HungerMax)
         {
-            HungerCurrent = parametersGiver.FoodValue;
-            AddReward(0.5f);
+            HungerCurrent = parametersGiver.HungerMax;
+            //AddReward(0.5f);
         }
     }
 
-    private void EatFromWarehouse(Warehouse warehouse)
+    protected virtual void CollideWarehouse(Warehouse warehouse)
     {
         if (HungerCurrent + parametersGiver.FoodValue < parametersGiver.HungerMax && warehouse.TakeFood())
         {
             HungerCurrent = parametersGiver.HungerMax;
-            AddReward(1f);
+            //AddReward(0.5f);
         }
     }
 
-    private void Drink()
+    protected void Drink()
     {
         if (ThirstCurrent + parametersGiver.WaterValue < parametersGiver.ThirstMax)
         {
             ThirstCurrent = parametersGiver.ThirstMax;
-            AddReward(1f);
+            //AddReward(0.5f);
         }
     }
 
@@ -279,7 +282,7 @@ public class VillagerAgent : Agent, IObserver
     {
         isAlive = false;
         village.Detach(this);
-        AddReward(-1f);
+        AddReward(-10f);
         StopAllCoroutines();
 
         if (isTraining)
@@ -292,6 +295,7 @@ public class VillagerAgent : Agent, IObserver
     #region Coroutine
     IEnumerator Tiredness()
     {
+        AddReward(-0.5f);
         isControlEnabled = false;
         RestTimeCurrent = parametersGiver.RestTime;
         while (RestTimeCurrent > 0)
@@ -308,12 +312,12 @@ public class VillagerAgent : Agent, IObserver
         {
             HungerCurrent -= parametersGiver.HungerTick;
             if (HungerCurrent > 0)
-                AddReward(-1f / (HungerCurrent * rewardModifiaer));
+                AddReward(-1f / (HungerCurrent * rewardModifier));
             else break;
 
             ThirstCurrent -= parametersGiver.ThirstTick;
             if (ThirstCurrent > 0)
-                AddReward(-1f / (ThirstCurrent * rewardModifiaer));
+                AddReward(-1f / (ThirstCurrent * rewardModifier));
             else break;
 
             yield return new WaitForSeconds(1f);

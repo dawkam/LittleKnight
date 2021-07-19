@@ -7,15 +7,15 @@ public class Warehouse : MonoBehaviour
     [SerializeField] public int foodCount { get; private set; }
     [SerializeField] public int woodCount { get; private set; }
 
-    private void Start() 
+    private void Start()
     {
-        foodCount = Random.Range(0, 20);
-        woodCount = Random.Range(0, 20);
+        foodCount = Random.Range(0, 0);
+        woodCount = Random.Range(0, 3);
     }
 
-    public void AddFood()
+    public void AddFood(int count)
     {
-        foodCount++;
+        foodCount += count;
     }
 
     public bool TakeFood()
@@ -29,9 +29,9 @@ public class Warehouse : MonoBehaviour
             return false;
     }
 
-    public void AddWood()
+    public void AddWood(int count)
     {
-        woodCount++;
+        woodCount += count;
     }
 
     public bool TakeWood()

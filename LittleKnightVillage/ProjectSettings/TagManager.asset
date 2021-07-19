@@ -19,6 +19,7 @@ TagManager:
   - Warehouse
   - Food
   - Village
+  - Villager
   layers:
   - Default
   - TransparentFX

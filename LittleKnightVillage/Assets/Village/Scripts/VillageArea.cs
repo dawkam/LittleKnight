@@ -8,7 +8,7 @@ public class VillageArea : MonoBehaviour
     public TextMeshPro cumulativeRewardText;
     public VillagerAgent villager;
     public GameObject fruitPrefab;
-    public GameObject predator;
+    public Predator predator;
     public GameObject village;
 
     private List<GameObject> collectableList;
@@ -33,7 +33,7 @@ public class VillageArea : MonoBehaviour
         PlaceGameObject(gameObject: village, minAngle: 90f, maxAngle: 180f, minRadius: 7f, maxRadius: 9f);
 
         PlaceGameObject(gameObject: villager.gameObject, minAngle: 90f, maxAngle: 180f, minRadius: 7f, maxRadius: 10f);
-        PlaceGameObject(gameObject: predator, minAngle: 270f, maxAngle: 360f, minRadius: 0f, maxRadius: 6f);
+        PlaceGameObject(gameObject: predator.gameObject, minAngle: 270f, maxAngle: 360f, minRadius: 0f, maxRadius: 6f);
         SpawnFruits();
     }
 
@@ -67,7 +67,7 @@ public class VillageArea : MonoBehaviour
     }
     private void SpawnFruits()
     {
-        int count = Random.Range(3, 5);
+        int count = Random.Range(3, 10);
         for (int i = 0; i < count; i++)
         {
             GameObject fruit = Instantiate(fruitPrefab, transform);
@@ -83,4 +83,15 @@ public class VillageArea : MonoBehaviour
         Destroy(collectable);
     }
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Villager" && predator.target == null)
+            predator.target = other.gameObject;
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Villager" && predator.target.Equals(other.gameObject))
+            predator.target = null;
+    }
 }
