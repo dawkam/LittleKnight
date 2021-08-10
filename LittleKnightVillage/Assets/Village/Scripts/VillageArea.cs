@@ -8,13 +8,20 @@ public class VillageArea : MonoBehaviour
     public TextMeshPro cumulativeRewardText;
     public VillagerAgent villager;
     public GameObject fruitPrefab;
+    public GameObject treePrefab;
     public Predator predator;
     public GameObject village;
 
-    private List<GameObject> collectableList;
-    public int CollectableCount
+    private List<GameObject> fruitsList;
+    private List<GameObject> treesList;
+
+    public int FruitsCount
     {
-        get { return collectableList.Count; }
+        get { return fruitsList.Count; }
+    }
+    public int TreesCount
+    {
+        get { return treesList.Count; }
     }
 
     private void Start()
@@ -29,28 +36,31 @@ public class VillageArea : MonoBehaviour
 
     public void ResetArea()
     {
-        RemoveAllCollectable();
+        ClearList(ref fruitsList);
+        ClearList(ref treesList);
         PlaceGameObject(gameObject: village, minAngle: 90f, maxAngle: 180f, minRadius: 7f, maxRadius: 9f);
 
         PlaceGameObject(gameObject: villager.gameObject, minAngle: 90f, maxAngle: 180f, minRadius: 7f, maxRadius: 10f);
-        PlaceGameObject(gameObject: predator.gameObject, minAngle: 270f, maxAngle: 360f, minRadius: 0f, maxRadius: 6f);
-        SpawnFruits();
+        //PlaceGameObject(gameObject: predator.gameObject, minAngle: 270f, maxAngle: 360f, minRadius: 0f, maxRadius: 6f);
+        SpawnManyObjects(fruitPrefab, fruitsList, Random.Range(5, 10));
+        SpawnManyObjects(treePrefab, treesList, Random.Range(3, 6));
+        predator.target = null;
     }
 
-    private void RemoveAllCollectable()
+    private void ClearList(ref List<GameObject> list)
     {
-        if (collectableList != null)
+        if (list != null)
         {
-            for (int i = 0; i < collectableList.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
-                if (collectableList[i] != null)
+                if (list[i] != null)
                 {
-                    Destroy(collectableList[i]);
+                    Destroy(list[i]);
                 }
             }
         }
 
-        collectableList = new List<GameObject>();
+        list = new List<GameObject>();
     }
 
     private void PlaceGameObject(GameObject gameObject, float minAngle, float maxAngle, float minRadius, float maxRadius)
@@ -65,21 +75,20 @@ public class VillageArea : MonoBehaviour
         gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
 
     }
-    private void SpawnFruits()
+    private void SpawnManyObjects(GameObject gameObject, List<GameObject> list, int count)
     {
-        int count = Random.Range(3, 10);
         for (int i = 0; i < count; i++)
         {
-            GameObject fruit = Instantiate(fruitPrefab, transform);
-            fruit.transform.position = PlacementHelper.ChooseRandomPosition(transform.position, 0f, 360f, 0f, 8f) + Vector3.up * 0.1f;
-            fruit.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
-            collectableList.Add(fruit);
+            GameObject gm = Instantiate(gameObject, transform);
+            gm.transform.position = PlacementHelper.ChooseRandomPosition(transform.position, 0f, 360f, 0f, 9f) + Vector3.up * 0.1f;
+            gm.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
+            list.Add(gm);
         }
     }
 
     internal void RemoveSpecificCollectable(GameObject collectable)
     {
-        collectableList.Remove(collectable);
+        fruitsList.Remove(collectable);
         Destroy(collectable);
     }
 
@@ -91,7 +100,7 @@ public class VillageArea : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Villager" && predator.target.Equals(other.gameObject))
+        if (other.tag == "Villager" && predator.target != null && predator.target.Equals(other.gameObject))
             predator.target = null;
     }
 }

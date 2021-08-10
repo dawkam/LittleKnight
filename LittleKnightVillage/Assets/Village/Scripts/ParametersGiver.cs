@@ -201,4 +201,11 @@ public class ParametersGiver : MonoBehaviour
 
 
     #endregion
+
+    public void ResetParametrs() 
+    {
+        FoodBagSize = Random.Range(3, 5);
+        ComfortMin = Random.Range(5, 15);
+
+    }
 }

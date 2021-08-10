@@ -54,7 +54,6 @@ public class VillagerAgent : Agent, IObserver
         parametersGiver = villageArea.GetComponent<ParametersGiver>();
         warehouse = villageArea.GetComponentInChildren<Warehouse>();
         village = villageArea.GetComponentInChildren<Village>();
-        village.Attach(this);
         moveSpeedMax = parametersGiver.MoveSpeedMax;
     }
 
@@ -66,6 +65,7 @@ public class VillagerAgent : Agent, IObserver
     }
     protected virtual void ResetData()
     {
+        parametersGiver.ResetParametrs();
         HungerCurrent = parametersGiver.HungerMax;
         ThirstCurrent = parametersGiver.ThirstMax;
 
@@ -75,8 +75,9 @@ public class VillagerAgent : Agent, IObserver
 
         isControlEnabled = true;
         isAlive = true;
-        village.Reset();
+        village.ResetData();
         villageArea.ResetArea();
+        village.Attach(this);
     }
 
     /// <summary>
@@ -198,7 +199,8 @@ public class VillagerAgent : Agent, IObserver
         // Whether the villager is tired (1 float = 1 value)
         sensor.AddObservation(RestTimeCurrent);
 
-        //// 1 + 1 + 1 + 1 + 3 + 3 + 3 + 1 + 1 + 1 + 1 +  = 17 total values
+        sensor.AddObservation(comfort);
+        //// 1 + 1 + 1 + 1 + 3 + 3 + 3 + 1 + 1 + 1 + 1 + 1 = 18 total values
     }
 
     protected void FixedUpdate()

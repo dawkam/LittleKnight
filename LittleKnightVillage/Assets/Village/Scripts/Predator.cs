@@ -8,7 +8,7 @@ public class Predator : MonoBehaviour
     public Collider dangerArea;
     public GameObject target;
 
-    private void Update()
+    private void FixedUpdate()
     {
         Hunt();
     }

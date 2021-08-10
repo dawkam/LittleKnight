@@ -8,30 +8,33 @@ public class Village : MonoBehaviour, IObservable
     List<IObserver> observers = new List<IObserver>();
     private ParametersGiver parametersGiver;
 
-    public float Comfort { get => comfort;
+    public float Comfort
+    {
+        get => comfort;
 
-        private set {
+        private set
+        {
             NotifyObservers();
-            comfort = value; 
-        } }
+            comfort = value;
+        }
+    }
 
     private void Awake()
     {
         parametersGiver = GetComponentInParent<ParametersGiver>();
-        Reset();
+        ResetData();
     }
-
-    private void Udpate()
+    private void Update()
     {
         if (Comfort > parametersGiver.ComfortMin)
             Comfort -= parametersGiver.ComfortTick;
+
     }
 
-
-    public void Reset()
+    public void ResetData()
     {
         StopCoroutine(ComfortConsumption());
-        Comfort = parametersGiver.ComfortMin;
+        Comfort = parametersGiver.ComfortMin + Random.Range(0, 10);
         observers.Clear();
         StartCoroutine(ComfortConsumption());
     }

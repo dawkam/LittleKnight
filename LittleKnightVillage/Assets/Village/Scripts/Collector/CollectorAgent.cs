@@ -9,6 +9,7 @@ public class CollectorAgent : VillagerAgent
     private int foodBag;
     public int FoodBag { get => foodBag; private set => foodBag = value; }
 
+
     protected override void CollideFood(GameObject collectable)
     {
         if (foodBag < parametersGiver.FoodBagSize)
@@ -20,7 +21,7 @@ public class CollectorAgent : VillagerAgent
 
             AddReward(1f);
             foodBag++;
-            moveSpeedMax--;
+            moveSpeedMax -= (parametersGiver.MoveSpeedMax - 1) / parametersGiver.MoveSpeedMax;
         }
     }
 
@@ -50,7 +51,9 @@ public class CollectorAgent : VillagerAgent
 
         sensor.AddObservation(moveSpeedCurrent);
 
-        //// 17 + 1 + 1 = 19 total values
+        sensor.AddObservation(parametersGiver.FoodBagSize);
+
+        //// 18 + 1 + 1 + 1= 21 total values
     }
 
     private void EatFromBag()
@@ -59,7 +62,7 @@ public class CollectorAgent : VillagerAgent
         {
             HungerCurrent = parametersGiver.HungerMax;
             foodBag--;
-            moveSpeedMax++;
+            moveSpeedMax += (parametersGiver.MoveSpeedMax - 1) / parametersGiver.MoveSpeedMax;
         }
     }
 
@@ -70,6 +73,12 @@ public class CollectorAgent : VillagerAgent
         AddReward(foodBag);
         foodBag = 0;
         moveSpeedMax = parametersGiver.MoveSpeedMax;
+
+        if (villageArea.FruitsCount == 0 && isTraining)
+        {
+            AddReward(5f);
+            EndEpisode();
+        }
     }
 
     protected override void ResetData()
