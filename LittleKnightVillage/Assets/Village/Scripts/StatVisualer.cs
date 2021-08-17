@@ -38,6 +38,8 @@ public class StatVisualer : MonoBehaviour
 
         if (villagerAgent is CollectorAgent collector)
             bagTxt.text = $"Food bag: {collector.FoodBag}";
+        else if (villagerAgent is LumberjackAgent lumberjack)
+            bagTxt.text = $"Wood bag: {lumberjack.WoodBag}";
     }
 
     public void SetSize(Transform bar, float normalizedSize)

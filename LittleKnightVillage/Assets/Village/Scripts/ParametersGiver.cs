@@ -33,6 +33,15 @@ public class ParametersGiver : MonoBehaviour
     [Header("Collector")]
     [SerializeField] private int foodBagSize;
 
+    [Header("Lumberjack")]
+    [SerializeField] private int woodBagSize;
+    [SerializeField] private int woodSpawnCount;
+    [SerializeField] private float treeLifeMax;
+    [SerializeField] private float treeLifeTick;
+
+
+
+
     #region Existence
     public float HungerMax
     {
@@ -185,7 +194,7 @@ public class ParametersGiver : MonoBehaviour
 
     #endregion
     #endregion
-    public int FoodBagSize 
+    public int FoodBagSize
     {
         get
         {
@@ -199,13 +208,57 @@ public class ParametersGiver : MonoBehaviour
 
     #region World
 
+    public int WoodBagSize
+    {
+        get
+        {
+            if (woodBagSize == 0)
+                Debug.LogError("woodBagSize is 0!!");
+            return woodBagSize;
+        }
+        private set => woodBagSize = value;
 
+    }
+    public int WoodSpawnCount
+    {
+        get
+        {
+            if (woodSpawnCount == 0)
+                Debug.LogError("woodSpawnCount is 0!!");
+            return woodSpawnCount;
+        }
+        private set => woodSpawnCount = value;
+
+    }
+    public float TreeLifeMax
+    {
+        get
+        {
+            if (treeLifeMax == 0)
+                Debug.LogError("treeLifeMax is 0!!");
+            return treeLifeMax;
+        }
+        private set => treeLifeMax = value;
+
+    }
+
+    public float TreeLifeTick
+    {
+        get
+        {
+            if (treeLifeTick == 0)
+                Debug.LogError("treeLifeTick is 0!!");
+            return treeLifeTick;
+        }
+        private set => treeLifeTick = value;
+
+    }
     #endregion
 
-    public void ResetParametrs() 
+    public void ResetParametrs()
     {
         FoodBagSize = Random.Range(3, 5);
-        ComfortMin = Random.Range(5, 15);
-
+        //ComfortMin = Random.Range(5, 15);
+        WoodSpawnCount = Random.Range(1,3);
     }
 }

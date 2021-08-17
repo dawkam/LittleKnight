@@ -14,8 +14,8 @@ public class Village : MonoBehaviour, IObservable
 
         private set
         {
-            NotifyObservers();
             comfort = value;
+            NotifyObservers();
         }
     }
 
@@ -34,7 +34,7 @@ public class Village : MonoBehaviour, IObservable
     public void ResetData()
     {
         StopCoroutine(ComfortConsumption());
-        Comfort = parametersGiver.ComfortMin + Random.Range(0, 10);
+        Comfort = parametersGiver.ComfortMin; //+ Random.Range(0, 10);
         observers.Clear();
         StartCoroutine(ComfortConsumption());
     }
@@ -52,6 +52,7 @@ public class Village : MonoBehaviour, IObservable
     public void Attach(IObserver observer)
     {
         observers.Add(observer);
+        observer.UpdateObserver();
     }
 
     public void Detach(IObserver observer)

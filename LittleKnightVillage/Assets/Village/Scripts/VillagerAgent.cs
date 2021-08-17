@@ -16,7 +16,7 @@ public class VillagerAgent : Agent, IObserver
     protected float staminaCurrent;
     protected float restTimeCurrent;
 
-    protected float comfort = 1f;
+    protected float comfort;
 
     protected float moveSpeedCurrent;
 
@@ -119,17 +119,9 @@ public class VillagerAgent : Agent, IObserver
     {
         if (isControlEnabled)
         {
-            if (StaminaCurrent > 0)
-            {
-                if (isDash)
-                    Dash();
-                Move(forwardAmount, turnAmount);
-            }
-            else
-            {
-                StopCoroutine(Tiredness());
-                StartCoroutine(Tiredness());
-            }
+            if (isDash)
+                Dash();
+            Move(forwardAmount, turnAmount);
         }
     }
 
@@ -217,7 +209,7 @@ public class VillagerAgent : Agent, IObserver
             RequestAction();
         }
     }
-    protected void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.CompareTag("Food"))
         {
@@ -245,18 +237,18 @@ public class VillagerAgent : Agent, IObserver
 
     protected void Dash()
     {
-        staminaCurrent -= parametersGiver.StaminaDashTick;
         moveSpeedCurrent = parametersGiver.DashPower;
+        SubstractStamina(parametersGiver.StaminaDashTick);
     }
     protected virtual void CollideFood(GameObject collectable)
     {
-        if (villageArea != null)
-            villageArea.RemoveSpecificCollectable(collectable);
-        else
-            Destroy(collectable);
-
         if (HungerCurrent + parametersGiver.FoodValue < parametersGiver.HungerMax)
         {
+            if (villageArea != null)
+                villageArea.RemoveSpecificCollectable(collectable);
+            else
+                Destroy(collectable);
+
             HungerCurrent = parametersGiver.HungerMax;
             //AddReward(0.5f);
         }
@@ -294,8 +286,19 @@ public class VillagerAgent : Agent, IObserver
     }
     #endregion
 
-    #region Coroutine
-    IEnumerator Tiredness()
+
+    protected void SubstractStamina(float value)
+    {
+        staminaCurrent -= value;
+        if (StaminaCurrent <= 0)
+        {
+            StopCoroutine(Tiredness());
+            StartCoroutine(Tiredness());
+        }
+    }
+
+    #region Coroutines
+    protected IEnumerator Tiredness()
     {
         AddReward(-0.5f);
         isControlEnabled = false;

@@ -9,11 +9,14 @@ public class VillageArea : MonoBehaviour
     public VillagerAgent villager;
     public GameObject fruitPrefab;
     public GameObject treePrefab;
+    public GameObject woodPrefab;
     public Predator predator;
     public GameObject village;
 
+    private ParametersGiver parametersGiver;
     private List<GameObject> fruitsList;
     private List<GameObject> treesList;
+    private List<GameObject> woodsList;
 
     public int FruitsCount
     {
@@ -26,6 +29,7 @@ public class VillageArea : MonoBehaviour
 
     private void Start()
     {
+        parametersGiver = GetComponentInParent<ParametersGiver>();
         ResetArea();
     }
 
@@ -38,6 +42,7 @@ public class VillageArea : MonoBehaviour
     {
         ClearList(ref fruitsList);
         ClearList(ref treesList);
+        ClearList(ref woodsList);
         PlaceGameObject(gameObject: village, minAngle: 90f, maxAngle: 180f, minRadius: 7f, maxRadius: 9f);
 
         PlaceGameObject(gameObject: villager.gameObject, minAngle: 90f, maxAngle: 180f, minRadius: 7f, maxRadius: 10f);
@@ -85,13 +90,33 @@ public class VillageArea : MonoBehaviour
             list.Add(gm);
         }
     }
+    public void SpawnWoods(int count, Vector3 position)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            GameObject gm = Instantiate(woodPrefab, transform);
+            gm.transform.position = PlacementHelper.ChooseRandomPosition(position, 0f, 360f, 0f, 0.5f) + Vector3.up * 0.1f;    
+            woodsList.Add(gm);
+        }
+    }
 
     internal void RemoveSpecificCollectable(GameObject collectable)
     {
         fruitsList.Remove(collectable);
         Destroy(collectable);
     }
+    internal void RemoveSpecificTree(GameObject tree)
+    {
+        SpawnWoods(parametersGiver.WoodSpawnCount, tree.transform.position);
+        treesList.Remove(tree);
+        Destroy(tree);
+    }
 
+    internal void RemoveSpecificWood(GameObject wood)
+    {
+        woodsList.Remove(wood);
+        Destroy(wood);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
