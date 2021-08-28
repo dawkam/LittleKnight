@@ -30,10 +30,15 @@ public class LumberjackAgent : VillagerAgent
     {
         if (isControlEnabled)
         {
-            SubstractStamina(parametersGiver.StaminaDashTick*10);
-            tree.GetComponent<Tree>().TakeDamage();
-
-            AddReward(1f);
+            Tree t = tree.GetComponent<Tree>();
+            if (t != null)
+            {
+                SubstractStamina(parametersGiver.StaminaDashTick * 10);
+                if (t.TakeDamage())
+                    AddReward(5f);
+                else
+                    AddReward(1f);
+            }
         }
     }
     protected override void CollideWarehouse(Warehouse warehouse)

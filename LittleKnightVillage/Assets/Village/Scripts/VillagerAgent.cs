@@ -27,8 +27,7 @@ public class VillagerAgent : Agent, IObserver
     protected ParametersGiver parametersGiver;
     new protected Rigidbody rigidbody;
     protected Warehouse warehouse;
-    [SerializeField] protected GameObject well;
-    [SerializeField] protected VillageArea villageArea;
+    protected VillageArea villageArea;
     protected Village village;
 
     protected readonly int rewardModifier = 1;
@@ -44,13 +43,14 @@ public class VillagerAgent : Agent, IObserver
         base.Initialize();
         InitializeData();
 
-        if (parametersGiver == null || warehouse == null || well == null)
+        if (parametersGiver == null || warehouse == null || village.well == null)
             Debug.LogError("Parameters giver or well or warehouse is missing!!");
     }
 
-    protected void InitializeData()
+    protected virtual void InitializeData()
     {
         rigidbody = GetComponent<Rigidbody>();
+        villageArea = this.transform.parent.GetComponent<VillageArea>();
         parametersGiver = villageArea.GetComponent<ParametersGiver>();
         warehouse = villageArea.GetComponentInChildren<Warehouse>();
         village = villageArea.GetComponentInChildren<Village>();
@@ -75,8 +75,11 @@ public class VillagerAgent : Agent, IObserver
 
         isControlEnabled = true;
         isAlive = true;
-        village.ResetData();
-        villageArea.ResetArea();
+        if (isTraining)
+        {
+            village.ResetData();
+            villageArea.ResetArea();
+        }
         village.Attach(this);
     }
 
@@ -120,7 +123,10 @@ public class VillagerAgent : Agent, IObserver
         if (isControlEnabled)
         {
             if (isDash)
+            {
                 Dash();
+                forwardAmount = 1;
+            }
             Move(forwardAmount, turnAmount);
         }
     }
@@ -162,16 +168,16 @@ public class VillagerAgent : Agent, IObserver
         sensor.AddObservation(isAlive);
 
         // Distance to the well (1 float = 1 value)
-        sensor.AddObservation(Vector3.Distance(well.transform.position, transform.position));
+        sensor.AddObservation(Vector3.Distance(village.well.transform.position, transform.position));
 
         // Distance to the warehouse (1 float = 1 value)
         sensor.AddObservation(Vector3.Distance(warehouse.transform.position, transform.position));
 
         // Food count in warehouse (1 float = 1 value)
-        sensor.AddObservation(warehouse.foodCount);
+        sensor.AddObservation(warehouse.FoodCount);
 
         // Direction to well (1 Vector3 = 3 values)
-        sensor.AddObservation((well.transform.position - transform.position).normalized);
+        sensor.AddObservation((village.well.transform.position - transform.position).normalized);
 
         // Direction to warehouse (1 Vector3 = 3 values)
         sensor.AddObservation((warehouse.transform.position - transform.position).normalized);

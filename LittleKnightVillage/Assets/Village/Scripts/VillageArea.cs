@@ -6,7 +6,7 @@ using UnityEngine;
 public class VillageArea : MonoBehaviour
 {
     public TextMeshPro cumulativeRewardText;
-    public VillagerAgent villager;
+    public VillagerAgent learningVillager;
     public GameObject fruitPrefab;
     public GameObject treePrefab;
     public GameObject woodPrefab;
@@ -35,7 +35,7 @@ public class VillageArea : MonoBehaviour
 
     private void Update()
     {
-        cumulativeRewardText.text = villager.GetCumulativeReward().ToString("0.00");
+        cumulativeRewardText.text = learningVillager.GetCumulativeReward().ToString("0.00");
     }
 
     public void ResetArea()
@@ -45,10 +45,11 @@ public class VillageArea : MonoBehaviour
         ClearList(ref woodsList);
         PlaceGameObject(gameObject: village, minAngle: 90f, maxAngle: 180f, minRadius: 7f, maxRadius: 9f);
 
-        PlaceGameObject(gameObject: villager.gameObject, minAngle: 90f, maxAngle: 180f, minRadius: 7f, maxRadius: 10f);
+        PlaceGameObjectInSafeZone(learningVillager.gameObject);
         //PlaceGameObject(gameObject: predator.gameObject, minAngle: 270f, maxAngle: 360f, minRadius: 0f, maxRadius: 6f);
-        SpawnManyObjects(fruitPrefab, fruitsList, Random.Range(5, 10));
-        SpawnManyObjects(treePrefab, treesList, Random.Range(3, 6));
+        SpawnManyObjects(fruitPrefab, fruitsList, Random.Range(parametersGiver.FriutsMinCount, parametersGiver.FriutsMaxCount));
+        SpawnManyObjects(treePrefab, treesList, Random.Range(parametersGiver.WoodsMinCount, parametersGiver.WoodsMaxCount));
+        PlaceGameObject(predator.gameObject, 270f, 360f, 5f, 7f);
         predator.target = null;
     }
 
@@ -68,6 +69,11 @@ public class VillageArea : MonoBehaviour
         list = new List<GameObject>();
     }
 
+    public void PlaceGameObjectInSafeZone(GameObject prefab)
+    {
+        PlaceGameObject(gameObject: prefab, minAngle: 90f, maxAngle: 180f, minRadius: 7f, maxRadius: 10f);
+    }
+
     private void PlaceGameObject(GameObject gameObject, float minAngle, float maxAngle, float minRadius, float maxRadius)
     {
         Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
@@ -78,7 +84,6 @@ public class VillageArea : MonoBehaviour
         }
         gameObject.transform.position = PlacementHelper.ChooseRandomPosition(transform.position, minAngle, maxAngle, minRadius, maxRadius) + Vector3.up * .2f;
         gameObject.transform.rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
-
     }
     private void SpawnManyObjects(GameObject gameObject, List<GameObject> list, int count)
     {
@@ -95,7 +100,7 @@ public class VillageArea : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             GameObject gm = Instantiate(woodPrefab, transform);
-            gm.transform.position = PlacementHelper.ChooseRandomPosition(position, 0f, 360f, 0f, 0.5f) + Vector3.up * 0.1f;    
+            gm.transform.position = PlacementHelper.ChooseRandomPosition(position, 0f, 360f, 0f, 0.5f) + Vector3.up * 0.1f;
             woodsList.Add(gm);
         }
     }
@@ -120,12 +125,12 @@ public class VillageArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Villager" && predator.target == null)
+        if (other.CompareTag("Villager") && predator.target == null)
             predator.target = other.gameObject;
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Villager" && predator.target != null && predator.target.Equals(other.gameObject))
+        if (other.CompareTag("Villager") && predator.target != null && predator.target.Equals(other.gameObject))
             predator.target = null;
     }
 }

@@ -9,7 +9,7 @@ public class Tree : MonoBehaviour
     private float lifeCurrent;
     private ParticleSystem particle;
 
-    private void Start()
+    private void Awake()
     {
         parametersGiver = GetComponentInParent<ParametersGiver>();
         villageArea = GetComponentInParent<VillageArea>();
@@ -18,16 +18,19 @@ public class Tree : MonoBehaviour
         particle.gameObject.SetActive(false);
     }
 
-    public void TakeDamage()
+    public bool TakeDamage()
     {
         lifeCurrent -= parametersGiver.TreeLifeTick;
         particle.gameObject.SetActive(false);
         particle.gameObject.SetActive(true);
         if (lifeCurrent <= 0)
+        {
             villageArea.RemoveSpecificTree(this.gameObject);
-            
+            return true;
+        }
+        return false;
     }
 
-    
+
 
 }

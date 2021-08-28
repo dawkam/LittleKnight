@@ -60,6 +60,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8c4116fb626ca43ba9cac8d6cec83b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CollectorPrefab: {fileID: 1508708791488460961, guid: eff1465e30501c24b8a503fe622307d9,
+    type: 3}
+  LumberjackPrefab: {fileID: 4572353079681675237, guid: 0cd5db7d14ffdca42928e87864f3e99e,
+    type: 3}
+  ArtisanPrefab: {fileID: 3594099673910912544, guid: 22f5b06cde17f5c43a5606d8c789c349,
+    type: 3}
+  BabyPrefab: {fileID: 3594099673910912544, guid: 2aae7096dd648bf48899ce99d5696f3c,
+    type: 3}
+  collectors: []
+  lumberjacks: []
+  artisans: []
+  babys: []
+  well: {fileID: 6077014914320598042}
 --- !u!1 &8892169192750278220
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,10 +234,16 @@ PrefabInstance:
     - target: {fileID: 112678991402843173, guid: 47b010a5c4d05014fad9a74a7ed83a3e,
         type: 3}
       propertyPath: m_Name
-      value: Wells
+      value: Well
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47b010a5c4d05014fad9a74a7ed83a3e, type: 3}
+--- !u!1 &6077014914320598042 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 112678991402843173, guid: 47b010a5c4d05014fad9a74a7ed83a3e,
+    type: 3}
+  m_PrefabInstance: {fileID: 6180544181466019903}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6077014914320308450 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 112678991402606813, guid: 47b010a5c4d05014fad9a74a7ed83a3e,

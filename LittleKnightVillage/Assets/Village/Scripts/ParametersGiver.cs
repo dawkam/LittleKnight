@@ -36,8 +36,23 @@ public class ParametersGiver : MonoBehaviour
     [Header("Lumberjack")]
     [SerializeField] private int woodBagSize;
     [SerializeField] private int woodSpawnCount;
+
+    [Header("Artisan")]
+    [SerializeField] private float craftTime;
+
+    [Header("Mayer")]
+    [SerializeField] private float babyCoolDown;
+
+    [Header("Baby")]
+    [SerializeField] private float adulthoodAge;
+
+    [Header("World")]
     [SerializeField] private float treeLifeMax;
     [SerializeField] private float treeLifeTick;
+    [SerializeField] private int friutsMinCount;
+    [SerializeField] private int friutsMaxCount;
+    [SerializeField] private int woodsMinCount;
+    [SerializeField] private int woodsMaxCount;
 
 
 
@@ -241,7 +256,6 @@ public class ParametersGiver : MonoBehaviour
         private set => treeLifeMax = value;
 
     }
-
     public float TreeLifeTick
     {
         get
@@ -253,7 +267,81 @@ public class ParametersGiver : MonoBehaviour
         private set => treeLifeTick = value;
 
     }
+
+    public int FriutsMinCount
+    {
+        get
+        {
+            //if (friutsMinCount == 0)
+            //    Debug.LogError("friutsMinCount is 0!!");
+            return friutsMinCount;
+        }
+        private set => friutsMinCount = value;
+    }
+    public int FriutsMaxCount
+    {
+        get
+        {
+            //if (friutsMaxCount == 0)
+            //    Debug.LogError("friutsMaxCount is 0!!");
+            return friutsMaxCount;
+        }
+        private set => friutsMaxCount = value;
+    }
+    public int WoodsMinCount
+    {
+        get
+        {
+            //if (woodsMinCount == 0)
+            //    Debug.LogError("woodsMinCount is 0!!");
+            return woodsMinCount;
+        }
+        private set => woodsMinCount = value;
+    }
+    public int WoodsMaxCount
+    {
+        get
+        {
+            //if (woodsMaxCount == 0)
+            //    Debug.LogError("woodsMaxCount is 0!!");
+            return woodsMaxCount;
+        }
+        private set => woodsMaxCount = value;
+    }
     #endregion
+
+    public float CraftTime
+    {
+        get
+        {
+            if (craftTime == 0)
+                Debug.LogError("craftTime is 0!!");
+            return craftTime;
+        }
+        private set => craftTime = value;
+    }    
+    public float BabyCoolDown
+    {
+        get
+        {
+            if (babyCoolDown == 0)
+                Debug.LogError("babyCoolDown is 0!!");
+            return babyCoolDown;
+        }
+        private set => babyCoolDown = value;
+    }
+
+    public float AdulthoodAge
+    {
+        get
+        {
+            if (adulthoodAge == 0)
+                Debug.LogError("adulthoodAge is 0!!");
+            return adulthoodAge;
+        }
+        private set => adulthoodAge = value;
+    }
+
 
     public void ResetParametrs()
     {

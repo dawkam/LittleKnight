@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class Warehouse : MonoBehaviour
 {
-    [SerializeField] public int foodCount { get; private set; }
-    [SerializeField] public int woodCount { get; private set; }
+    [SerializeField] public int FoodCount { get; private set; }
+    [SerializeField] public int WoodCount { get; private set; }
 
     private void Start()
     {
-        foodCount = Random.Range(0, 0);
-        woodCount = Random.Range(0, 3);
+        FoodCount = Random.Range(3, 5);
+        WoodCount = Random.Range(3, 5);
     }
 
     public void AddFood(int count)
     {
-        foodCount += count;
+        FoodCount += count;
     }
 
     public bool TakeFood()
     {
-        if (foodCount > 0)
+        if (FoodCount > 0)
         {
-            foodCount--;
+            FoodCount--;
             return true;
         }
         else
@@ -31,14 +31,14 @@ public class Warehouse : MonoBehaviour
 
     public void AddWood(int count)
     {
-        woodCount += count;
+        WoodCount += count;
     }
 
     public bool TakeWood()
     {
-        if (woodCount > 0)
+        if (WoodCount > 0)
         {
-            woodCount--;
+            WoodCount--;
             return true;
         }
         else
