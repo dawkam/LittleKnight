@@ -5475,7 +5475,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
-  isTraining: 0
+  isTraining: 1
   isInsideVillage: 0
   particle: {fileID: 0}
 --- !u!1 &4073092947110236446

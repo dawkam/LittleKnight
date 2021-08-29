@@ -65,7 +65,7 @@ public class MayorAgent : VillagerAgent
     }
     private void CreateVillager(VillagerRole villagerRole)
     {
-        if (babyTime <= 0)
+        if (babyTime <= 0 && warehouse.TakeFoodForBaby())
         {
             StartCoroutine(BabyCoolDown());
             village.SpawnBaby(villagerRole);

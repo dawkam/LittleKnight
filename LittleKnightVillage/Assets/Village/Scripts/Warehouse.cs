@@ -7,8 +7,10 @@ public class Warehouse : MonoBehaviour
     [SerializeField] public int FoodCount { get; private set; }
     [SerializeField] public int WoodCount { get; private set; }
 
+    ParametersGiver parametersGiver;
     private void Start()
     {
+        parametersGiver = GetComponentInParent<ParametersGiver>();
         FoodCount = Random.Range(3, 5);
         WoodCount = Random.Range(3, 5);
     }
@@ -23,6 +25,18 @@ public class Warehouse : MonoBehaviour
         if (FoodCount > 0)
         {
             FoodCount--;
+            return true;
+        }
+        else
+            return false;
+    }
+
+
+    public bool TakeFoodForBaby()
+    {
+        if (FoodCount > parametersGiver.BabyCost)
+        {
+            FoodCount-= parametersGiver.BabyCost;
             return true;
         }
         else

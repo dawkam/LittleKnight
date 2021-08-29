@@ -42,6 +42,7 @@ public class ParametersGiver : MonoBehaviour
 
     [Header("Mayer")]
     [SerializeField] private float babyCoolDown;
+    [SerializeField] private int babyCost;
 
     [Header("Baby")]
     [SerializeField] private float adulthoodAge;
@@ -329,6 +330,16 @@ public class ParametersGiver : MonoBehaviour
             return babyCoolDown;
         }
         private set => babyCoolDown = value;
+    }
+    public int BabyCost
+    {
+        get
+        {
+            if (babyCost == 0)
+                Debug.LogError("babyCost is 0!!");
+            return babyCost;
+        }
+        private set => babyCost = value;
     }
 
     public float AdulthoodAge

@@ -31,6 +31,8 @@ public class VillageArea : MonoBehaviour
     {
         parametersGiver = GetComponentInParent<ParametersGiver>();
         ResetArea();
+        if (learningVillager.enabled == false)
+            Debug.LogError("Inactive agent.");
     }
 
     private void Update()
