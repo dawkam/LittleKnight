@@ -77,6 +77,7 @@ public class VillagerAgent : Agent, IObserver
         isAlive = true;
         if (isTraining)
         {
+            warehouse.ResetData();
             village.ResetData();
             villageArea.ResetArea();
         }
@@ -265,7 +266,7 @@ public class VillagerAgent : Agent, IObserver
         if (HungerCurrent + parametersGiver.FoodValue < parametersGiver.HungerMax && warehouse.TakeFood())
         {
             HungerCurrent = parametersGiver.HungerMax;
-            //AddReward(0.5f);
+            //AddReward(5f);
         }
     }
 
@@ -274,7 +275,7 @@ public class VillagerAgent : Agent, IObserver
         if (ThirstCurrent + parametersGiver.WaterValue < parametersGiver.ThirstMax)
         {
             ThirstCurrent = parametersGiver.ThirstMax;
-            //AddReward(0.5f);
+            //AddReward(5f);
         }
     }
 

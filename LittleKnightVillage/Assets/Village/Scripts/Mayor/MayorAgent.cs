@@ -53,20 +53,27 @@ public class MayorAgent : VillagerAgent
         if (Input.GetKey(KeyCode.C))
         {
             actionsOut.DiscreteActions.Array[3] = 1;
+            if (warehouse.FoodCount < village.GetVillagersCount())
+                AddReward(3f);
         }
         if (Input.GetKey(KeyCode.V))
         {
             actionsOut.DiscreteActions.Array[4] = 1;
+            if (warehouse.WoodCount < village.GetArtisansCount())
+                AddReward(3f);
         }
         if (Input.GetKey(KeyCode.B))
         {
             actionsOut.DiscreteActions.Array[5] = 1;
+            if (warehouse.WoodCount > village.GetArtisansCount())
+                AddReward(3f);
         }
     }
     private void CreateVillager(VillagerRole villagerRole)
     {
         if (babyTime <= 0 && warehouse.TakeFoodForBaby())
         {
+            AddReward(1f);
             StartCoroutine(BabyCoolDown());
             village.SpawnBaby(villagerRole);
         }
@@ -81,6 +88,5 @@ public class MayorAgent : VillagerAgent
             yield return new WaitForSeconds(1f);
         }
     }
-
 
 }

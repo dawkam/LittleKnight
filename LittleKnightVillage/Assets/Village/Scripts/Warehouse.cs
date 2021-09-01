@@ -11,8 +11,7 @@ public class Warehouse : MonoBehaviour
     private void Start()
     {
         parametersGiver = GetComponentInParent<ParametersGiver>();
-        FoodCount = Random.Range(3, 5);
-        WoodCount = Random.Range(3, 5);
+        ResetData();
     }
 
     public void AddFood(int count)
@@ -59,4 +58,9 @@ public class Warehouse : MonoBehaviour
             return false;
     }
 
+    internal void ResetData()
+    {
+        FoodCount = Random.Range(3, 5);
+        WoodCount = 0;// Random.Range(5, 8);
+    }
 }
