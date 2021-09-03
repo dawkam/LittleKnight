@@ -58,7 +58,7 @@ public class ParametersGiver : MonoBehaviour
     [SerializeField] private int resurcesSpawnTime;
     [SerializeField] private int collectDataTime;
 
-    [SerializeField] private int fruitOnSceneMax;
+    [SerializeField] private int fruitsOnSceneMax;
     [SerializeField] private int treesOnSceneMax;
 
 
@@ -379,15 +379,15 @@ public class ParametersGiver : MonoBehaviour
         private set => collectDataTime = value;
     }
 
-    public int FruitOnSceneMax 
+    public int FruitsOnSceneMax 
     {
         get
         {
-            if (fruitOnSceneMax == 0)
-                Debug.LogError("fruitOnSceneMax is 0!!");
-            return fruitOnSceneMax;
+            if (fruitsOnSceneMax == 0)
+                Debug.LogError("fruitsOnSceneMax is 0!!");
+            return fruitsOnSceneMax;
         }
-        private set => fruitOnSceneMax = value;
+        private set => fruitsOnSceneMax = value;
     }
     public int TreesOnSceneMax 
     {

@@ -1245,6 +1245,16 @@ PrefabInstance:
       propertyPath: adulthoodAge
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 6199953104489914604, guid: b48dce5edbd2d8d48b83e25c70798f1d,
+        type: 3}
+      propertyPath: fruitOnSceneMax
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6199953104489914604, guid: b48dce5edbd2d8d48b83e25c70798f1d,
+        type: 3}
+      propertyPath: treesOnSceneMax
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6199953104489914605, guid: b48dce5edbd2d8d48b83e25c70798f1d,
         type: 3}
       propertyPath: m_RootOrder

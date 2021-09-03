@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeScale: 5
-  SimulationTime: 10
+  SimulationTime: 600
 --- !u!114 &6199953104489914607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,3 +100,5 @@ MonoBehaviour:
   woodsMaxCount: 2
   resurcesSpawnTime: 10
   collectDataTime: 10
+  fruitsOnSceneMax: 0
+  treesOnSceneMax: 0
