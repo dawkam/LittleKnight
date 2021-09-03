@@ -6,6 +6,7 @@ public class SimulationManager : MonoBehaviour
 {
     public float TimeScale;
     public int SimulationTime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,11 @@ public class SimulationManager : MonoBehaviour
 
         if (Time.realtimeSinceStartup >= SimulationTime)
         {
+            VillageArea[] villageAreas = GetComponentsInChildren<VillageArea>();
+            foreach (VillageArea va in villageAreas) 
+            {
+                va.SaveData();
+            }
             GetComponent<CSVManager>().SaveData();
             UnityEditor.EditorApplication.isPlaying = false;
         }

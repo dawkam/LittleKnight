@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class CSVManager : MonoBehaviour
 {
+    public string fileName;
     private List<string[]> rowData = new List<string[]>();
     private void Start()
     {
@@ -90,14 +91,14 @@ public class CSVManager : MonoBehaviour
             sb.AppendLine(string.Join(delimiter, output[index]));
 
 
-        StreamWriter outStream = System.IO.File.CreateText(GetPath("csv"));
+        StreamWriter outStream = System.IO.File.AppendText(GetPath("csv"));
         outStream.WriteLine(sb);
         outStream.Close();
 
         ParametersGiver parametersGiver = GetComponent<ParametersGiver>();
         string paramGiver = JsonUtility.ToJson(parametersGiver);
 
-        outStream = System.IO.File.CreateText(GetPath("json"));
+        outStream = System.IO.File.AppendText(GetPath("json"));
         outStream.WriteLine(paramGiver);
         outStream.Close();
     }
@@ -105,7 +106,7 @@ public class CSVManager : MonoBehaviour
     private string GetPath(string type)
     {
 
-        return Application.dataPath + "/Data/" + type + "/" + DateTime.Now.ToString("MM'-'dd'-'yyyy'_'hh'-'mm'-'ss") + "." + type;
+        return Application.dataPath + "/Data/" + type + "/" + fileName + "." + type;
 
     }
 

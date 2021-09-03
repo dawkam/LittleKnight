@@ -68,7 +68,7 @@ public class VillageArea : MonoBehaviour
 
     }
 
-    private void SaveData()
+    public void SaveData()
     {
         researchData.collectorsCount = village.GetCollectorsCount();
         researchData.lumberjacksCount = village.GetLumberjacksCount();
