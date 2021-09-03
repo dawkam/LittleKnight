@@ -5,37 +5,31 @@ using UnityEngine;
 public class ResearchData
 {
 
-    public List<int> collectorsCount;
-    public List<int> collectorsDeathByMonster;
-    public List<int> collectorsDeathByHunger;
-    public List<int> collectorsDeathByThirst;
-    public List<int> lumberjacksCount;
-    public List<int> lumberjacksDeathByMonster;
-    public List<int> lumberjacksDeathByHunger;
-    public List<int> lumberjacksDeathByThirst;
-    public List<int> artisansCount;
-    public List<int> artisansDeathByMonster;
-    public List<int> artisansDeathByHunger;
-    public List<int> artisansDeathByThirst;
-    public List<int> babysCount;
-    public List<int> babysDeathByMonster;
-    public List<int> babysDeathByHunger;
-    public List<int> babysDeathByThirst;
-    public List<int> warehouseFoodCount;
-    public List<int> sceneFoodCount; 
-    public List<int> warehouseWoodCount; 
-    public List<int> sceneTreeCount; 
-    public List<int> sceneWoodCount;
-    
-    public DeathReson mayorDeathReson;
-    public float simulationTime;
-    public float comfortMax;
+    public List<int> collectorsCount = new List<int>();
+    public List<int> collectorsDeathByMonster = new List<int>();
+    public List<int> collectorsDeathByHunger = new List<int>();
+    public List<int> collectorsDeathByThirst = new List<int>();
+    public List<int> lumberjacksCount = new List<int>();
+    public List<int> lumberjacksDeathByMonster = new List<int>();
+    public List<int> lumberjacksDeathByHunger = new List<int>();
+    public List<int> lumberjacksDeathByThirst = new List<int>();
+    public List<int> artisansCount = new List<int>();
+    public List<int> artisansDeathByMonster = new List<int>();
+    public List<int> artisansDeathByHunger = new List<int>();
+    public List<int> artisansDeathByThirst = new List<int>();
+    public List<int> babysCount = new List<int>();
+    public List<int> babysDeathByMonster = new List<int>();
+    public List<int> babysDeathByHunger = new List<int>();
+    public List<int> babysDeathByThirst = new List<int>();
+    public List<int> warehouseFoodCount = new List<int>();
+    public List<int> sceneFoodCount = new List<int>();
+    public List<int> warehouseWoodCount = new List<int>();
+    public List<int> sceneTreeCount = new List<int>();
+    public List<int> sceneWoodCount = new List<int>();
+    public List<float> simulationTime = new List<float>();
+    public List<DeathReson> mayorDeathReson = new List<DeathReson>();
+    public List<float> comfort = new List<float>();
 
-
-    public ResearchData()
-    {
-        simulationTime = Time.realtimeSinceStartup;
-    }
 }
 
 public enum DeathReson

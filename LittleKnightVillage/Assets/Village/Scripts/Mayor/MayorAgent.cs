@@ -82,7 +82,7 @@ public class MayorAgent : VillagerAgent
     IEnumerator BabyCoolDown()
     {
         babyTime = parametersGiver.BabyCoolDown;
-        while (isAlive && babyTime >= 0 )
+        while (isAlive && babyTime >= 0)
         {
             babyTime--;
             yield return new WaitForSeconds(1f);
@@ -92,6 +92,5 @@ public class MayorAgent : VillagerAgent
     public override void Die()
     {
         base.Die();
-        villageArea.researchData.mayorDeathReson = deathReson;
     }
 }

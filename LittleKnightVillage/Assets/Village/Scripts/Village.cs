@@ -18,29 +18,28 @@ public class Village : MonoBehaviour, IObservable
     public GameObject ArtisanPrefab;
     public GameObject BabyPrefab;
 
-    public List<GameObject> collectors;
-    
+    public List<GameObject> collectors = new List<GameObject>();
     public int collectorsDeathByMonster;
     public int collectorsDeathByHunger;
     public int collectorsDeathByThirst;
 
+    public List<GameObject> lumberjacks = new List<GameObject>();
     public int lumberjacksDeathByMonster;
     public int lumberjacksDeathByHunger;
     public int lumberjacksDeathByThirst;
 
+    public List<GameObject> artisans = new List<GameObject>();
     public int artisansDeathByMonster;
     public int artisansDeathByHunger;
     public int artisansDeathByThirst;
 
+    public List<GameObject> babys = new List<GameObject>();
     public int babysDeathByMonster;
     public int babysDeathByHunger;
     public int babysDeathByThirst;
 
-    public List<GameObject> lumberjacks;
 
-    public List<GameObject> artisans;
 
-    public List<GameObject> babys;
 
 
     public float Comfort
@@ -74,6 +73,22 @@ public class Village : MonoBehaviour, IObservable
 
         ClearList(ref babys);
 
+        collectorsDeathByMonster = 0;
+        collectorsDeathByHunger = 0;
+        collectorsDeathByThirst = 0;
+
+        lumberjacksDeathByMonster = 0;
+        lumberjacksDeathByHunger = 0;
+        lumberjacksDeathByThirst = 0;
+
+        artisansDeathByMonster = 0;
+        artisansDeathByHunger = 0;
+        artisansDeathByThirst = 0;
+
+        babysDeathByMonster = 0;
+        babysDeathByHunger = 0;
+        babysDeathByThirst = 0;
+
         warehouse.ResetData();
     }
 
@@ -102,8 +117,6 @@ public class Village : MonoBehaviour, IObservable
     {
         foreach (IObserver obs in observers)
             obs.UpdateObserver();
-        if (researchData != null)
-            researchData.comfortMax = Mathf.Max(researchData.comfortMax, Comfort);
     }
 
     public void AddComfort()

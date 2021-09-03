@@ -71,13 +71,7 @@ public class VillageArea : MonoBehaviour
 
     public void SaveData()
     {
-
-        researchData.mayorDeathReson = learningVillager.deathReson;
-        researchData.simulationTime = Time.realtimeSinceStartup - researchData.simulationTime;
-        researchData.comfortMax = Mathf.Max(researchData.comfortMax, parametersGiver.ComfortMin);
-
         FindObjectOfType<CSVManager>().AddData(researchData);
-
     }
 
     IEnumerator CollectData()
@@ -89,7 +83,7 @@ public class VillageArea : MonoBehaviour
             researchData.lumberjacksCount.Add(village.GetLumberjacksCount());
             researchData.artisansCount.Add(village.GetArtisansCount());
             researchData.babysCount.Add(village.GetBabysCount());
- 
+
             researchData.warehouseFoodCount.Add(village.warehouse.FoodCount);
             researchData.sceneFoodCount.Add(fruitsList.Count);
             researchData.warehouseWoodCount.Add(village.warehouse.WoodCount);
@@ -108,7 +102,10 @@ public class VillageArea : MonoBehaviour
             researchData.babysDeathByHunger.Add(village.babysDeathByHunger);
             researchData.babysDeathByThirst.Add(village.babysDeathByThirst);
 
-           
+            researchData.mayorDeathReson.Add(learningVillager.deathReson);
+            researchData.simulationTime.Add(Time.timeSinceLevelLoad);
+            researchData.comfort.Add(village.Comfort);
+
             yield return new WaitForSeconds(parametersGiver.CollectDataTime);
         }
     }

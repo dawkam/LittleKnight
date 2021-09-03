@@ -8,107 +8,91 @@ using UnityEngine;
 public class CSVManager : MonoBehaviour
 {
     public string fileName;
-    private List<string[]> rowSingleData = new List<string[]>();
-    private List<string[]> rowMultipleData = new List<string[]>();
+    private List<string[]> rowData = new List<string[]>();
+
     private void Start()
     {
-        string[] rowMultipleDataTemp = new string[3];
-        string[] rowSingleDataTemp = new string[22];
-
-        rowSingleDataTemp[0] = "mayorDeathReson";
-        rowSingleDataTemp[1] = "simulationTime";
-        rowSingleDataTemp[2] = "comfortMax";
-
-        rowMultipleDataTemp[0] = "collectorsCount";
-        rowMultipleDataTemp[1] = "lumberjacksCount";
-        rowMultipleDataTemp[2] = "artisansCount";
-        rowMultipleDataTemp[3] = "babysCount";
-        rowMultipleDataTemp[4] = "warehouseFoodCount";
-        rowMultipleDataTemp[5] = "sceneFoodCount";
-        rowMultipleDataTemp[6] = "warehouseWoodCount";
-        rowMultipleDataTemp[7] = "sceneTreeCount";
-        rowMultipleDataTemp[8] = "sceneWoodCount";
-        rowMultipleDataTemp[9] = "collectorsDeathByMonster";
-        rowMultipleDataTemp[10] = "collectorsDeathByHunger";
-        rowMultipleDataTemp[12] = "collectorsDeathByThirst";
-        rowMultipleDataTemp[13] = "lumberjacksDeathByMonster";
-        rowMultipleDataTemp[14] = "lumberjacksDeathByHunger";
-        rowMultipleDataTemp[15] = "lumberjacksDeathByThirst";
-        rowMultipleDataTemp[16] = "artisansDeathByMonster";
-        rowMultipleDataTemp[17] = "artisansDeathByHunger";
-        rowMultipleDataTemp[18] = "artisansDeathByThirst";
-        rowMultipleDataTemp[19] = "babysDeathByMonster";
-        rowMultipleDataTemp[20] = "babysDeathByHunger";
-        rowMultipleDataTemp[21] = "babysDeathByThirst";
+        string[] rowDataTemp = new string[25];
 
 
-        rowSingleData.Add(rowSingleDataTemp);
-        rowMultipleData.Add(rowMultipleDataTemp);
+        rowDataTemp[0] = "mayorDeathReson";
+        rowDataTemp[1] = "simulationTime";
+        rowDataTemp[2] = "comfortMax";
+        rowDataTemp[3] = "";
+        rowDataTemp[4] = "collectorsCount";
+        rowDataTemp[5] = "lumberjacksCount";
+        rowDataTemp[6] = "artisansCount";
+        rowDataTemp[7] = "babysCount";
+        rowDataTemp[8] = "warehouseFoodCount";
+        rowDataTemp[9] = "sceneFoodCount";
+        rowDataTemp[10] = "warehouseWoodCount";
+        rowDataTemp[11] = "sceneTreeCount";
+        rowDataTemp[12] = "sceneWoodCount";
+        rowDataTemp[13] = "collectorsDeathByMonster";
+        rowDataTemp[14] = "collectorsDeathByHunger";
+        rowDataTemp[15] = "collectorsDeathByThirst";
+        rowDataTemp[16] = "lumberjacksDeathByMonster";
+        rowDataTemp[17] = "lumberjacksDeathByHunger";
+        rowDataTemp[18] = "lumberjacksDeathByThirst";
+        rowDataTemp[19] = "artisansDeathByMonster";
+        rowDataTemp[20] = "artisansDeathByHunger";
+        rowDataTemp[21] = "artisansDeathByThirst";
+        rowDataTemp[22] = "babysDeathByMonster";
+        rowDataTemp[23] = "babysDeathByHunger";
+        rowDataTemp[24] = "babysDeathByThirst";
+
+
+        rowData.Add(rowDataTemp);
+
     }
 
-    public void AddData(ResearchData researchData) 
+    public void AddData(ResearchData researchData)
     {
-        AddSingleData(researchData);
-        AddMultipleData(researchData);
-    }
+        List<string[]> rowTmp = new List<string[]>();
 
-    private void AddSingleData(ResearchData researchData)
-    {
-        string[] rowSingleDataTemp = new string[3];
-
-        rowSingleDataTemp[0] = researchData.mayorDeathReson.ToString();
-        rowSingleDataTemp[1] = researchData.simulationTime.ToString();
-        rowSingleDataTemp[2] = researchData.comfortMax.ToString();
-
-        rowSingleData.Add(rowSingleDataTemp);
-    }
-
-    private void AddMultipleData(ResearchData researchData)
-    {
-        List<string[]> rows = new List<string[]>();
         for (int i = 0; i < researchData.collectorsCount.Count; i++)
         {
-            string[] rowMultipleDataTemp = new string[13];
-            rowMultipleDataTemp[0] = (researchData.collectorsCount.ToString());
-            rowMultipleDataTemp[1] = (researchData.lumberjacksCount.ToString());
-            rowMultipleDataTemp[2] = (researchData.artisansCount.ToString());
-            rowMultipleDataTemp[3] = (researchData.babysCount.ToString());
-            rowMultipleDataTemp[4] = (researchData.warehouseFoodCount.ToString());
-            rowMultipleDataTemp[5] = (researchData.sceneFoodCount.ToString());
-            rowMultipleDataTemp[6] = (researchData.warehouseWoodCount.ToString());
-            rowMultipleDataTemp[7] = (researchData.sceneTreeCount.ToString());
-            rowMultipleDataTemp[8] = (researchData.sceneWoodCount.ToString());
-            rowMultipleDataTemp[9] = researchData.collectorsDeathByMonster.ToString();
-            rowMultipleDataTemp[10] = researchData.collectorsDeathByHunger.ToString();
-            rowMultipleDataTemp[12] = researchData.collectorsDeathByThirst.ToString();
-            rowMultipleDataTemp[13] = researchData.lumberjacksDeathByMonster.ToString();
-            rowMultipleDataTemp[14] = researchData.lumberjacksDeathByHunger.ToString();
-            rowMultipleDataTemp[15] = researchData.lumberjacksDeathByThirst.ToString();
-            rowMultipleDataTemp[16] = researchData.artisansDeathByMonster.ToString();
-            rowMultipleDataTemp[17] = researchData.artisansDeathByHunger.ToString();
-            rowMultipleDataTemp[18] = researchData.artisansDeathByThirst.ToString();
-            rowMultipleDataTemp[19] = researchData.babysDeathByMonster.ToString();
-            rowMultipleDataTemp[20] = researchData.babysDeathByHunger.ToString();
-            rowMultipleDataTemp[21] = researchData.babysDeathByThirst.ToString();
-            rows.Add(rowMultipleDataTemp);
+            string[] rowDataTemp = new string[25];
+
+            rowDataTemp[0] = researchData.mayorDeathReson.ToString();
+            rowDataTemp[1] = researchData.simulationTime.ToString();
+            rowDataTemp[2] = researchData.comfort.ToString();
+            rowDataTemp[3] = "";
+
+            rowDataTemp[4] = researchData.collectorsCount[i].ToString();
+            rowDataTemp[5] = researchData.lumberjacksCount[i].ToString();
+            rowDataTemp[6] = researchData.artisansCount[i].ToString();
+            rowDataTemp[7] = researchData.babysCount[i].ToString();
+            rowDataTemp[8] = researchData.warehouseFoodCount[i].ToString();
+            rowDataTemp[9] = researchData.sceneFoodCount[i].ToString();
+            rowDataTemp[10] = researchData.warehouseWoodCount[i].ToString();
+            rowDataTemp[11] = researchData.sceneTreeCount[i].ToString();
+            rowDataTemp[12] = researchData.sceneWoodCount[i].ToString();
+            rowDataTemp[13] = researchData.collectorsDeathByMonster[i].ToString();
+            rowDataTemp[14] = researchData.collectorsDeathByHunger[i].ToString();
+            rowDataTemp[15] = researchData.collectorsDeathByThirst[i].ToString();
+            rowDataTemp[16] = researchData.lumberjacksDeathByMonster[i].ToString();
+            rowDataTemp[17] = researchData.lumberjacksDeathByHunger[i].ToString();
+            rowDataTemp[18] = researchData.lumberjacksDeathByThirst[i].ToString();
+            rowDataTemp[19] = researchData.artisansDeathByMonster[i].ToString();
+            rowDataTemp[20] = researchData.artisansDeathByHunger[i].ToString();
+            rowDataTemp[21] = researchData.artisansDeathByThirst[i].ToString();
+            rowDataTemp[22] = researchData.babysDeathByMonster[i].ToString();
+            rowDataTemp[23] = researchData.babysDeathByHunger[i].ToString();
+            rowDataTemp[24] = researchData.babysDeathByThirst[i].ToString();
+            rowTmp.Add(rowDataTemp);
         }
-
-        rowMultipleData.AddRange(rows);
+        rowTmp.Add(new string[25]);
+        rowData.AddRange(rowTmp);
     }
-
 
     public void SaveData()
     {
-        string[][] output = new string[rowSingleData.Count + rowMultipleData.Count][];
+        string[][] output = new string[rowData.Count][];
 
-        for (int i = 0; i < rowSingleData.Count; i++)
+        for (int i = 0; i < rowData.Count; i++)
         {
-            output[i] = rowSingleData[i];
-        }
-
-        for (int i = rowSingleData.Count - 1; i < rowMultipleData.Count; i++)
-        {
-            output[i] = rowMultipleData[i];
+            output[i] = rowData[i];// + rowMultipleData[i];
         }
 
         int length = output.GetLength(0);
