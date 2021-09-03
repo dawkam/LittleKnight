@@ -8,6 +8,7 @@ public class SimulationManager : MonoBehaviour
     public float TimeScale;
     public int SimulationTime;
     [SerializeField] private float TimeCurrent;
+    [SerializeField] private float TimeCurrentLvl;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,8 @@ public class SimulationManager : MonoBehaviour
     private void Update()
     {
         TimeCurrent = Time.realtimeSinceStartup;
-        if (Time.realtimeSinceStartup >= SimulationTime)
+        TimeCurrentLvl = Time.timeSinceLevelLoad;
+        if (Time.timeSinceLevelLoad >= SimulationTime)
         {
             VillageArea[] villageAreas = GetComponentsInChildren<VillageArea>();
             foreach (VillageArea va in villageAreas) 
