@@ -160,7 +160,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6420595090173759774}
-  - component: {fileID: 6420595090173759775}
   - component: {fileID: 6420595090173759744}
   - component: {fileID: 2665742085210500648}
   m_Layer: 0
@@ -194,47 +193,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6420595090173759775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6420595090173759773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 510e406ad9ffb9d42a0b47acf9178ff7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hungerMax: 100
-  hungerTick: 2
-  foodValue: 40
-  thirstMax: 100
-  thirstTick: 2
-  waterValue: 30
-  comfrotMin: 10
-  comfortTick: 0.1
-  staminaTick: 0.01
-  staminaDashTick: 0.5
-  restTime: 5
-  moveSpeedMax: 3
-  dashPower: 7
-  turnSpeed: 180
-  foodBagSize: 4
-  woodBagSize: 3
-  woodSpawnCount: 1
-  craftTime: 10
-  babyCoolDown: 10
-  babyCost: 2
-  adulthoodAge: 2
-  treeLifeMax: 3
-  treeLifeTick: 1
-  friutsMinCount: 1
-  friutsMaxCount: 3
-  woodsMinCount: 0
-  woodsMaxCount: 2
-  resurcesSpawnTime: 10
-  collectDataTime: 10
 --- !u!114 &6420595090173759744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,7 +621,7 @@ PrefabInstance:
     - target: {fileID: 3985875996068845184, guid: 3fe05e7ec89e6804bb04f6801b248f07,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3985875996068845186, guid: 3fe05e7ec89e6804bb04f6801b248f07,
         type: 3}
@@ -1153,7 +1111,7 @@ PrefabInstance:
         type: 3}
       propertyPath: parametersGiver
       value: 
-      objectReference: {fileID: 6420595090173759775}
+      objectReference: {fileID: 0}
     - target: {fileID: 3544478476674737266, guid: e7717b80f6ee98545b4e07bf13ad121a,
         type: 3}
       propertyPath: m_IsActive

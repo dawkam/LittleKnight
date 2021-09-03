@@ -48,6 +48,7 @@ public class VillageArea : MonoBehaviour
         if (researchData != null)
             SaveData();
 
+        village.researchData = researchData;
 
         ClearList(ref fruitsList);
         ClearList(ref treesList);
@@ -80,6 +81,10 @@ public class VillageArea : MonoBehaviour
         researchData.sceneFoodCountAverage /= collectDataIterator;
         researchData.sceneWoodCountAverage /= collectDataIterator;
         researchData.sceneTreeCountAverage /= collectDataIterator;
+
+        researchData.simulationTime = Time.realtimeSinceStartup - researchData.simulationTime;
+
+        researchData.comfortMax = Mathf.Max(researchData.comfortMax, parametersGiver.ComfortMin);
 
         FindObjectOfType<CSVManager>().AddData(researchData);
 

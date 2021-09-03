@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SimulationManager : MonoBehaviour
 {
     public float TimeScale;
     public int SimulationTime;
+    [SerializeField] private float TimeCurrent;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +22,7 @@ public class SimulationManager : MonoBehaviour
 
     private void Update()
     {
-
+        TimeCurrent = Time.realtimeSinceStartup;
         if (Time.realtimeSinceStartup >= SimulationTime)
         {
             VillageArea[] villageAreas = GetComponentsInChildren<VillageArea>();
@@ -29,7 +31,7 @@ public class SimulationManager : MonoBehaviour
                 va.SaveData();
             }
             GetComponent<CSVManager>().SaveData();
-            UnityEditor.EditorApplication.isPlaying = false;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 

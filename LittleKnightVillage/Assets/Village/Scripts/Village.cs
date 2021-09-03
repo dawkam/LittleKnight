@@ -11,6 +11,7 @@ public class Village : MonoBehaviour, IObservable
 
     public GameObject well;
     public Warehouse warehouse;
+    public ResearchData researchData;
 
     public GameObject CollectorPrefab;
     public GameObject LumberjackPrefab;
@@ -85,6 +86,8 @@ public class Village : MonoBehaviour, IObservable
     {
         foreach (IObserver obs in observers)
             obs.UpdateObserver();
+        if (researchData != null)
+            researchData.comfortMax = Mathf.Max(researchData.comfortMax, Comfort);
     }
 
     public void AddComfort()

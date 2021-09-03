@@ -11,7 +11,7 @@ public class CSVManager : MonoBehaviour
     private List<string[]> rowData = new List<string[]>();
     private void Start()
     {
-        string[] rowDataTemp = new string[26];
+        string[] rowDataTemp = new string[28];
         rowDataTemp[0] = "collectorsCount";
         rowDataTemp[1] = "collectorsDeathByMonster";
         rowDataTemp[2] = "collectorsDeathByHunger";
@@ -38,12 +38,14 @@ public class CSVManager : MonoBehaviour
         rowDataTemp[23] = "warehouseWoodCountMin";
         rowDataTemp[24] = "sceneTreeCountAverage";
         rowDataTemp[25] = "sceneWoodCountAverage";
+        rowDataTemp[26] = "simulationTime";
+        rowDataTemp[27] = "ComfortMax";
         rowData.Add(rowDataTemp);
     }
 
     public void AddData(ResearchData researchData)
     {
-        string[] rowDataTemp = new string[27];
+        string[] rowDataTemp = new string[28];
         rowDataTemp[0] = researchData.collectorsCount.ToString();
         rowDataTemp[1] = researchData.collectorsDeathByMonster.ToString();
         rowDataTemp[2] = researchData.collectorsDeathByHunger.ToString();
@@ -70,6 +72,10 @@ public class CSVManager : MonoBehaviour
         rowDataTemp[23] = researchData.warehouseWoodCountMin.ToString();
         rowDataTemp[24] = researchData.sceneTreeCountAverage.ToString();
         rowDataTemp[25] = researchData.sceneWoodCountAverage.ToString();
+        rowDataTemp[26] = researchData.simulationTime.ToString();
+        rowDataTemp[27] = researchData.comfortMax.ToString();
+
+
         rowData.Add(rowDataTemp);
     }
 
@@ -106,7 +112,7 @@ public class CSVManager : MonoBehaviour
     private string GetPath(string type)
     {
 
-        return Application.dataPath + "/Data/" + type + "/" + fileName + "." + type;
+        return Application.dataPath + "/Data/" + fileName + "." + type;
 
     }
 

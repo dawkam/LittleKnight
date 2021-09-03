@@ -30,8 +30,15 @@ public class ResearchData
     public int warehouseWoodCountMax;
     public int warehouseWoodCountMin;
     public int sceneTreeCountAverage; 
-    public int sceneWoodCountAverage; 
+    public int sceneWoodCountAverage;
+    public float simulationTime;
+    public float comfortMax;
 
+
+    public ResearchData()
+    {
+        simulationTime = Time.realtimeSinceStartup;
+    }
 }
 
 public enum DeathReson
