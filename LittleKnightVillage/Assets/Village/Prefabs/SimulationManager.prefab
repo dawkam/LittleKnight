@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6199953104489914594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6199953104489914605}
+  - component: {fileID: 6199953104489914606}
+  - component: {fileID: 6199953104489914607}
+  - component: {fileID: 6199953104489914604}
+  m_Layer: 0
+  m_Name: SimulationManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6199953104489914605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6199953104489914594}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.747371, y: 17.526161, z: -20.809246}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6199953104489914606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6199953104489914594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37d7c15d14b5c524a9e9b0689cd47999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeScale: 5
+  SimulationTime: 10
+--- !u!114 &6199953104489914607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6199953104489914594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad159e7e9bbc1e45a793c2e2807b2eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6199953104489914604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6199953104489914594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 510e406ad9ffb9d42a0b47acf9178ff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hungerMax: 100
+  hungerTick: 2
+  foodValue: 40
+  thirstMax: 100
+  thirstTick: 2
+  waterValue: 30
+  comfrotMin: 10
+  comfortTick: 0.1
+  staminaTick: 0.01
+  staminaDashTick: 0.5
+  restTime: 5
+  moveSpeedMax: 3
+  dashPower: 7
+  turnSpeed: 180
+  foodBagSize: 4
+  woodBagSize: 3
+  woodSpawnCount: 1
+  craftTime: 10
+  babyCoolDown: 10
+  babyCost: 2
+  adulthoodAge: 2
+  treeLifeMax: 3
+  treeLifeTick: 1
+  friutsMinCount: 1
+  friutsMaxCount: 3
+  woodsMinCount: 0
+  woodsMaxCount: 2
+  resurcesSpawnTime: 10
+  collectDataTime: 10

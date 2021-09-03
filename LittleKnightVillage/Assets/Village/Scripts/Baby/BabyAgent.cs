@@ -23,4 +23,21 @@ public class BabyAgent : VillagerAgent
         village.SpawnVillager(adultVersion, transform.position);
         Destroy(gameObject);
     }
+
+    public override void Die()
+    {
+        base.Die();
+        switch (deathReson)
+        {
+            case DeathReson.Monster:
+                villageArea.researchData.babysDeathByMonster++;
+                break;
+            case DeathReson.Hunger:
+                villageArea.researchData.babysDeathByHunger++;
+                break;
+            case DeathReson.Thirst:
+                villageArea.researchData.babysDeathByThirst++;
+                break;
+        }
+    }
 }

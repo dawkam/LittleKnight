@@ -11,12 +11,14 @@ public class VillageArea : MonoBehaviour
     public GameObject treePrefab;
     public GameObject woodPrefab;
     public Predator predator;
-    public GameObject village;
+    public Village village;
 
     private ParametersGiver parametersGiver;
+    public ResearchData researchData = null;
     private List<GameObject> fruitsList;
     private List<GameObject> treesList;
     private List<GameObject> woodsList;
+    private int collectDataIterator;
 
     public int FruitsCount
     {
@@ -29,7 +31,7 @@ public class VillageArea : MonoBehaviour
 
     private void Start()
     {
-        parametersGiver = GetComponentInParent<ParametersGiver>();
+        parametersGiver = FindObjectOfType<ParametersGiver>();
         ResetArea();
         if (learningVillager.enabled == false)
             Debug.LogError("Inactive agent.");
@@ -42,17 +44,81 @@ public class VillageArea : MonoBehaviour
 
     public void ResetArea()
     {
+        StopCoroutine(CollectData());
+        if (researchData != null)
+            SaveData();
+
+
         ClearList(ref fruitsList);
         ClearList(ref treesList);
         ClearList(ref woodsList);
-        PlaceGameObject(gameObject: village, minAngle: 90f, maxAngle: 180f, minRadius: 7f, maxRadius: 9f);
+
+        researchData = new ResearchData();
+        PlaceGameObject(gameObject: village.gameObject, minAngle: 90f, maxAngle: 180f, minRadius: 7f, maxRadius: 9f);
 
         PlaceGameObjectInSafeZone(learningVillager.gameObject);
         //PlaceGameObject(gameObject: predator.gameObject, minAngle: 270f, maxAngle: 360f, minRadius: 0f, maxRadius: 6f);
-        SpawnManyObjects(fruitPrefab, fruitsList, Random.Range(parametersGiver.FriutsMinCount, parametersGiver.FriutsMaxCount));
-        SpawnManyObjects(treePrefab, treesList, Random.Range(parametersGiver.WoodsMinCount, parametersGiver.WoodsMaxCount));
         PlaceGameObject(predator.gameObject, 270f, 360f, 5f, 7f);
         predator.target = null;
+        StopCoroutine(ResourcesSpawn());
+        StopCoroutine(CollectData());
+
+        StartCoroutine(ResourcesSpawn());
+        StartCoroutine(CollectData());
+
+    }
+
+    private void SaveData()
+    {
+        researchData.collectorsCount = village.GetCollectorsCount();
+        researchData.lumberjacksCount = village.GetLumberjacksCount();
+        researchData.artisansCount = village.GetArtisansCount();
+        researchData.babysCount = village.GetBabysCount();
+
+        researchData.warehouseFoodCountAverage /= collectDataIterator;
+        researchData.warehouseWoodCountAverage /= collectDataIterator;
+        researchData.sceneFoodCountAverage /= collectDataIterator;
+        researchData.sceneWoodCountAverage /= collectDataIterator;
+        researchData.sceneTreeCountAverage /= collectDataIterator;
+
+        FindObjectOfType<CSVManager>().AddData(researchData);
+
+    }
+
+    IEnumerator CollectData()
+    {
+        collectDataIterator = 0;
+        while (true)
+        {
+            researchData.warehouseFoodCountMax = Mathf.Max(researchData.warehouseFoodCountMax, village.warehouse.FoodCount);
+            researchData.warehouseFoodCountMin = Mathf.Min(researchData.warehouseFoodCountMin, village.warehouse.FoodCount);
+            researchData.warehouseFoodCountAverage += village.warehouse.FoodCount;
+            collectDataIterator++;
+
+            researchData.sceneFoodCountAverage += fruitsList.Count;
+
+            researchData.warehouseWoodCountMax = Mathf.Max(researchData.warehouseWoodCountMax, village.warehouse.WoodCount);
+            researchData.warehouseWoodCountMin = Mathf.Min(researchData.warehouseWoodCountMin, village.warehouse.WoodCount);
+            researchData.warehouseWoodCountAverage += village.warehouse.WoodCount;
+
+            researchData.sceneWoodCountAverage += woodsList.Count;
+            researchData.sceneTreeCountAverage += treesList.Count;
+
+            yield return new WaitForSeconds(parametersGiver.CollectDataTime);
+        }
+    }
+
+    IEnumerator ResourcesSpawn()
+    {
+        while (true)
+        {
+            if (fruitsList.Count < parametersGiver.FruitOnSceneMax)
+                SpawnManyObjects(fruitPrefab, fruitsList, Random.Range(parametersGiver.FriutsMinCount, parametersGiver.FriutsMaxCount));
+            if (treesList.Count < parametersGiver.TreesOnSceneMax)
+                SpawnManyObjects(treePrefab, treesList, Random.Range(parametersGiver.WoodsMinCount, parametersGiver.WoodsMaxCount));
+
+            yield return new WaitForSeconds(parametersGiver.ResourcesSpawnTime);
+        }
     }
 
     private void ClearList(ref List<GameObject> list)

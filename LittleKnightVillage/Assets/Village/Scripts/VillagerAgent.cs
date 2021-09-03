@@ -26,12 +26,13 @@ public class VillagerAgent : Agent, IObserver
 
     protected ParametersGiver parametersGiver;
     new protected Rigidbody rigidbody;
-    protected Warehouse warehouse;
     protected VillageArea villageArea;
     protected Village village;
 
     protected readonly int rewardModifier = 1;
     protected float moveSpeedMax;
+
+    public DeathReson deathReson;
 
     public float HungerCurrent { get => hungerCurrent; protected set => hungerCurrent = value; }
     public float ThirstCurrent { get => thirstCurrent; protected set => thirstCurrent = value; }
@@ -43,7 +44,7 @@ public class VillagerAgent : Agent, IObserver
         base.Initialize();
         InitializeData();
 
-        if (parametersGiver == null || warehouse == null || village.well == null)
+        if (parametersGiver == null || village.warehouse == null || village.well == null)
             Debug.LogError("Parameters giver or well or warehouse is missing!!");
     }
 
@@ -51,10 +52,10 @@ public class VillagerAgent : Agent, IObserver
     {
         rigidbody = GetComponent<Rigidbody>();
         villageArea = this.transform.parent.GetComponent<VillageArea>();
-        parametersGiver = villageArea.GetComponent<ParametersGiver>();
-        warehouse = villageArea.GetComponentInChildren<Warehouse>();
+        parametersGiver = FindObjectOfType<ParametersGiver>();
         village = villageArea.GetComponentInChildren<Village>();
         moveSpeedMax = parametersGiver.MoveSpeedMax;
+        deathReson = DeathReson.None;
     }
 
     public override void OnEpisodeBegin()
@@ -77,7 +78,6 @@ public class VillagerAgent : Agent, IObserver
         isAlive = true;
         if (isTraining)
         {
-            warehouse.ResetData();
             village.ResetData();
             villageArea.ResetArea();
         }
@@ -172,16 +172,16 @@ public class VillagerAgent : Agent, IObserver
         sensor.AddObservation(Vector3.Distance(village.well.transform.position, transform.position));
 
         // Distance to the warehouse (1 float = 1 value)
-        sensor.AddObservation(Vector3.Distance(warehouse.transform.position, transform.position));
+        sensor.AddObservation(Vector3.Distance(village.warehouse.transform.position, transform.position));
 
         // Food count in warehouse (1 float = 1 value)
-        sensor.AddObservation(warehouse.FoodCount);
+        sensor.AddObservation(village.warehouse.FoodCount);
 
         // Direction to well (1 Vector3 = 3 values)
         sensor.AddObservation((village.well.transform.position - transform.position).normalized);
 
         // Direction to warehouse (1 Vector3 = 3 values)
-        sensor.AddObservation((warehouse.transform.position - transform.position).normalized);
+        sensor.AddObservation((village.warehouse.transform.position - transform.position).normalized);
 
         // Direction villager is facing (1 Vector3 = 3 values)
         sensor.AddObservation(transform.forward);
@@ -279,7 +279,7 @@ public class VillagerAgent : Agent, IObserver
         }
     }
 
-    public void Die()
+    public virtual void Die()
     {
         isAlive = false;
         village.Detach(this);
@@ -325,12 +325,20 @@ public class VillagerAgent : Agent, IObserver
             HungerCurrent -= parametersGiver.HungerTick;
             if (HungerCurrent > 0)
                 AddReward(-1f / (HungerCurrent * rewardModifier));
-            else break;
+            else
+            {
+                deathReson = DeathReson.Hunger;
+                break;
+            }
 
             ThirstCurrent -= parametersGiver.ThirstTick;
             if (ThirstCurrent > 0)
                 AddReward(-1f / (ThirstCurrent * rewardModifier));
-            else break;
+            else
+            {
+                deathReson = DeathReson.Thirst;
+                break;
+            }
 
             yield return new WaitForSeconds(1f);
         }
@@ -355,10 +363,3 @@ public class VillagerAgent : Agent, IObserver
     #endregion
 }
 
-
-// To Do:
-// 
-// 2.Ogarniecie vectora obserwacji x
-// 3. Mechanika komfortu x
-// 4. Dodanie areny nadrzędnej x
-// 6. dash x

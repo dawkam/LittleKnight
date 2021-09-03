@@ -10,6 +10,7 @@ public class Village : MonoBehaviour, IObservable
     private ParametersGiver parametersGiver;
 
     public GameObject well;
+    public Warehouse warehouse;
 
     public GameObject CollectorPrefab;
     public GameObject LumberjackPrefab;
@@ -17,9 +18,13 @@ public class Village : MonoBehaviour, IObservable
     public GameObject BabyPrefab;
 
     public List<GameObject> collectors;
+
     public List<GameObject> lumberjacks;
+
     public List<GameObject> artisans;
+
     public List<GameObject> babys;
+
 
     public float Comfort
     {
@@ -34,7 +39,7 @@ public class Village : MonoBehaviour, IObservable
 
     private void Awake()
     {
-        parametersGiver = GetComponentInParent<ParametersGiver>();
+        parametersGiver = FindObjectOfType<ParametersGiver>();
         ResetData();
     }
     public void ResetData()
@@ -45,9 +50,14 @@ public class Village : MonoBehaviour, IObservable
         StartCoroutine(ComfortConsumption());
 
         ClearList(ref collectors);
+
         ClearList(ref lumberjacks);
+
         ClearList(ref artisans);
+
         ClearList(ref babys);
+
+        warehouse.ResetData();
     }
 
     IEnumerator ComfortConsumption()

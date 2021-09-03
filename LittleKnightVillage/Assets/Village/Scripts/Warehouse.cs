@@ -10,7 +10,7 @@ public class Warehouse : MonoBehaviour
     ParametersGiver parametersGiver;
     private void Start()
     {
-        parametersGiver = GetComponentInParent<ParametersGiver>();
+        parametersGiver = FindObjectOfType<ParametersGiver>();
         ResetData();
     }
 

@@ -97,4 +97,20 @@ public class ArtisanAgent : VillagerAgent
         base.ResetData();
     }
 
+    public override void Die()
+    {
+        base.Die();
+        switch (deathReson)
+        {
+            case DeathReson.Monster:
+                villageArea.researchData.artisansDeathByMonster++;
+                break;
+            case DeathReson.Hunger:
+                villageArea.researchData.artisansDeathByHunger++;
+                break;
+            case DeathReson.Thirst:
+                villageArea.researchData.artisansDeathByThirst++;
+                break;
+        }
+    }
 }

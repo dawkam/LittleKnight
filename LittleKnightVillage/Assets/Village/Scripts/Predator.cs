@@ -30,6 +30,10 @@ public class Predator : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.CompareTag("Villager"))
-            collision.gameObject.GetComponent<VillagerAgent>().Die();
+        {
+            VillagerAgent villager = collision.gameObject.GetComponent<VillagerAgent>();
+            villager.deathReson = DeathReson.Monster;
+            villager.Die(); 
+        }
     }
 }

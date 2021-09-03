@@ -19,9 +19,9 @@ public class MayorAgent : VillagerAgent
     {
         base.CollectObservations(sensor); //18
 
-        sensor.AddObservation(warehouse.WoodCount);
+        sensor.AddObservation(village.warehouse.WoodCount);
 
-        sensor.AddObservation(warehouse.FoodCount);
+        sensor.AddObservation(village.warehouse.FoodCount);
 
         sensor.AddObservation(village.GetVillagersCount());
 
@@ -53,25 +53,25 @@ public class MayorAgent : VillagerAgent
         if (Input.GetKey(KeyCode.C))
         {
             actionsOut.DiscreteActions.Array[3] = 1;
-            if (warehouse.FoodCount < village.GetVillagersCount())
+            if (village.warehouse.FoodCount < village.GetVillagersCount())
                 AddReward(3f);
         }
         if (Input.GetKey(KeyCode.V))
         {
             actionsOut.DiscreteActions.Array[4] = 1;
-            if (warehouse.WoodCount < village.GetArtisansCount())
+            if (village.warehouse.WoodCount < village.GetArtisansCount())
                 AddReward(3f);
         }
         if (Input.GetKey(KeyCode.B))
         {
             actionsOut.DiscreteActions.Array[5] = 1;
-            if (warehouse.WoodCount > village.GetArtisansCount())
+            if (village.warehouse.WoodCount > village.GetArtisansCount())
                 AddReward(3f);
         }
     }
     private void CreateVillager(VillagerRole villagerRole)
     {
-        if (babyTime <= 0 && warehouse.TakeFoodForBaby())
+        if (babyTime <= 0 && village.warehouse.TakeFoodForBaby())
         {
             AddReward(1f);
             StartCoroutine(BabyCoolDown());
@@ -89,4 +89,9 @@ public class MayorAgent : VillagerAgent
         }
     }
 
+    public override void Die()
+    {
+        base.Die();
+        villageArea.researchData.mayorDeathReson = deathReson;
+    }
 }

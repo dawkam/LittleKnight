@@ -229,10 +229,12 @@ MonoBehaviour:
   adulthoodAge: 2
   treeLifeMax: 3
   treeLifeTick: 1
-  friutsMinCount: 3
-  friutsMaxCount: 5
-  woodsMinCount: 3
-  woodsMaxCount: 5
+  friutsMinCount: 1
+  friutsMaxCount: 3
+  woodsMinCount: 0
+  woodsMaxCount: 2
+  resurcesSpawnTime: 10
+  collectDataTime: 10
 --- !u!114 &6420595090173759744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,7 +255,7 @@ MonoBehaviour:
   woodPrefab: {fileID: 2775762596371577571, guid: d57381cfea8cbc647be92b841524532d,
     type: 3}
   predator: {fileID: 540272483419463943}
-  village: {fileID: 5372498857394831494}
+  village: {fileID: 2413213246030627058}
 --- !u!65 &2665742085210500648
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -610,18 +612,6 @@ PrefabInstance:
     - {fileID: 5309495808155977098, guid: 4bc043e2bcb577d408a75b83b256bd23, type: 3}
     - {fileID: 5309495808156209446, guid: 4bc043e2bcb577d408a75b83b256bd23, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4bc043e2bcb577d408a75b83b256bd23, type: 3}
---- !u!114 &2413213246030627058 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 607997007565397508, guid: 4bc043e2bcb577d408a75b83b256bd23,
-    type: 3}
-  m_PrefabInstance: {fileID: 2958159789273898742}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5372498857394831494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c8c4116fb626ca43ba9cac8d6cec83b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9032138902447020780 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6077014914320598042, guid: 4bc043e2bcb577d408a75b83b256bd23,
@@ -640,18 +630,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87765a093857ccb409ce1e74f2624267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &5372498857394831494 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7170730720975249008, guid: 4bc043e2bcb577d408a75b83b256bd23,
-    type: 3}
-  m_PrefabInstance: {fileID: 2958159789273898742}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6142764910240257267 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8949218175918606853, guid: 4bc043e2bcb577d408a75b83b256bd23,
     type: 3}
   m_PrefabInstance: {fileID: 2958159789273898742}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2413213246030627058 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 607997007565397508, guid: 4bc043e2bcb577d408a75b83b256bd23,
+    type: 3}
+  m_PrefabInstance: {fileID: 2958159789273898742}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c8c4116fb626ca43ba9cac8d6cec83b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3472209271680284549
 PrefabInstance:
   m_ObjectHideFlags: 0

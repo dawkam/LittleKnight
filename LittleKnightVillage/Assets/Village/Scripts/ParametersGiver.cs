@@ -54,7 +54,12 @@ public class ParametersGiver : MonoBehaviour
     [SerializeField] private int friutsMaxCount;
     [SerializeField] private int woodsMinCount;
     [SerializeField] private int woodsMaxCount;
+    
+    [SerializeField] private int resurcesSpawnTime;
+    [SerializeField] private int collectDataTime;
 
+    [SerializeField] private int fruitOnSceneMax;
+    [SerializeField] private int treesOnSceneMax;
 
 
 
@@ -353,6 +358,47 @@ public class ParametersGiver : MonoBehaviour
         private set => adulthoodAge = value;
     }
 
+    public int ResourcesSpawnTime {
+        get
+        {
+            if (resurcesSpawnTime == 0)
+                Debug.LogError("resurcesSpawnTime is 0!!");
+            return resurcesSpawnTime;
+        }
+        private set => resurcesSpawnTime = value;
+    }
+
+    public int CollectDataTime
+    {
+        get
+        {
+            if (collectDataTime == 0)
+                Debug.LogError("collectDataTime is 0!!");
+            return collectDataTime;
+        }
+        private set => collectDataTime = value;
+    }
+
+    public int FruitOnSceneMax 
+    {
+        get
+        {
+            if (fruitOnSceneMax == 0)
+                Debug.LogError("fruitOnSceneMax is 0!!");
+            return fruitOnSceneMax;
+        }
+        private set => fruitOnSceneMax = value;
+    }
+    public int TreesOnSceneMax 
+    {
+        get
+        {
+            if (treesOnSceneMax == 0)
+                Debug.LogError("treesOnSceneMax is 0!!");
+            return treesOnSceneMax;
+        }
+        private set => treesOnSceneMax = value;
+    }
 
     public void ResetParametrs()
     {

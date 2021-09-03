@@ -11,7 +11,7 @@ public class Tree : MonoBehaviour
 
     private void Awake()
     {
-        parametersGiver = GetComponentInParent<ParametersGiver>();
+        parametersGiver = FindObjectOfType<ParametersGiver>();
         villageArea = GetComponentInParent<VillageArea>();
         lifeCurrent = parametersGiver.TreeLifeMax;
         particle = GetComponentInChildren<ParticleSystem>();

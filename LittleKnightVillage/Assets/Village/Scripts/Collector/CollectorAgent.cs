@@ -86,4 +86,21 @@ public class CollectorAgent : VillagerAgent
         foodBag = 0;
         base.ResetData();
     }
+
+    public override void Die()
+    {
+        base.Die();
+        switch (deathReson)
+        {
+            case DeathReson.Monster:
+                villageArea.researchData.collectorsDeathByMonster++;
+                break;
+            case DeathReson.Hunger:
+                villageArea.researchData.collectorsDeathByHunger++;
+                break;
+            case DeathReson.Thirst:
+                villageArea.researchData.collectorsDeathByThirst++;
+                break;
+        }
+    }
 }

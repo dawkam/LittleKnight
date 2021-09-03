@@ -89,4 +89,21 @@ public class LumberjackAgent : VillagerAgent
         woodBag = 0;
         base.ResetData();
     }
+    public override void Die()
+    {
+        base.Die();
+        switch (deathReson)
+        {
+            case DeathReson.Monster:
+                villageArea.researchData.lumberjacksDeathByMonster++;
+                break;
+            case DeathReson.Hunger:
+                villageArea.researchData.lumberjacksDeathByHunger++;
+                break;
+            case DeathReson.Thirst:
+                villageArea.researchData.lumberjacksDeathByThirst++;
+                break;
+        }
+    }
+
 }
