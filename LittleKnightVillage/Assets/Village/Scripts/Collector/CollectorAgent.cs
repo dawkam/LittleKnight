@@ -93,13 +93,13 @@ public class CollectorAgent : VillagerAgent
         switch (deathReson)
         {
             case DeathReson.Monster:
-                villageArea.researchData.collectorsDeathByMonster++;
+                village.collectorsDeathByMonster++;
                 break;
             case DeathReson.Hunger:
-                villageArea.researchData.collectorsDeathByHunger++;
+                village.collectorsDeathByHunger++;
                 break;
             case DeathReson.Thirst:
-                villageArea.researchData.collectorsDeathByThirst++;
+                village.collectorsDeathByThirst++;
                 break;
         }
     }

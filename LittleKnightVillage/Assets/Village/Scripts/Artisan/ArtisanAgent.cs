@@ -103,13 +103,13 @@ public class ArtisanAgent : VillagerAgent
         switch (deathReson)
         {
             case DeathReson.Monster:
-                villageArea.researchData.artisansDeathByMonster++;
+                village.artisansDeathByMonster++;
                 break;
             case DeathReson.Hunger:
-                villageArea.researchData.artisansDeathByHunger++;
+                village.artisansDeathByHunger++;
                 break;
             case DeathReson.Thirst:
-                villageArea.researchData.artisansDeathByThirst++;
+                village.artisansDeathByThirst++;
                 break;
         }
     }

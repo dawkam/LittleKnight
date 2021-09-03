@@ -15,10 +15,10 @@ public class VillageArea : MonoBehaviour
 
     private ParametersGiver parametersGiver;
     public ResearchData researchData = null;
+
     private List<GameObject> fruitsList;
     private List<GameObject> treesList;
     private List<GameObject> woodsList;
-    private int collectDataIterator;
 
     public int FruitsCount
     {
@@ -71,19 +71,9 @@ public class VillageArea : MonoBehaviour
 
     public void SaveData()
     {
-        researchData.collectorsCount = village.GetCollectorsCount();
-        researchData.lumberjacksCount = village.GetLumberjacksCount();
-        researchData.artisansCount = village.GetArtisansCount();
-        researchData.babysCount = village.GetBabysCount();
 
-        researchData.warehouseFoodCountAverage /= collectDataIterator;
-        researchData.warehouseWoodCountAverage /= collectDataIterator;
-        researchData.sceneFoodCountAverage /= collectDataIterator;
-        researchData.sceneWoodCountAverage /= collectDataIterator;
-        researchData.sceneTreeCountAverage /= collectDataIterator;
-
+        researchData.mayorDeathReson = learningVillager.deathReson;
         researchData.simulationTime = Time.realtimeSinceStartup - researchData.simulationTime;
-
         researchData.comfortMax = Mathf.Max(researchData.comfortMax, parametersGiver.ComfortMin);
 
         FindObjectOfType<CSVManager>().AddData(researchData);
@@ -92,23 +82,33 @@ public class VillageArea : MonoBehaviour
 
     IEnumerator CollectData()
     {
-        collectDataIterator = 0;
+
         while (true)
         {
-            researchData.warehouseFoodCountMax = Mathf.Max(researchData.warehouseFoodCountMax, village.warehouse.FoodCount);
-            researchData.warehouseFoodCountMin = Mathf.Min(researchData.warehouseFoodCountMin, village.warehouse.FoodCount);
-            researchData.warehouseFoodCountAverage += village.warehouse.FoodCount;
-            collectDataIterator++;
+            researchData.collectorsCount.Add(village.GetCollectorsCount());
+            researchData.lumberjacksCount.Add(village.GetLumberjacksCount());
+            researchData.artisansCount.Add(village.GetArtisansCount());
+            researchData.babysCount.Add(village.GetBabysCount());
+ 
+            researchData.warehouseFoodCount.Add(village.warehouse.FoodCount);
+            researchData.sceneFoodCount.Add(fruitsList.Count);
+            researchData.warehouseWoodCount.Add(village.warehouse.WoodCount);
+            researchData.sceneTreeCount.Add(treesList.Count);
+            researchData.sceneWoodCount.Add(woodsList.Count);
+            researchData.collectorsDeathByMonster.Add(village.collectorsDeathByMonster);
+            researchData.collectorsDeathByHunger.Add(village.collectorsDeathByHunger);
+            researchData.collectorsDeathByThirst.Add(village.collectorsDeathByThirst);
+            researchData.lumberjacksDeathByMonster.Add(village.lumberjacksDeathByMonster);
+            researchData.lumberjacksDeathByHunger.Add(village.lumberjacksDeathByHunger);
+            researchData.lumberjacksDeathByThirst.Add(village.lumberjacksDeathByThirst);
+            researchData.artisansDeathByMonster.Add(village.artisansDeathByMonster);
+            researchData.artisansDeathByHunger.Add(village.artisansDeathByHunger);
+            researchData.artisansDeathByThirst.Add(village.artisansDeathByThirst);
+            researchData.babysDeathByMonster.Add(village.babysDeathByMonster);
+            researchData.babysDeathByHunger.Add(village.babysDeathByHunger);
+            researchData.babysDeathByThirst.Add(village.babysDeathByThirst);
 
-            researchData.sceneFoodCountAverage += fruitsList.Count;
-
-            researchData.warehouseWoodCountMax = Mathf.Max(researchData.warehouseWoodCountMax, village.warehouse.WoodCount);
-            researchData.warehouseWoodCountMin = Mathf.Min(researchData.warehouseWoodCountMin, village.warehouse.WoodCount);
-            researchData.warehouseWoodCountAverage += village.warehouse.WoodCount;
-
-            researchData.sceneWoodCountAverage += woodsList.Count;
-            researchData.sceneTreeCountAverage += treesList.Count;
-
+           
             yield return new WaitForSeconds(parametersGiver.CollectDataTime);
         }
     }

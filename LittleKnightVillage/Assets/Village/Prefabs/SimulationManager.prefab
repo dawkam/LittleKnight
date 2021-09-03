@@ -68,6 +68,7 @@ MonoBehaviour:
   TimeScale: 5
   SimulationTime: 600
   TimeCurrent: 0
+  TimeCurrentLvl: 0
 --- !u!114 &4593491536448151548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,11 +110,10 @@ MonoBehaviour:
   turnSpeed: 180
   foodBagSize: 4
   woodBagSize: 3
-  woodSpawnCount: 1
   craftTime: 10
   babyCoolDown: 10
   babyCost: 2
-  adulthoodAge: 2
+  adulthoodAge: 12
   treeLifeMax: 3
   treeLifeTick: 1
   friutsMinCount: 3

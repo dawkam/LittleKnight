@@ -95,13 +95,13 @@ public class LumberjackAgent : VillagerAgent
         switch (deathReson)
         {
             case DeathReson.Monster:
-                villageArea.researchData.lumberjacksDeathByMonster++;
+                village.lumberjacksDeathByMonster++;
                 break;
             case DeathReson.Hunger:
-                villageArea.researchData.lumberjacksDeathByHunger++;
+                village.lumberjacksDeathByHunger++;
                 break;
             case DeathReson.Thirst:
-                villageArea.researchData.lumberjacksDeathByThirst++;
+                village.lumberjacksDeathByThirst++;
                 break;
         }
     }

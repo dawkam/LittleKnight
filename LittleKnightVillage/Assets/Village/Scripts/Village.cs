@@ -19,6 +19,22 @@ public class Village : MonoBehaviour, IObservable
     public GameObject BabyPrefab;
 
     public List<GameObject> collectors;
+    
+    public int collectorsDeathByMonster;
+    public int collectorsDeathByHunger;
+    public int collectorsDeathByThirst;
+
+    public int lumberjacksDeathByMonster;
+    public int lumberjacksDeathByHunger;
+    public int lumberjacksDeathByThirst;
+
+    public int artisansDeathByMonster;
+    public int artisansDeathByHunger;
+    public int artisansDeathByThirst;
+
+    public int babysDeathByMonster;
+    public int babysDeathByHunger;
+    public int babysDeathByThirst;
 
     public List<GameObject> lumberjacks;
 
@@ -101,19 +117,23 @@ public class Village : MonoBehaviour, IObservable
     }
     public int GetCollectorsCount()
     {
+        collectors.RemoveAll(item => item == null);
         return collectors.Count;
     }
     public int GetLumberjacksCount()
     {
+        lumberjacks.RemoveAll(item => item == null);
         return lumberjacks.Count;
     }
     public int GetArtisansCount()
     {
+        artisans.RemoveAll(item => item == null);
         return artisans.Count;
     }
 
     public int GetBabysCount()
     {
+        babys.RemoveAll(item => item == null);
         return babys.Count;
     }
     public void SpawnVillager(VillagerRole villagerRole, Vector3 position)

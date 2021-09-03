@@ -30,13 +30,13 @@ public class BabyAgent : VillagerAgent
         switch (deathReson)
         {
             case DeathReson.Monster:
-                villageArea.researchData.babysDeathByMonster++;
+                village.babysDeathByMonster++;
                 break;
             case DeathReson.Hunger:
-                villageArea.researchData.babysDeathByHunger++;
+                village.babysDeathByHunger++;
                 break;
             case DeathReson.Thirst:
-                villageArea.researchData.babysDeathByThirst++;
+                village.babysDeathByThirst++;
                 break;
         }
     }

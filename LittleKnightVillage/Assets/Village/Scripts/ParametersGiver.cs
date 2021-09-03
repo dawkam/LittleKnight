@@ -35,7 +35,7 @@ public class ParametersGiver : MonoBehaviour
 
     [Header("Lumberjack")]
     [SerializeField] private int woodBagSize;
-    [SerializeField] private int woodSpawnCount;
+     private int woodSpawnCount;
 
     [Header("Artisan")]
     [SerializeField] private float craftTime;
@@ -402,7 +402,7 @@ public class ParametersGiver : MonoBehaviour
 
     public void ResetParametrs()
     {
-        FoodBagSize = Random.Range(3, 5);
+        //FoodBagSize = Random.Range(3, 5);
         //ComfortMin = Random.Range(5, 15);
         WoodSpawnCount = Random.Range(1,3);
     }
