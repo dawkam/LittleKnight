@@ -54,9 +54,9 @@ public class CSVManager : MonoBehaviour
         {
             string[] rowDataTemp = new string[25];
 
-            rowDataTemp[0] = researchData.mayorDeathReson.ToString();
-            rowDataTemp[1] = researchData.simulationTime.ToString();
-            rowDataTemp[2] = researchData.comfort.ToString();
+            rowDataTemp[0] = researchData.mayorDeathReson[i].ToString();
+            rowDataTemp[1] = researchData.simulationTime[i].ToString();
+            rowDataTemp[2] = researchData.comfort[i].ToString();
             rowDataTemp[3] = "";
 
             rowDataTemp[4] = researchData.collectorsCount[i].ToString();
