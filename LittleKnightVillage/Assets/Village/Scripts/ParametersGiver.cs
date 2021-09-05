@@ -51,10 +51,10 @@ public class ParametersGiver : MonoBehaviour
     [Header("World")]
     [SerializeField] private float treeLifeMax;
     [SerializeField] private float treeLifeTick;
-    [SerializeField] private int friutsMinCount;
-    [SerializeField] private int friutsMaxCount;
-    [SerializeField] private int woodsMinCount;
-    [SerializeField] private int woodsMaxCount;
+    [SerializeField] private int friutsMin;
+    [SerializeField] private int friutsMax;
+    [SerializeField] private int treesMin;
+    [SerializeField] private int treesMax;
     
     [SerializeField] private int resurcesSpawnTime;
 
@@ -276,45 +276,45 @@ public class ParametersGiver : MonoBehaviour
 
     }
 
-    public int FriutsMinCount
+    public int FriutsMin
     {
         get
         {
             //if (friutsMinCount == 0)
             //    Debug.LogError("friutsMinCount is 0!!");
-            return friutsMinCount;
+            return friutsMin;
         }
-        private set => friutsMinCount = value;
+        private set => friutsMin = value;
     }
-    public int FriutsMaxCount
+    public int FriutsMax
     {
         get
         {
             //if (friutsMaxCount == 0)
             //    Debug.LogError("friutsMaxCount is 0!!");
-            return friutsMaxCount;
+            return friutsMax;
         }
-        private set => friutsMaxCount = value;
+        private set => friutsMax = value;
     }
-    public int TreeMinCount
+    public int TreeMin
     {
         get
         {
             //if (woodsMinCount == 0)
             //    Debug.LogError("woodsMinCount is 0!!");
-            return woodsMinCount;
+            return treesMin;
         }
-        private set => woodsMinCount = value;
+        private set => treesMin = value;
     }
-    public int TreeMaxCount
+    public int TreeMax
     {
         get
         {
             //if (woodsMaxCount == 0)
             //    Debug.LogError("woodsMaxCount is 0!!");
-            return woodsMaxCount;
+            return treesMax;
         }
-        private set => woodsMaxCount = value;
+        private set => treesMax = value;
     }
     #endregion
 
