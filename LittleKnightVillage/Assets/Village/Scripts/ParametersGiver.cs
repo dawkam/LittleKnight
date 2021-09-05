@@ -55,12 +55,13 @@ public class ParametersGiver : MonoBehaviour
     [SerializeField] private int woodsMinCount;
     [SerializeField] private int woodsMaxCount;
     
-    [SerializeField] private int resurcesSpawnTime;
-    [SerializeField] private int collectDataTime;
+    [SerializeField] private int resourcesSpawnTime;
 
     [SerializeField] private int fruitsOnSceneMax;
     [SerializeField] private int treesOnSceneMax;
 
+    [Header("System")]
+    [SerializeField] private int collectDataTime;
 
 
     #region Existence
@@ -361,11 +362,11 @@ public class ParametersGiver : MonoBehaviour
     public int ResourcesSpawnTime {
         get
         {
-            if (resurcesSpawnTime == 0)
+            if (resourcesSpawnTime == 0)
                 Debug.LogError("resurcesSpawnTime is 0!!");
-            return resurcesSpawnTime;
+            return resourcesSpawnTime;
         }
-        private set => resurcesSpawnTime = value;
+        private set => resourcesSpawnTime = value;
     }
 
     public int CollectDataTime

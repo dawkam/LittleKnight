@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ad159e7e9bbc1e45a793c2e2807b2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: WithoutPredator
+  fileName: WithPredatorHard
 --- !u!114 &4593491536448151551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,22 +108,22 @@ MonoBehaviour:
   moveSpeedMax: 3
   dashPower: 7
   turnSpeed: 180
-  foodBagSize: 4
-  woodBagSize: 3
+  foodBagSize: 8
+  woodBagSize: 5
   craftTime: 10
   babyCoolDown: 10
   babyCost: 2
   adulthoodAge: 12
-  treeLifeMax: 3
+  treeLifeMax: 2
   treeLifeTick: 1
-  friutsMinCount: 3
-  friutsMaxCount: 5
+  friutsMinCount: 1
+  friutsMaxCount: 4
   woodsMinCount: 0
   woodsMaxCount: 2
   resurcesSpawnTime: 10
-  collectDataTime: 10
   fruitsOnSceneMax: 20
   treesOnSceneMax: 10
+  collectDataTime: 10
 --- !u!1001 &391592126279731545
 PrefabInstance:
   m_ObjectHideFlags: 0
