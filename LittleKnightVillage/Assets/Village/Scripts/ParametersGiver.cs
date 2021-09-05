@@ -36,6 +36,7 @@ public class ParametersGiver : MonoBehaviour
     [Header("Lumberjack")]
     [SerializeField] private int woodBagSize;
      private int woodSpawnCount;
+    private int treeSpawnCount;
 
     [Header("Artisan")]
     [SerializeField] private float craftTime;
@@ -55,7 +56,7 @@ public class ParametersGiver : MonoBehaviour
     [SerializeField] private int woodsMinCount;
     [SerializeField] private int woodsMaxCount;
     
-    [SerializeField] private int resourcesSpawnTime;
+    [SerializeField] private int resurcesSpawnTime;
 
     [SerializeField] private int fruitsOnSceneMax;
     [SerializeField] private int treesOnSceneMax;
@@ -295,7 +296,7 @@ public class ParametersGiver : MonoBehaviour
         }
         private set => friutsMaxCount = value;
     }
-    public int WoodsMinCount
+    public int TreeMinCount
     {
         get
         {
@@ -305,7 +306,7 @@ public class ParametersGiver : MonoBehaviour
         }
         private set => woodsMinCount = value;
     }
-    public int WoodsMaxCount
+    public int TreeMaxCount
     {
         get
         {
@@ -362,11 +363,11 @@ public class ParametersGiver : MonoBehaviour
     public int ResourcesSpawnTime {
         get
         {
-            if (resourcesSpawnTime == 0)
+            if (resurcesSpawnTime == 0)
                 Debug.LogError("resurcesSpawnTime is 0!!");
-            return resourcesSpawnTime;
+            return resurcesSpawnTime;
         }
-        private set => resourcesSpawnTime = value;
+        private set => resurcesSpawnTime = value;
     }
 
     public int CollectDataTime

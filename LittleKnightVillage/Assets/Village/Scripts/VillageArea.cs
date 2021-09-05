@@ -117,7 +117,7 @@ public class VillageArea : MonoBehaviour
             if (fruitsList.Count < parametersGiver.FruitsOnSceneMax)
                 SpawnManyObjects(fruitPrefab, fruitsList, Random.Range(parametersGiver.FriutsMinCount, parametersGiver.FriutsMaxCount));
             if (treesList.Count < parametersGiver.TreesOnSceneMax)
-                SpawnManyObjects(treePrefab, treesList, Random.Range(parametersGiver.WoodsMinCount, parametersGiver.WoodsMaxCount));
+                SpawnManyObjects(treePrefab, treesList, Random.Range(parametersGiver.TreeMinCount, parametersGiver.TreeMaxCount));
 
             yield return new WaitForSeconds(parametersGiver.ResourcesSpawnTime);
         }
