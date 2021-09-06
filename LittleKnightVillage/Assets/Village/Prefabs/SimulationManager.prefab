@@ -116,10 +116,10 @@ MonoBehaviour:
   adulthoodAge: 12
   treeLifeMax: 2
   treeLifeTick: 1
-  friutsMinCount: 1
-  friutsMaxCount: 4
-  woodsMinCount: 0
-  woodsMaxCount: 2
+  friutsMin: 3
+  friutsMax: 5
+  treesMin: 0
+  treesMax: 2
   resurcesSpawnTime: 10
   fruitsOnSceneMax: 20
   treesOnSceneMax: 10
