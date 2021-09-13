@@ -60,7 +60,7 @@ public class Warehouse : MonoBehaviour
 
     internal void ResetData()
     {
-        FoodCount = Random.Range(3, 7);
+        FoodCount = Random.Range(3, 5);
         WoodCount = 0;// Random.Range(5, 8);
     }
 }

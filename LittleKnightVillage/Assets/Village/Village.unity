@@ -345,7 +345,7 @@ PrefabInstance:
     - target: {fileID: 4593491536448151548, guid: b48dce5edbd2d8d48b83e25c70798f1d,
         type: 3}
       propertyPath: fileName
-      value: WithPredator2
+      value: SpawnTime20_1
       objectReference: {fileID: 0}
     - target: {fileID: 4593491536448151550, guid: b48dce5edbd2d8d48b83e25c70798f1d,
         type: 3}
@@ -401,6 +401,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593491536448151551, guid: b48dce5edbd2d8d48b83e25c70798f1d,
+        type: 3}
+      propertyPath: resurcesSpawnTime
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b48dce5edbd2d8d48b83e25c70798f1d, type: 3}

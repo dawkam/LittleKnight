@@ -108,19 +108,19 @@ MonoBehaviour:
   moveSpeedMax: 3
   dashPower: 7
   turnSpeed: 180
-  foodBagSize: 8
-  woodBagSize: 5
+  foodBagSize: 4
+  woodBagSize: 3
   craftTime: 10
   babyCoolDown: 10
   babyCost: 2
   adulthoodAge: 12
-  treeLifeMax: 2
+  treeLifeMax: 3
   treeLifeTick: 1
   friutsMin: 3
   friutsMax: 5
   treesMin: 0
   treesMax: 2
-  resurcesSpawnTime: 10
+  resurcesSpawnTime: 20
   fruitsOnSceneMax: 20
   treesOnSceneMax: 10
   collectDataTime: 10
